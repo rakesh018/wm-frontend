@@ -1,0 +1,128 @@
+.sidebar-box{
+  background-color: black;
+  background-image: linear-gradient(black, rgb(57, 57, 57));
+  width: 15vw;
+  height: 70vh;
+  border-radius: 10px;
+  color: white;
+  position: fixed; /* Keeps it fixed to the viewport */
+  top: 25%; /* Adjusted to be centered vertically */
+  left: 0; /* Aligns it to the left side */
+  overflow-x: auto;
+}
+.side-text
+{
+    color: white;
+}
+.pro-btn,.pro-logout{
+    border: 2px solid darkgoldenrod;
+    background-color: white;
+  height:5vh ;
+  width: 10vw;
+  border-radius:10px ;
+  -webkit-border-radius:10px ;
+  -moz-border-radius:10px ;
+  -ms-border-radius:10px ;
+  -o-border-radius:10px ;
+}
+.pro-btn:hover
+{
+  background-color: darkgoldenrod;
+  color: black;
+  border: 2px solid white;
+}
+.proBox
+{
+    background-color: white;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
+.home-btn,.history-btn,.leader-btn,.wallet-btn,.notification-btn,.refer-btn{
+    border-style: none;
+    background-color: inherit;
+    transition: all 0.3s ease;
+    border-color: white;
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    -ms-transition: all 0.3s ease;
+    -o-transition: all 0.3s ease;
+    border-bottom: 2px solid black; 
+}
+.refer-btn:hover {
+    background-color: black;
+    color: white;
+    border-radius: 10px; 
+    padding: 5px;
+    border: 3px solid darkgoldenrod;
+  }
+  .history-btn:hover {
+    background-color: black;
+    color: white;
+    
+    border-radius: 10px; 
+    padding: 5px;
+    border: 3px solid darkgoldenrod;
+
+  }
+  .home-btn:hover {
+    background-color: black;
+    color: white;
+    border-radius: 10px; 
+    padding: 5px;
+    border: 3px solid darkgoldenrod;
+
+  }
+  .leader-btn:hover {
+    background-color: black;
+    color: white;
+    border: 3px solid darkgoldenrod;
+    border-radius: 10px; 
+    padding: 5px;
+
+  }
+.wallet-btn:hover {
+    background-color: black;
+    color: white;
+    border: 3px solid darkgoldenrod;
+    border-radius: 10px; 
+    padding: 5px;
+
+}
+.notification-btn:hover {
+    background-color: black;
+    color: white;
+    border: 3px solid darkgoldenrod;
+    border-radius: 10px; 
+    padding: 5px;
+
+}
+.smallScreen{
+  background-color: black;
+
+  
+}
+
+/*modal*/
+.modal {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  position: relative;
+  width: 25vw;
+  max-height: 70%;
+  overflow: auto;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  text-align: center;
+  max-width: 500px;
+  width: 100%;
+  color: black;
+}

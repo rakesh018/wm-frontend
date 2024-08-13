@@ -1,0 +1,22 @@
+.adminLogin{
+    background-image: url('../../../images/backgroundImg.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 129vh;
+}
+.logoImage
+{
+    height: 30vh;
+    width: auto;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
+
+.login-container{
+    float: right;
+}
+

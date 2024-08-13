@@ -1,0 +1,92 @@
+.notificationBox{
+    height: 70vh;
+    width:68vw;
+    background-color: black;
+    flex: 5;
+    background: rgb(2,1,11);
+    background-image: linear-gradient(black,rgb(57, 57, 57));
+    padding: 20px;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
+.notificationBtn{
+    border: 2px solid darkgoldenrod;
+    background-color: white;
+    color: black;
+  height:6vh ;
+  width: 20vw;
+  border-radius:10px ;
+  -webkit-border-radius:10px ;
+  -moz-border-radius:10px ;
+  -ms-border-radius:10px ;
+  -o-border-radius:10px ;
+}
+.innerNotificationBox
+{
+    height: 55vh;
+    background-color: white;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
+.loginNotification{
+    background-color: #D9D9D9;
+    height: 10vh;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
+.deleteIcon{
+    height: 5vh;
+    float: right;
+}
+/*Extra small */
+@media (max-width: 575.98px)
+    {
+        .notificationBtn{
+            width: 36vw;
+        }
+.notificationBox{
+    width:100%;
+    border-radius: 0px;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    -ms-border-radius: 0px;
+    -o-border-radius: 0px;
+}  
+.innerNotificationBox{
+    width: 90vw;
+    
+}
+.loginNotification
+{
+    width: 70vw;
+}
+.deleteIcon{
+    height: 3vh;
+    float: right;
+}
+    }
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) and (max-width: 767.98px) { 
+  
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) and (max-width: 991.98px) { 
+
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) and (max-width: 1199.98px) { 
+  /* Styles for large devices */ 
+}
+

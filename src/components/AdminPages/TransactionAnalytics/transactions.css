@@ -1,0 +1,50 @@
+.transaction
+{
+    background-image: linear-gradient(black, rgb(57, 57, 57));
+ height: 74vh;
+ width:100vw;
+}
+.firstBar{
+    background-color:black;
+    
+    width: 83vw;
+    float:right;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    border: 2px solid #e2b543;
+}
+.graph{
+    background-color: white; 
+    width: 83vw;
+    float:right;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    border: 2px solid #e2b543;
+}
+.analysisDiv {
+    border: 2px solid darkgoldenrod;
+    border-radius: 10px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+   
+    box-sizing: border-box;
+  }
+  
+  .analysisDesc {
+    text-align: center;
+    font-size: 1.2em;
+    font-weight: bold;
+  }
+  
+  .chartContainer {
+    flex-grow: 1;
+  }
+  

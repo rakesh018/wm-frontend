@@ -1,0 +1,39 @@
+.help-text{
+    margin-bottom: 1rem;
+}
+.resolveBtn{
+    background-color: black;
+    border: 2px solid darkgoldenrod ;
+    color: white;
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
+}
+@media (max-width: 575.98px)
+    {
+        .notificationBtn{
+            width: 36vw;
+        }
+.notificationBox{
+    width:100%;
+    border-radius: 0px;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    -ms-border-radius: 0px;
+    -o-border-radius: 0px;
+}  
+.innerNotificationBox{
+    width: 90vw;
+    
+}
+.help-text{
+    margin-bottom: 0rem;
+}
+}
+.helpBox{
+height: 10vh;
+
+}
+

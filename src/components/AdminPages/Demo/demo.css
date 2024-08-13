@@ -1,0 +1,19 @@
+.demoBox{
+    background-color: black;
+    color: white;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
+.demoInput{
+    background-color: inherit;
+    border: inherit;
+    color: white;
+}
+.demoBtn{
+    background-color: white;
+    color: black;
+    border: 2px solid darkgoldenrod;
+}

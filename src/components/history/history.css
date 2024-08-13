@@ -1,0 +1,109 @@
+.scrollbar-hidden::-webkit-scrollbar {
+    display: none; /* Hides the scrollbar */
+}
+.betColor{
+    color: black;
+}
+.historyBox{
+    height: 70vh;
+    width:68vw;
+    background-color: black;
+    flex: 5;
+    background: rgb(2,1,11);
+    background-image: linear-gradient(black,rgb(57, 57, 57));
+    padding: 20px;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
+.historybtn{
+    border: 2px solid darkgoldenrod;
+    background-color: white;
+    width: 10vw;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
+.history1
+{
+    background-color:white;
+    height:55vh;
+    max-height: 55vh;
+    width: 25vw;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    overflow-y: auto;
+}
+.history2{
+    background-color:white;
+    height:55vh;
+    max-height: 55vh;
+    width: 25vw;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    overflow-y: auto;
+}
+    .game1,.game2
+    {
+        background-color: black;
+        border-radius: 8px;
+        -webkit-border-radius: 8px;
+        -moz-border-radius: 8px;
+        -ms-border-radius: 8px;
+        -o-border-radius: 8px;
+        color: white;
+        border: 2px solid darkgoldenrod;
+    }
+
+
+/*Extra small */
+@media (max-width: 575.98px)
+    {
+        .historybtn
+        {
+            width: 25vw;
+        }
+        .historyBox
+        {
+            width: 100vw;
+
+        }
+        .history1,.history2
+        {
+            width: 45vw;
+        }
+
+
+    }
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) and (max-width: 767.98px) { 
+    .historyBox
+    {
+        width: 100vw;
+    }
+  
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) and (max-width: 991.98px) { 
+.historyBox{
+    width: 100vh;
+}
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) and (max-width: 1199.98px) { 
+  /* Styles for large devices */ 
+}
+

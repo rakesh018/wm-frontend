@@ -1,0 +1,91 @@
+.settingsBox{
+    height: 70vh;
+    width:68vw;
+    background-color: black;
+    flex: 5;
+    background: rgb(2,1,11);
+    background-image: linear-gradient(black,rgb(57, 57, 57));
+    padding: 20px;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
+.settingsBtn{
+    border: 2px solid #e2b543;
+    background-color: white;
+    width: 10vw;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
+.SettingsInnerBox{
+    height: 57vh;
+    background-color: white;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
+.name,.password{
+    background-color:#D9D9D9;
+    height: 25vh;
+    width: 20vw;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    border: 2px solid black;
+}
+.setting-input{
+
+    background-color: #D9D9D9;
+    border-style: none;
+    border-bottom: 1px solid black;
+    
+}
+.profile
+{
+    height: 10vh;
+}
+.uid{
+    background-color: darkgoldenrod;
+    color: black;
+}
+.getHelp-btn{
+    background-color: #D9D9D9;
+    color: black;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
+
+@media (width: 576px) 
+{
+
+    .settingsBox{
+        width: 100vw;
+    }
+    .settingsBtn
+    {
+        width: 30vw;
+    }
+.name,.password{
+    width: 57vw;
+}
+.SettingsInnerBox {
+    height: 44vh;
+ }
+ .support
+ {
+    background-color: inherit;
+    border: none;
+ }
+}

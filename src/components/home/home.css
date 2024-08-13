@@ -1,0 +1,117 @@
+.homeBox{
+    height: 70vh;
+    width:68vw;
+    background-color: black;
+    flex: 5;
+    background: rgb(2,1,11);
+    background-image: linear-gradient(black,rgb(57, 57, 57));
+    padding: 20px;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
+.featuredGames-btn
+{
+    border: 2px solid darkgoldenrod;
+    background-color: white;
+    color: black;
+  height:6vh ;
+  width: 20vw;
+  border-radius:10px ;
+  -webkit-border-radius:10px ;
+  -moz-border-radius:10px ;
+  -ms-border-radius:10px ;
+  -o-border-radius:10px ;
+}
+.gameBox
+{
+    border: 2px solid darkgoldenrod;
+    background-color: white;
+    height: 25vh;
+    width: 15vw;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
+.game1,.game2{
+    background-color: black;
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
+}
+.game1-btn,.game2-btn
+{
+    border: 2px solid darkgoldenrod;
+    background-color: white;
+    color: black;
+  height:6vh ;
+  width: 10vw;
+  border-radius:10px ;
+  -webkit-border-radius:10px ;
+  -moz-border-radius:10px ;
+  -ms-border-radius:10px ;
+  -o-border-radius:10px ;
+}
+/* Extra small devices */
+@media (max-width: 575.98px) { 
+  .homeBox
+  {
+    width:100vw;
+    
+  }
+  .featuredGames-btn
+  {
+    width: 50vw;
+
+  }
+  .gameBox
+  {
+    width: 50vw;
+    height: 35vh;
+  }
+  .game1-btn,.game2-btn
+  {
+    width: 35vw;
+
+  }
+ }
+
+
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) and (max-width: 767.98px) { 
+
+  .gameBox
+  {
+    height:7vh;
+    width: 24vw;
+  }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) and (max-width: 991.98px) {
+  .gameBox
+  {
+    height:15vh ;
+    width: 20vw;
+  }
+  .homeBox
+  {
+    width:100%;
+    
+  }
+
+  
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) and (max-width: 1199.98px) { 
+  /* Styles for large devices */ 
+}
+

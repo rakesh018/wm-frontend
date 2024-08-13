@@ -1,0 +1,50 @@
+.register
+{
+    background-image: url('/src/images/backgroundImg.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 129vh;
+}
+.register-box{
+    background-color: white;
+    text-align: center;
+    border-radius: 30px;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    -ms-border-radius: 30px;
+    -o-border-radius: 30px;
+}
+.register-input
+{
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -ms-border-radius: 5px;
+    -o-border-radius: 5px;
+}
+.register-btn
+{
+    background-color: black;
+    color: darkgoldenrod;
+    border: 2px solid darkgoldenrod;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
+.resendOTP{
+    background-color: white;
+    border: 2px solid black;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+
+}

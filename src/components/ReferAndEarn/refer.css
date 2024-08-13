@@ -1,0 +1,89 @@
+.referBox{
+    height: 70vh;
+    width:68vw;
+    background-color: black;
+    flex: 5;
+    background: rgb(2,1,11);
+    background-image: linear-gradient(black,rgb(57, 57, 57));
+    padding: 20px;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
+.referBtn{
+    border: 2px solid #e2b543;
+    background-color: white;
+    width: 10vw;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
+.referInnerBox{
+    height: 57vh;
+    background-color: white;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
+.referAnd{
+    border: 2px solid #e2b543;
+    background-color:black;
+    height: 5vh;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    color: white;
+}
+.referImg
+{
+    max-width: 100%;
+    height: auto;
+}
+/*Extra small */
+@media (max-width: 575.98px)
+    {
+        .referBox{
+            width: 100%;
+        }
+        .referBtn{
+        
+            width: 30vw;
+        }
+        .referInnerBox
+        {
+            height: 40vh;
+        }
+
+       
+    }
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) and (max-width: 767.98px) { 
+    .referInnerBox
+    {
+        display: none;
+    }
+     
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) and (max-width: 991.98px) { 
+    .referInnerBox
+    {
+        height: 30vh;
+    }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) and (max-width: 1199.98px) { 
+  /* Styles for large devices */ 
+}
+

@@ -1,0 +1,35 @@
+ .card {
+            border: 2px solid #f5b207;
+            border-radius: 10px;
+        }
+        .card img {
+            width: 50px;
+            height: 50px;
+        }
+        .card-title {
+            font-weight: bold;
+        }
+        .card-text {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .adminDepositBox{
+            background-color: black;
+            height: 55vh;
+            color: white;
+            border-radius: 10px;
+            -webkit-border-radius: 10px;
+            -moz-border-radius: 10px;
+            -ms-border-radius: 10px;
+            -o-border-radius: 10px;
+}
+.statusBtn{
+    background-color: white;
+    color: black;
+    border: 2px solid darkgoldenrod;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}

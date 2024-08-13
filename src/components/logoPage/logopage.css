@@ -1,0 +1,54 @@
+.logo
+{
+    background-image: url('/src/images/backgroundImg.png');
+
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 129vh;
+}
+.logo-text{
+    color: darkgoldenrod
+}
+.logoImage
+{
+    height: 30vh;
+    width: auto;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
+
+.login-button,.register-button{
+    background-color: white;
+    color:darkgoldenrod ;
+    box-shadow: white 3px;
+    width: 14vw;
+    height: 9vh;
+    border-radius: 13px;
+    -webkit-border-radius: 13px;
+    -moz-border-radius: 13px;
+    -ms-border-radius: 13px;
+    -o-border-radius: 13px;
+    font-size: 20px;
+}
+
+
+/* small screens */
+@media (max-width: 576px) 
+{
+    .login-button,.register-button{
+        width: 35vw;
+    height: 10vh;
+    }
+}
+/* laptop screens */
+@media (min-width: 577px) and (max-width: 768px)
+{
+    .login-button,.register-button{
+        width: 20vw;
+    height: 9vh;
+    }
+}

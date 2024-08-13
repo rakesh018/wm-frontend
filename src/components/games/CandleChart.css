@@ -1,0 +1,16 @@
+.candle-chart-container {
+    text-align: center;
+    background-color: black;
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 26vw;
+    height: 40vh;
+    margin: 0 auto;
+  }
+  
+  .candle-chart-container h2,
+  .candle-chart-container h3 {
+    margin: 10px 0;
+  }
+  

@@ -1,0 +1,52 @@
+.coinFlip-Winning{
+    background-color: black;
+    border: 2px solid darkgoldenrod;
+    color:white;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
+.chooseWinningCoin
+{
+    background-color: black;
+    float: right;
+    border: 2px solid darkgoldenrod;
+    border-radius: 9px;
+    -webkit-border-radius: 9px;
+    -moz-border-radius: 9px;
+    -ms-border-radius: 9px;
+    -o-border-radius: 9px;
+    height: 13vh;
+    width: 7vw;
+}
+.choose
+{
+    background-color: black;
+    border: 2px solid darkgoldenrod;
+    border-radius: 9px;
+    -webkit-border-radius: 9px;
+    -moz-border-radius: 9px;
+    -ms-border-radius: 9px;
+    -o-border-radius: 9px;
+    color: white;
+}
+.onHeads,.onTails{
+    border: 2px solid darkgoldenrod;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
+.onChoose
+{
+    border: 2px solid darkgoldenrod;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    background-color: #56CD56;
+}
