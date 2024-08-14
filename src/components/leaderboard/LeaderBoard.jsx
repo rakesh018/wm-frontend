@@ -2,11 +2,12 @@ import React, { useState, useEffect } from "react";
 import { Navbar } from "../../Navbar";
 import { Sidebar } from "../../Sidebar";
 import { BetSlip } from "../../BetSlip";
+import { CheckToken } from "../../checkToken";
 
 export const LeaderBoard = () => {
   const [allTimeLeaderBoard, setAllTimeLeaderBoard] = useState([]);
   const [dailyLeaderBoard, setDailyLeaderboard] = useState([]);
-
+  const token=CheckToken();
   useEffect(() => {
     async function fetchLeaderBoards() {
       try {
@@ -15,7 +16,7 @@ export const LeaderBoard = () => {
           {
             method: "GET",
             headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
+              Authorization: `Bearer ${token}`,
             },
           }
         );
@@ -24,7 +25,7 @@ export const LeaderBoard = () => {
           {
             method: "GET",
             headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
+              Authorization: `Bearer ${token}`,
             },
           }
         );

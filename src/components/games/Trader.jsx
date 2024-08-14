@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Gamenav } from './Gamenav';
 import logo from '../../images/logo.png';
 import winning from '../../images/winning.png';
@@ -6,10 +6,33 @@ import losing from '../../images/losing.png';
 import Modal from 'react-modal';
 import './trader.css';
 import { CandleChart } from './CandleChart';
-const candleArray = [1, 0, 1, 1, 0, 1, 0, 0, 1];
+import { BetSlip } from '../../BetSlip';
+
+// Example placeholder data
+const initialCandleArray = [1, 0, 1, 1, 0, 1, 0, 0, 1];
 
 export const Trader = () => {
   const [result, setResult] = useState(null);
+  const [candleArray, setCandleArray] = useState(initialCandleArray); // State for candle data
+  const [selectedValueHeads, setSelectedValueHeads] = useState(100);
+  const [selectedValueTails, setSelectedValueTails] = useState(100);
+
+  // Function to fetch candle data
+  const fetchCandleData = useCallback(async () => {
+    try {
+      // Replace with your API endpoint
+      const response = await fetch('https://api.example.com/candle-data');
+      const data = await response.json();
+      setCandleArray(data.candles); // Assuming the response has a 'candles' field
+    } catch (error) {
+      console.error('Error fetching candle data:', error);
+    }
+  }, []);
+
+  // Fetch candle data on component mount
+  useEffect(() => {
+    fetchCandleData();
+  }, [fetchCandleData]);
 
   const handleWinClick = () => {
     setResult('win');
@@ -22,9 +45,6 @@ export const Trader = () => {
   const closeModal = () => {
     setResult('');
   };
-
-  const [selectedValueHeads, setSelectedValueHeads] = useState(100);
-  const [selectedValueTails, setSelectedValueTails] = useState(100);
 
   const handleIncrementHeads = () => {
     setSelectedValueHeads(selectedValueHeads + 100);
@@ -43,11 +63,11 @@ export const Trader = () => {
   };
 
   return (
-    <div>
+    <div className='tradergame'>
       <Gamenav />
-      <div className="leftBox">
+      <div className="leftBox d-none d-sm-block">
         <div className='text-center'>
-          <button className='coin m-3'>COIN FLIP</button>
+          <button className='coin m-3'>TRADER</button>
         </div>
         <div className="d-flex justify-content-center">
           <div className='whiteBox m-2'>
@@ -66,25 +86,7 @@ export const Trader = () => {
         </div>
       </div>
 
-      <div className="rightBox text-center">
-        <div className="timer-display m-3">00:00</div>
-        <div className="d-flex justify-content-center">
-          <div className='whiteBox m-2'>
-            <div className="d-flex justify-content-center mt-3">
-              <div className="blackBox">
-                <div className='roundHistory mt-4 m-2'>
-                  BET SLIP
-                </div>
-                <div className="d-flex justify-content-center">
-                  <div className="innerBox">
-                    YOUR BET SELECTION WILL APPEAR HERE
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+   <BetSlip/>
 
       <div className='gameInterface'>
         <div className="gameInnerBox">
@@ -102,9 +104,9 @@ export const Trader = () => {
             <h3 className='traderText text-center'>PLEASE WAIT UNTIL YOUR TIME STARTS</h3>
           </div>
 
-          <div className="d-flex justify-content-evenly">
+          <div className="upAndDown d-flex justify-content-evenly">
             <div>
-              <button className='forheads'>FOR UP</button>
+              <button className='forUPS' id="forUp">FOR UP</button>
               <div className="selection-box">
                 <div className="counter">
                   <button className="counter-btn" onClick={handleIncrementHeads}>+</button>
@@ -121,7 +123,7 @@ export const Trader = () => {
               </div>
             </div>
             <div>
-              <button className='fortails'>FOR DOWN</button>
+              <button className='forDOWN' id="fordown">FOR DOWN</button>
               <div className="selection-box">
                 <div className="counter">
                   <button className="counter-btn" onClick={handleIncrementTails}>+</button>

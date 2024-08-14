@@ -50,7 +50,7 @@ export const Notification = () => {
       <Navbar />
       <div className="container notificationBox mt-2">
         <button className="notificationBtn ms-3">NOTIFICATIONS</button>
-        <div className="innerNotificationBox m-3 p-3 text-center">
+        <div className="innerNotificationBox m-3 p-3 text-center no-scrollbar">
           {notifications?.length > 0 ? (
             notifications.map((notification) => (
               <div key={notification._id} className="loginNotification m-3 ">

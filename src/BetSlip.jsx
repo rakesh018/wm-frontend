@@ -5,33 +5,6 @@ import { useRecoilState } from "recoil";
 
 export const BetSlip = () => {
   const [betDetails, setBetDetails] = useRecoilState(betSlipsAtom);
-  // const betDetails = [
-  //   {
-  //     gameName: 'COIN FLIP',
-  //     roundDuration: '3 mins',
-  //     betAmount: '$50',
-  //     timeRemaining: '5 mins',
-  //   },
-  //   {
-  //     gameName: 'TRADER',
-  //     roundDuration: '5 mins',
-  //     betAmount: '$75',
-  //     timeRemaining: '10 mins',
-  //   },
-  //   {
-  //     gameName: 'COIN FLIP',
-  //     roundDuration: '3 mins',
-  //     betAmount: '$50',
-  //     timeRemaining: '5 mins',
-  //   },
-  //   {
-  //     gameName: 'TRADER',
-  //     roundDuration: '5 mins',
-  //     betAmount: '$75',
-  //     timeRemaining: '10 mins',
-  //   },
-
-  // ];
   useEffect(() => {
     async function getSlips() {
       const slips = await fetch(
@@ -42,7 +15,6 @@ export const BetSlip = () => {
         }
       );
       const parsedSlips = await slips.json();
-      console.log(parsedSlips);
       setBetDetails(parsedSlips);
     }
     getSlips();

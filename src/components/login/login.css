@@ -5,7 +5,12 @@
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-    height: 129vh;
+    height: 100vh;
+}
+.forgotPass{
+    font-weight: 600;
+    font-size: large;
+    margin-top: 10px;
 }
 .login-container{
     background-color: white;
@@ -15,6 +20,16 @@
     -ms-border-radius: 14px;
     -o-border-radius: 14px;
 }
+.otp-container{
+    background-color: white;
+    max-height: 75vh;
+    border: 2px solid darkgoldenrod;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
 .login-btn{
     background-color: black;
     color: darkgoldenrod;
@@ -23,6 +38,40 @@
     font-size: 16px;
     cursor: pointer;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
+.phoneBox{
+    background-color: white;
+    border: 2px solid darkgoldenrod;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    width: 15vw;
+}
+.otpBox,.saveBox{
+     background-color: black;
+    color: darkgoldenrod;
+    border: 2px solid darkgoldenrod;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+
+}
+.passBox{
+    background-color: white;
+    border: 2px solid darkgoldenrod;
     border-radius: 10px;
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;

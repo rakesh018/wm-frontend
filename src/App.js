@@ -46,6 +46,7 @@ import { Verification } from './components/register/Verification';
 import { ForgotVerification } from './components/register/ForgotVerification';
 import { Forgotpassword } from './components/login/Forgotpassword';
 import { DepositManually } from './components/wallet/DepositManually';
+import { ToastContainer } from 'react-toastify';
 
 
 
@@ -54,6 +55,7 @@ import { DepositManually } from './components/wallet/DepositManually';
 function App() {
   return (
     <div className="App">
+      <ToastContainer/>
       <Router>
         <Routes>
           <Route path="/" element={<Logopage />} />
@@ -101,11 +103,9 @@ function App() {
           <Route path='/chooseWinningTeam' element={<ChooseWinningTeam />} />
           <Route path='demoAccount' element={<DemoAccount />} />
           <Route path='/candleChat' element={<CandleChart />} />
-
         </Routes>
 
       </Router>
-
     </div>
   );
 }

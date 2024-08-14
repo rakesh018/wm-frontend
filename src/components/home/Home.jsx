@@ -8,15 +8,13 @@ import "./home.css";
 import { useNavigate } from "react-router-dom";
 import { profileAtom, betSlipsAtom } from "../../atoms";
 import { useRecoilState } from "recoil";
+import { CheckToken } from "../../checkToken";
 
 export const Home = () => {
   const navigate = useNavigate();
   const [profile, setProfile] = useRecoilState(profileAtom);
   const [betSlips, setBetSlips] = useRecoilState(betSlipsAtom);
-  const token = localStorage.getItem("token");
-  if (!token) {
-    navigate("/login");
-  }
+  const token=CheckToken();
   //displaying updated balance
   useEffect(() => {
     async function setBalance() {
