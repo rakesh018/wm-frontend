@@ -7,7 +7,6 @@ import losing from "../../images/losing.png";
 import Modal from "react-modal";
 import socket from "../../socket";
 import { BetSlip } from "../../BetSlip";
-import { ToastContainer } from "react-toastify";
 import { alertToast } from "../../alertToast";
 import { useRecoilState } from "recoil";
 import { betSlipsAtom, profileAtom } from "../../atoms";
@@ -89,8 +88,24 @@ export const CoinSwitch = () => {
       }
     };
 
-    const handleResultBroadcast = (gameName, roundDuration, parsedResults) => {
+    const handleResultBroadcast = async (
+      gameName,
+      roundDuration,
+      parsedResults
+    ) => {
       if (gameName === "coinFlip" && roundDuration === duration) {
+        const fetchedProfile = await fetch(
+          "https://server.trademax1.com/profile/getProfile",
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
+          }
+        );
+        const parsedProfile=await fetchedProfile.json();
+        setProfile(parsedProfile);
         setPastResults(parsedResults);
       }
     };
@@ -170,7 +185,7 @@ export const CoinSwitch = () => {
           getSlips();
         } else if (response.status === 400) {
           console.log(parsedRes);
-          alertToast(parsedRes, "error");
+          alertToast(parsedRes.error, "error");
         }
       } catch (error) {
         alertToast("Unable to place bet", "error");

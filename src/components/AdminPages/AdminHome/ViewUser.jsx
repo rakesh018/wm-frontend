@@ -15,7 +15,8 @@ const data = [
 ];
 
 export const ViewUser = () => {
-  const { uid } = useParams();
+  // const { uid } = useParams();
+  const uid='123456789';
   const user = data.find((user) => user.uid === uid);
 
   return (

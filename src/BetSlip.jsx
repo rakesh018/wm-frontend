@@ -1,28 +1,59 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./bet.css";
 import { betSlipsAtom } from "./atoms";
 import { useRecoilState } from "recoil";
 
 export const BetSlip = () => {
   const [betDetails, setBetDetails] = useRecoilState(betSlipsAtom);
+  const [localBets, setLocalBets] = useState([]);
+
   useEffect(() => {
-    async function getSlips() {
-      const slips = await fetch(
-        "https://server.trademax1.com/bets/get-bet-slips",
-        {
-          method: "GET",
-          headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-        }
-      );
-      const parsedSlips = await slips.json();
-      setBetDetails(parsedSlips);
+    async function fetchBetSlips() {
+      try {
+        const response = await fetch(
+          "https://server.trademax1.com/bets/get-bet-slips",
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        );
+        const parsedSlips = await response.json();
+        setBetDetails(parsedSlips);
+        setLocalBets(parsedSlips.bets || []);
+      } catch (error) {
+        console.error("Error fetching bet slips:", error);
+      }
     }
-    getSlips();
-  }, []);
+
+    // Fetch the initial data
+    fetchBetSlips();
+
+    // Update every 10 seconds
+    const interval = setInterval(fetchBetSlips, 10000);
+
+    // Cleanup the interval on component unmount
+    return () => clearInterval(interval);
+  }, [setBetDetails]);
+
+  useEffect(() => {
+    // Countdown timer: Decrement the `ttl` for each bet locally every second
+    const countdownInterval = setInterval(() => {
+      setLocalBets((prevBets) =>
+        prevBets.map((bet) => ({
+          ...bet,
+          ttl: bet.ttl > 0 ? bet.ttl - 1 : 0,
+        }))
+      );
+    }, 1000);
+
+    // Cleanup the interval on component unmount
+    return () => clearInterval(countdownInterval);
+  }, [localBets]);
 
   return (
     <div>
-      {/* <Navbar /> */}
       <div className="container betBox text-center mt-5 d-none d-lg-block">
         <div>
           <button className="bet-sel mt-2">BET SLIPS</button>
@@ -30,8 +61,8 @@ export const BetSlip = () => {
 
         <div className="betSelectionBox mt-3 no-scrollbar">
           <div className="betDetails no-scrollbar">
-            {betDetails.bets && betDetails.bets.length > 0 ? (
-              betDetails.bets.map((bet, index) => (
+            {localBets && localBets.length > 0 ? (
+              localBets.map((bet, index) => (
                 <div key={index} className="betDetailBox m-2 p-2">
                   <div className="gameName"> {bet.gameName}</div>
                   <div className="roundDuration">

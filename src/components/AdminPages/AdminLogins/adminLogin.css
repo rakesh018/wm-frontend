@@ -5,6 +5,10 @@
     background-position: center;
     height: 129vh;
 }
+.mainBox{
+    height: 100vh;
+    overflow-y: hidden;
+}
 .logoImage
 {
     height: 30vh;

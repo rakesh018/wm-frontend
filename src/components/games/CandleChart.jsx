@@ -1,24 +1,24 @@
-import React from 'react';
-import { Bar } from 'react-chartjs-2';
-import 'chart.js/auto';
-import './CandleChart.css';
+import React from "react";
+import { Bar } from "react-chartjs-2";
+import "chart.js/auto";
+import "./CandleChart.css";
 
 
-const candleArray = [1, 0, 1, 1, 0, 1, 0, 0, 1];
-export const CandleChart = () => {
-  
+export const CandleChart = ({candleArray}) => {
   const data = {
     labels: candleArray.map((_, index) => index + 1), // Labels for each candle
     datasets: [
       {
-        label: 'Candles',
-        data: candleArray.map(candle => (candle === 0 ? -1 : 1)), // Map 0 to -1 and 1 to 1 for vertical positioning
-        backgroundColor: candleArray.map(candle => (candle === 0 ? 'red' : 'green')),
+        label: "Candles",
+        data: candleArray.map((candle) => (candle === 0 ? -1 : 1)), // Map 0 to -1 and 1 to 1 for vertical positioning
+        backgroundColor: candleArray.map((candle) =>
+          candle === 0 ? "red" : "green"
+        ),
       },
     ],
   };
   const options = {
-    indexAxis: 'x',
+    indexAxis: "x",
     scales: {
       y: {
         beginAtZero: true,
@@ -26,8 +26,8 @@ export const CandleChart = () => {
         max: 1.5,
         ticks: {
           stepSize: 1,
-          callback: function(value) {
-            return value === -1 ? 'Down' : value === 1 ? 'Up' : '';
+          callback: function (value) {
+            return value === -1 ? "Down" : value === 1 ? "Up" : "";
           },
         },
       },
@@ -48,7 +48,6 @@ export const CandleChart = () => {
     <div className="candle-chart-container">
       <h2></h2>
       <Bar data={data} options={options} />
-     
     </div>
-  )
-}
+  );
+};

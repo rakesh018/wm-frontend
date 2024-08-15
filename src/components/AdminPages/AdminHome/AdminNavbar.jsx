@@ -4,9 +4,10 @@ import round from '../../../images/roundimage.png';
 import question from '../../../images/questionMark.png';
 import search from '../../../images/searchImage.png';
 
+
 export const AdminNavbar = () => {
     return (
-        <div>
+        <div className='mainAdminHomeBox'>
 
             <div className="container-fluid top-nav ">
                 <div className='row align-items-center'>
