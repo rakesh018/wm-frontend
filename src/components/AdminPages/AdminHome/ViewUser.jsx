@@ -6,12 +6,22 @@ import adminDeposit from '../../../images/adminTotalDeposit.png';
 import adminWithdraw from '../../../images/adminTotalWithdraw.png';
 import adminWallet from '../../../images/adminWallet.png';
 import { alertToast } from '../../../alertToast';
+import './admin.css'; // Include custom CSS for modals
+import { useNavigate } from 'react-router-dom';
 
 export const ViewUser = () => {
   const { uid } = useParams();
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [showUpdateModal, setShowUpdateModal] = useState(false);
+  const [showBanModal, setShowBanModal] = useState(false);
+  const [balance, setBalance] = useState('');
+  const [referral, setReferral] = useState('');
+  const [totalDeposits,setTotalDeposits]=useState(0);
+  const [totalWithdrawals,setTotalWithdrawals]=useState(0);
+  const [isUpdating, setIsUpdating] = useState(false);
+  const navigate=useNavigate();
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -21,13 +31,18 @@ export const ViewUser = () => {
           headers: { Authorization: `Bearer ${localStorage.getItem('adminToken')}` },
         });
         if (!response.ok) {
-          throw new Error('Failed to fetch user data');
+          alertToast('User not found','error');
+          navigate('/adminHome');
         }
+  
         const data = await response.json();
-        setUserData(data);
+        setUserData(data.user);
+        setBalance(data.user.balance || '');
+        setReferral(data.user.referralCommission || '');
+        setTotalDeposits(data.totalDeposits);
+        setTotalWithdrawals(data.totalWithdrawals);
         setLoading(false);
       } catch (err) {
-        alertToast('Error fetching user data', 'error');
         setError(err.message);
         setLoading(false);
       }
@@ -35,6 +50,67 @@ export const ViewUser = () => {
 
     fetchUserData();
   }, [uid]);
+
+  const handleUpdateClick = () => {
+    setShowUpdateModal(true);
+  };
+
+  const handleBanClick = () => {
+    setShowBanModal(true);
+  };
+
+  const handleUpdate = async () => {
+    setIsUpdating(true);
+    try {
+      const response = await fetch(`https://server.trademax1.com/admin/users/change-user-details/${userData.uid}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('adminToken')}`,
+        },
+        body: JSON.stringify({ amount:balance, referralCommission:referral }),
+      });
+      if (!response.ok) {
+        return alertToast("Unable to update details",'error');
+      }
+      setShowUpdateModal(false);
+      // Re-fetch user data
+      const result = await response.json();
+      console.log(result);
+      setUserData(result.user);
+      navigate(`/viewUser/${uid}`);
+      alertToast('User updated successfully', 'success');
+    } catch (err) {
+      
+    }
+    setIsUpdating(false);
+  };
+
+  const handleBanUser = async () => {
+    try {
+      const response = await fetch(`https://server.trademax1.com/admin/users/ban-user/${uid}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.getItem('adminToken')}`,
+        },
+      });
+      if (!response.ok) {
+        alert('Failed to ban user','error');
+      }
+      const parsedResponse=await response.json();
+      setUserData(parsedResponse.user);
+      alertToast('User banned successfully', 'success');
+      setShowBanModal(false);
+    } catch (err) {
+      alertToast('Error banning user', 'error');
+    }
+  };
+
+  const handleModalClose = () => {
+    setShowUpdateModal(false);
+    setShowBanModal(false);
+  };
 
   if (loading) {
     return <div>Loading...</div>;
@@ -48,8 +124,6 @@ export const ViewUser = () => {
     return <div>User not found</div>;
   }
 
-  const { user, totalDeposits, totalWithdrawals } = userData;
-  const walletBalance = user.balance;
 
   return (
     <div className="d-flex">
@@ -62,23 +136,23 @@ export const ViewUser = () => {
               <div className="card p-4 mb-4">
                 <h4 className="text-center mb-4">User Information</h4>
                 <div className="mb-3">
-                  <strong>UID:</strong> <span>{user.uid}</span>
+                  <strong>UID:</strong> <span>{userData.uid}</span>
                 </div>
                 <div className="mb-3">
-                  <strong>Email:</strong> <span>{user.email}</span>
+                  <strong>Email:</strong> <span>{userData.email}</span>
                 </div>
                 <div className="mb-3">
-                  <strong>Phone Number:</strong> <span>{user.phone}</span>
+                  <strong>Phone Number:</strong> <span>{userData.phone}</span>
                 </div>
                 <div className="mb-3">
-                  <strong>Referral Code:</strong> <span>{user.referralCode}</span>
+                  <strong>Referral Code:</strong> <span>{userData.referralCode}</span>
                 </div>
                 <div className="mb-3">
-                  <strong>Commission:</strong> <span>{`${user.referralCommission}% from referrals`}</span>
+                  <strong>Commission:</strong> <span>{`${userData.referralCommission}% from referrals`}</span>
                 </div>
                 <div className="d-flex justify-content-end">
-                  <button className="btn btn-primary m-2">Update</button>
-                  <button className="btn btn-danger m-2">{user.isRestricted?'UnBan User':'Ban User'}</button>
+                  <button className="btn btn-primary m-2" onClick={handleUpdateClick}>Update</button>
+                  <button className="btn btn-danger m-2" onClick={handleBanClick}>{userData.isRestricted ? 'UnBan User' : 'Ban User'}</button>
                 </div>
               </div>
             </div>
@@ -108,13 +182,57 @@ export const ViewUser = () => {
                 <img src={adminWallet} alt="Wallet Balance" className="img-fluid" />
                 <div className="mt-2">
                   <strong>WALLET BALANCE</strong>
-                  <div>{walletBalance}</div>
+                  <div>{userData.balance}</div>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+
+      {showUpdateModal && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <h2>Update User</h2>
+            <div className="mb-3">
+              <label htmlFor="balance" className="form-label">Balance:</label>
+              <input
+                id="balance"
+                type="text"
+                className="form-control"
+                value={balance}
+                onChange={(e) => setBalance(e.target.value)}
+              />
+            </div>
+            <div className="mb-3">
+              <label htmlFor="referral" className="form-label">Referral %:</label>
+              <input
+                id="referral"
+                type="text"
+                className="form-control"
+                value={referral}
+                onChange={(e) => setReferral(e.target.value)}
+              />
+            </div>
+            <div className="d-flex justify-content-center">
+              <button className="modal-btn yes" onClick={handleUpdate} disabled={isUpdating}>Yes</button>
+              <button className="modal-btn no" onClick={handleModalClose}>No</button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {showBanModal && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <h2>Are you sure you want to {userData.isRestricted ? 'unban' : 'ban'} this user?</h2>
+            <div className="d-flex justify-content-center">
+              <button className="modal-btn yes" onClick={handleBanUser}>Yes</button>
+              <button className="modal-btn no" onClick={handleModalClose}>No</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

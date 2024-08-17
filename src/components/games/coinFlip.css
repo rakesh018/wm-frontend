@@ -147,23 +147,23 @@
 }
 
 .side-a {
-  background-image: url('../../images/trails.png');
+  background-image: url('../../images/flipImage.jpeg');
   background-size: cover;
   z-index: 100;
 }
 
 .side-b {
-  background-image: url('../../images/flipImage.jpeg');
+  background-image: url('../../images/trails.png');
   background-size: cover;
   transform: rotateY(180deg);
 }
 
 #coin.heads {
-  animation: flipHeads 3s ease-out forwards;
+  animation: flipHeads 2.5s ease-out forwards;
 }
 
 #coin.tails {
-  animation: flipTails 3s ease-out forwards;
+  animation: flipTails 2.5s ease-out forwards;
 }
 
 @keyframes flipHeads {

@@ -20,6 +20,7 @@ export const CoinSwitch = () => {
   const [selectedValueTails, setSelectedValueTails] = useState(100);
   const [result, setResult] = useState(null);
   const [profile, setProfile] = useRecoilState(profileAtom);
+  const [isFlipping,setIsFlipping]=useState(false);
   const fetchPastDetails = async (roundDuration) => {
     // Fetch data from server based on roundDuration
     // Example fetch API call
@@ -37,21 +38,25 @@ export const CoinSwitch = () => {
     fetchPastDetails(duration);
   }, [duration]);
 
-  const handleCoinFlip = () => {
-    const result = Math.random();
+  const handleCoinFlip = async (result) => {
+    setIsFlipping(true); // Start the animation immediately
     setFlipResult(null); // Reset the flip result for re-flipping animation
+  
+    // Use a timeout to match the animation duration
     setTimeout(() => {
-      if (result <= 0.5) {
-        setFlipResult("heads");
-        console.log("it is head");
+      // Update the result after the animation duration
+      if (result === 1) {
+        setFlipResult('heads');
       } else {
-        setFlipResult("tails");
-        console.log("it is tails");
+        setFlipResult('tails');
       }
-    }, 100);
+      // Stop the animation
+    }, 10); // Duration should match the CSS animation duration
+    setTimeout(()=>{setIsFlipping(false)},3000)
   };
+  
   const formatTime = (totalSeconds) => {
-    if (totalSeconds === "roundFreeze") {
+    if (totalSeconds === "roundFreeze" || isFlipping) {
       return "ROUND FREEZE";
     }
     const minutes = Math.floor(totalSeconds / 60);
@@ -107,6 +112,7 @@ export const CoinSwitch = () => {
         const parsedProfile=await fetchedProfile.json();
         setProfile(parsedProfile);
         setPastResults(parsedResults);
+        handleCoinFlip(parsedResults[0]);
       }
     };
 

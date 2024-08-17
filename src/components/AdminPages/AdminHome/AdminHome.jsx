@@ -10,6 +10,7 @@ export const AdminHome = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [totalUsers, setTotalUsers] = useState(0);
+  const [searchId, setSearchId] = useState(""); // State for search input
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -45,6 +46,12 @@ export const AdminHome = () => {
     return new Date(dateString).toLocaleDateString(undefined, options);
   };
 
+  const handleSearch = () => {
+    if (searchId.trim()) {
+      navigate(`/viewUser/${searchId}`);
+    }
+  };
+
   return (
     <div className="d-flex">
       <AdminSidebar />
@@ -52,6 +59,19 @@ export const AdminHome = () => {
         <AdminNavbar />
         <div className="container my-4">
           <h3 className="text-center mb-4">User List</h3>
+
+          {/* Search Input */}
+          <div className="mb-4 d-flex justify-content-center">
+            <input
+              type="text"
+              id="searchId"
+              value={searchId}
+              onChange={(e) => setSearchId(e.target.value)}
+              placeholder="Enter UID to search"
+              className="form-control me-2"
+            />
+            <button onClick={handleSearch} className="btn btn-primary">Search</button>
+          </div>
 
           {/* Table for Larger Screens */}
           <div className="table-responsive d-none d-md-block">
