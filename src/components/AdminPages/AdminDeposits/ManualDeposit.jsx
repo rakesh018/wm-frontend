@@ -1,106 +1,200 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { AdminNavbar } from '../AdminHome/AdminNavbar'
-import { AdminSidebar } from '../AdminHome/AdminSidebar'
-import adminDeposit from '../../../images/adminTotalDeposit.png';
-import adminWithdraw from '../../../images/adminTotalWithdraw.png';
-import transaction1 from '../../../images/transaction1.jpeg';
-import transaction2 from '../../../images/transaction2.jpeg';
-
-
-
-const transactions = [
-  { gateway: 'PHONE PE', transactionId: '123456789', initiated: '22/02/2024', phone: '9876543210', amount: 1000, status: 'SUCCESS' ,image:{transaction1}},
-  { gateway: 'PHONE PE', transactionId: '123456799', initiated: '22/02/2024', phone: '9876543910', amount: 1000, status: 'INITIATED',image:{transaction2} },
-  { gateway: 'GOOGLE PAY', transactionId: '123459799', initiated: '22/02/2024', phone: '9876593910', amount: 1000, status: 'INITIATED' ,image:{transaction1}},
-];
+import { AdminNavbar } from '../AdminHome/AdminNavbar';
+import { AdminSidebar } from '../AdminHome/AdminSidebar';
+import { Pagination } from '../AdminHome/Pagination';
+import './manualDeposit.css'; // Include custom CSS for other styling
 
 export const ManualDeposit = () => {
+  const [deposits, setDeposits] = useState([]);
+  const [summary, setSummary] = useState({
+    total: 0,
+    pending: 0,
+    completed: 0,
+    rejected: 0,
+  });
   const [currentPage, setCurrentPage] = useState(1);
-  const [rowsPerPage] = useState(2);
+  const [totalPages, setTotalPages] = useState(1);
   const navigate = useNavigate();
 
-  const indexOfLastRow = currentPage * rowsPerPage;
-  const indexOfFirstRow = indexOfLastRow - rowsPerPage;
-  const currentRows = transactions.slice(indexOfFirstRow, indexOfLastRow);
+  useEffect(() => {
+    const fetchDeposits = async () => {
+      try {
+        const response = await fetch(
+          `https://server.trademax1.com/admin/deposits/manual?page=${currentPage}`,
+          {
+            method: 'GET',
+            headers: { Authorization: `Bearer ${localStorage.getItem("adminToken")}` },
+          }
+        );
+        const result = await response.json();
+        setDeposits(result.paginatedManualDeposits || []);
+        setTotalPages(result.totalPages || 1);
+        setSummary({
+          total: result.segregatedManualDeposits.total.totalAmount || 0,
+          pending: result.segregatedManualDeposits.pending.totalAmount || 0,
+          completed: result.segregatedManualDeposits.completed.totalAmount || 0,
+          rejected: result.segregatedManualDeposits.rejected.totalAmount || 0,
+        });
+      } catch (error) {
+        console.error('Error fetching deposits:', error);
+      }
+    };
+
+    fetchDeposits();
+  }, [currentPage]);
+
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-  const handleRowClick = (transactionId) => {
-    navigate(`/viewUserManualTransaction/${transactionId}`);
+  const handleRowClick = (depositId) => {
+    navigate(`/viewUserManualTransaction/${depositId}`);
   };
+
+  const formatDate = (dateString) => {
+    const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+    return new Date(dateString).toLocaleDateString(undefined, options);
+  };
+
   return (
-    <div>
-      <AdminNavbar/>
-      <AdminSidebar/>
-      <div className="container-fluid adminBox">
-        <div className="adminInnerBox col-12" style={{ height: '70vh' }}>
-          <div className="d-flex justify-content-around">
-            <div className="card text-center p-3 mx-2">
-              <img src={adminDeposit} className="card-img-top mx-auto" alt="Total Amount" />
-              <div className="card-body">
-                <h5 className="card-title">TOTAL AMOUNT DEPOSITED</h5>
-                <p className="card-text">10000</p>
+    <div className="d-flex">
+      <AdminSidebar />
+      <div className="flex-grow-1">
+        <AdminNavbar />
+        <div className="container my-4">
+          <h3 className="text-center mb-4">Deposit List</h3>
+
+          {/* Summary Boxes for Larger Screens */}
+          <div className="row mb-4 d-none d-md-flex">
+            <div className="col-md-3">
+              <div className="card p-3 text-center">
+                <h5>Total Deposits</h5>
+                <h6>{summary.total}</h6>
               </div>
             </div>
-            <div className="card text-center p-3 mx-2">
-              <img src={adminWithdraw} className="card-img-top mx-auto" alt="Successful Deposit" />
-              <div className="card-body">
-                <h5 className="card-title">SUCCESSFUL DEPOSIT</h5>
-                <p className="card-text">10000</p>
+            <div className="col-md-3">
+              <div className="card p-3 text-center">
+                <h5>Pending Deposits</h5>
+                <h6>{summary.pending}</h6>
               </div>
             </div>
-            <div className="card text-center p-3 mx-2">
-              <img src={adminWithdraw} className="card-img-top mx-auto" alt="Pending Deposit" />
-              <div className="card-body">
-                <h5 className="card-title">PENDING DEPOSIT</h5>
-                <p className="card-text">10000</p>
+            <div className="col-md-3">
+              <div className="card p-3 text-center">
+                <h5>Completed Deposits</h5>
+                <h6>{summary.completed}</h6>
               </div>
             </div>
-            <div className="card text-center p-3 mx-2">
-              <img src={adminWithdraw} className="card-img-top mx-auto" alt="Rejected Deposit" />
-              <div className="card-body">
-                <h5 className="card-title">REJECTED DEPOSIT</h5>
-                <p className="card-text">10000</p>
+            <div className="col-md-3">
+              <div className="card p-3 text-center">
+                <h5>Rejected Deposits</h5>
+                <h6>{summary.rejected}</h6>
               </div>
             </div>
           </div>
-          <div className="Admin-data-table">
-            <table className="table table-striped table-bordered">
+
+          {/* Summary Box for Small Screens */}
+          <div className="d-block d-md-none mb-4">
+            <div className="card p-3 bg-dark text-white">
+              <div className="row">
+                <div className="col-6 mb-2">
+                  <button className="btn btn-outline-light w-100">
+                    <strong>Total Deposits:</strong> {summary.total}
+                  </button>
+                </div>
+                <div className="col-6 mb-2">
+                  <button className="btn btn-outline-light w-100">
+                    <strong>Pending:</strong> {summary.pending}
+                  </button>
+                </div>
+                <div className="col-6 mb-2">
+                  <button className="btn btn-outline-light w-100">
+                    <strong>Completed:</strong> {summary.completed}
+                  </button>
+                </div>
+                <div className="col-6 mb-2">
+                  <button className="btn btn-outline-light w-100">
+                    <strong>Rejected:</strong> {summary.rejected}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Table for Larger Screens */}
+          <div className="table-responsive d-none d-md-block">
+            <table className="table table-striped table-bordered admin-table">
               <thead>
                 <tr>
-                  <th>GATEWAY</th>
-                  <th>TRANSACTION ID</th>
-                  <th>INITIATED</th>
-                  <th>USER PHONE NUMBER</th>
+                  <th>Deposit ID</th>
+                  <th>USER ID</th>
                   <th>AMOUNT</th>
                   <th>STATUS</th>
-                  <th>ACTION</th>
+                  <th>DATE</th>
                 </tr>
               </thead>
               <tbody>
-                {currentRows.map((transaction, index) => (
-                  <tr key={index} onClick={() => handleRowClick(transaction.transactionId)} style={{ cursor: 'pointer' }}>
-                    <td>{transaction.gateway}</td>
-                    <td>{transaction.transactionId}</td>
-                    <td>{transaction.initiated}</td>
-                    <td>{transaction.phone}</td>
-                    <td>{transaction.amount}</td>
-                    <td>{transaction.status}</td>
-                    <td><button className="btn btn-dark">DETAILS</button></td>
+                {deposits.length > 0 ? (
+                  deposits.map((deposit) => (
+                    <tr key={deposit._id} onClick={() => handleRowClick(deposit._id)}>
+                      <td>{deposit._id}</td>
+                      <td>{deposit.uid}</td>
+                      <td>{deposit.amount}</td>
+                      <td>{deposit.status}</td>
+                      <td>{formatDate(deposit.createdAt)}</td>
+                    </tr>
+                  ))
+                ) : (
+                  <tr>
+                    <td colSpan="5">No deposits found</td>
                   </tr>
-                ))}
+                )}
               </tbody>
             </table>
-            <div>
-              {Array.from({ length: Math.ceil(transactions.length / rowsPerPage) }, (_, index) => (
-                <button key={index} onClick={() => paginate(index + 1)}>{index + 1}</button>
-              ))}
-            </div>
+          </div>
+
+          {/* Cards for Small Screens */}
+          <div className="row d-block d-md-none">
+            {deposits.length > 0 ? (
+              deposits.map((deposit) => (
+                <div className="col-12 mb-4" key={deposit._id}>
+                  <div
+                    className="card p-3 h-100"
+                    onClick={() => handleRowClick(deposit._id)}
+                    style={{ cursor: 'pointer' }}
+                  >
+                    <div className="mb-2">
+                      <strong>Deposit ID:</strong> <span>{deposit._id}</span>
+                    </div>
+                    <div className="mb-2">
+                      <strong>User ID:</strong> <span>{deposit.uid}</span>
+                    </div>
+                    <div className="mb-2">
+                      <strong>Amount:</strong> <span>{deposit.amount}</span>
+                    </div>
+                    <div className="mb-2">
+                      <strong>Status:</strong> <span>{deposit.status}</span>
+                    </div>
+                    <div>
+                      <strong>Date:</strong> <span>{formatDate(deposit.createdAt)}</span>
+                    </div>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <div className="col-12">
+                <div className="alert alert-info text-center">No deposits found</div>
+              </div>
+            )}
+          </div>
+
+          <div className="d-flex justify-content-center">
+            <Pagination
+              totalPages={totalPages}
+              paginate={paginate}
+              currentPage={currentPage}
+            />
           </div>
         </div>
       </div>
-      
     </div>
-  )
-}
+  );
+};

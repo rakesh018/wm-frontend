@@ -1,0 +1,17 @@
+/* adminHome.css */
+
+/* Ensure the table adjusts based on the screen size */
+.admin-table {
+    width: 100%;
+    table-layout: auto;
+  }
+  
+  .content-container {
+    margin-left: 250px; /* Adjust this value based on your sidebar width */
+    padding: 0 15px; /* Add horizontal padding */
+  }
+  
+  /* Ensure that the sidebar is visible on all screen sizes */
+
+
+ 

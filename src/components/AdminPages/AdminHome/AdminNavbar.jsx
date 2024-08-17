@@ -22,9 +22,9 @@ export const AdminNavbar = () => {
                             <div className='d-none d-md-block'>
                                 <input className='text m-4' type="text" />
                             </div>
-                            <div className='icon mt-3'>
+                            {/* <div className='icon mt-3'>
                                 <img src={search} alt="" />
-                            </div>
+                            </div> */}
                         </div>
                     </div>
 
@@ -51,7 +51,7 @@ export const AdminNavbar = () => {
             <div className='container-fluid admin'>
                <div className="innerBox">
                 <div className='text-center p-2'>
-                    <h1>WELCOME TO ADMIN PANEL</h1>
+                    <h1>ADMIN PANEL</h1>
                 </div>
 
                </div>

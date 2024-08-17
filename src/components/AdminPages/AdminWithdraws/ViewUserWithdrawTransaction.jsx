@@ -1,68 +1,122 @@
-import React from 'react'
-import { AdminNavbar } from '../AdminHome/AdminNavbar'
+import React, { useEffect, useState } from 'react';
+import { AdminNavbar } from '../AdminHome/AdminNavbar';
 import { AdminSidebar } from '../AdminHome/AdminSidebar';
 import { useParams } from 'react-router-dom';
-import './adminWithdraw.css'
+import './adminWithdraw.css';
+import { alertToast } from '../../../alertToast';
 
-
-
-const transactions = [
-    { gateway: 'PHONE PE', transactionId: '123456789', initiated: '22/02/2024', phone: '9876543210', amount: 1000, status: 'SUCCESS' },
-    { gateway: 'GOOGLE PAY', transactionId: '123456799', initiated: '22/02/2024', phone: '9876543910', amount: 1000, status: 'PENDING' },
-];
 export const ViewUserWithdrawTransaction = () => {
     const { uid } = useParams();
-    const transaction = transactions.find((t) => t.transactionId === uid);
-  return (
-    <div>
+    const [transaction, setTransaction] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
-        <AdminNavbar/>
-        <AdminSidebar/>
-        <div className="container-fluid adminBox">
-                <div className="adminInnerBox col-12" style={{ height: '70vh' }}>
-                    <div className='d-flex justify-content-evenly'>
-                        <div className='adminWithdrawBox text-center mt-3 p-3'>
-                    {transaction ? (
-                        <div className='d-flex flex-column'>
-                            <h2>Deposit via {transaction.gateway}</h2>
-                            <p>Transaction ID: {transaction.transactionId}</p>
-                            <p>DATE:{transaction.initiated}</p>
-                            <p>PHONE NUMER: {transaction.phone}</p>
-                            <p>AMOUNT: {transaction.amount}</p>
+    const formatDate = (dateString) => {
+        const options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric' };
+        const date = new Date(dateString);
+        return date.toLocaleDateString(undefined, options);
+    };
 
+    useEffect(() => {
+        const fetchTransaction = async () => {
+            setLoading(true);
+            try {
+                const response = await fetch(`https://server.trademax1.com/admin/withdrawals/details/${uid}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
+                    }
+                });
 
-                            <p>STATUS: <button className='statusWithdrawBtn'>{transaction.status}</button></p>
-                        </div>
-                    ) : (
-                        <p>Transaction not found</p>
-                    )}
-                    </div>
-                    <div className='adminWithdrawBox text-center mt-3 p-3'>
-                    {transaction ? (
-                        <div className='d-flex justify-content-evenly'>
-                            <div className='info'>
-                            <h2>USER WITHDRAW INFORMATION</h2>
-                            <p>ACCOUNT NUMBER:</p>
-                            <p>IFSC CODE:</p>
-                            <p>NAME ON CARD:</p>
-                            <p>PHONE NUMBER:</p>
-                           
+                if (!response.ok) {
+                    throw new Error('Failed to fetch transaction');
+                }
+
+                const data = await response.json();
+                setTransaction(data.savedWithdrawal);
+            } catch (error) {
+                setError(error.message);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchTransaction();
+    }, [uid]);
+
+    const handleAccept = async (withdrawalId) => {
+        const res = await fetch('https://server.trademax1.com/admin/withdrawals/action/mark-completed', {
+            method: 'POST',
+            headers: { Authorization: `Bearer ${localStorage.getItem('adminToken')}`, 'Content-Type': 'application/json' },
+            body: JSON.stringify({ withdrawalId })
+        });
+        const parsedRes = await res.json();
+        setTransaction(parsedRes.savedWithdrawal);
+        alertToast('Withdrawal accepted', 'success');
+    };
+
+    const handleReject = async (withdrawalId) => {
+        const res = await fetch('https://server.trademax1.com/admin/withdrawals/action/mark-rejected', {
+            method: 'POST',
+            headers: { Authorization: `Bearer ${localStorage.getItem('adminToken')}`, 'Content-Type': 'application/json' },
+            body: JSON.stringify({ withdrawalId })
+        });
+        const parsedRes = await res.json();
+        setTransaction(parsedRes.savedWithdrawal);
+        alertToast('Withdrawal rejected', 'success');
+    };
+
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p>{error}</p>;
+
+    return (
+        <div>
+            <AdminNavbar />
+            <AdminSidebar />
+            <div className="container-fluid adminBox">
+                <div className="adminInnerBox">
+                    <div className="row">
+                        <div className="col-12 col-md-6">
+                            <div className="adminWithdrawBox text-center mt-3 p-3">
+                                {transaction ? (
+                                    <div className="d-flex flex-column">
+                                        <h2>Withdraw by {transaction.uid}</h2>
+                                        <p>Transaction ID: {transaction._id}</p>
+                                        <p>DATE: {formatDate(transaction.createdAt)}</p>
+                                        <p>PHONE NUMBER: {transaction.phone}</p>
+                                        <p>AMOUNT: {transaction.amount}</p>
+                                        <p>STATUS: <button className="statusWithdrawBtn">{transaction.status}</button></p>
+                                    </div>
+                                ) : (
+                                    <p>Transaction not found</p>
+                                )}
                             </div>
-                           
                         </div>
-                    ) : (
-                        <p>Transaction not found</p>
-                    )}
-                     <div className='d-flex justify-content-evenly'>
-                           <button className='statusWithdrawBtn'>ACCEPT</button>
-                           <button className='statusWithdrawBtn'>REJECT</button>
-                           </div>
-                    </div>
-                    
+                        <div className="col-12 col-md-6">
+                            <div className="adminWithdrawBox text-center mt-3 p-3">
+                                {transaction ? (
+                                    <div className="info">
+                                        <h2>USER WITHDRAW INFORMATION</h2>
+                                        <p>ACCOUNT NUMBER: {transaction.accountNumber}</p>
+                                        <p>IFSC CODE: {transaction.ifscCode}</p>
+                                        <p>BANK NAME: {transaction.bankName}</p>
+                                        <p>NAME ON CARD: {transaction.name}</p>
+                                    </div>
+                                ) : (
+                                    <p>Transaction not found</p>
+                                )}
+                                {transaction && transaction.status === 'pending' && (
+                                    <div className="d-flex justify-content-center mt-3">
+                                        <button className="statusWithdrawBtn mx-2" onClick={() => handleAccept(transaction._id)}>ACCEPT</button>
+                                        <button className="statusWithdrawBtn mx-2" onClick={() => handleReject(transaction._id)}>REJECT</button>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            
-    </div>
-  )
-}
+        </div>
+    );
+};

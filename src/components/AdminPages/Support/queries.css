@@ -1,0 +1,70 @@
+/* Container holding queries with scroll */
+.queriesBox {
+    height:60vh;
+    max-height: 50vh; /* Adjust based on your layout needs */
+    overflow-y: auto; /* Enable vertical scrolling */
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+    padding: 15px;
+    box-sizing: border-box; /* Include padding in height calculation */
+  }
+  .adminBox{
+    height:fit-content;
+    overflow-y: auto ;
+  }
+  .adminInnerBox{
+    height: fit-content;
+  }
+  /* Ensure query cards are responsive and fit within the container */
+  .queryCard {
+    word-wrap: break-word; /* Ensure text wraps within card */
+    max-width: 100%; /* Prevent card from overflowing container */
+    box-sizing: border-box;
+    margin-bottom: 15px; /* Space between cards */
+    padding: 10px; /* Add padding for better spacing */
+    border: 1px solid #ddd; /* Optional: Add a border for better visibility */
+    border-radius: 5px; /* Optional: Rounded corners */
+    background: #f9f9f9; /* Optional: Card background color */
+  }
+  
+  /* Make sure the message text wraps correctly */
+  .queryMessage {
+    overflow-wrap: break-word; /* Ensure long text breaks */
+    word-wrap: break-word;
+  }
+  
+  /* Center and ensure pagination buttons fit within the container */
+  .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  /* Ensure buttons are responsive and do not overflow */
+  .btn {
+    margin: 0 5px;
+    white-space: nowrap; /* Prevent text wrapping */
+  }
+  
+  /* Media query to adjust for smaller screens */
+  @media (max-width: 768px) {
+    .queryCard {
+      font-size: 14px; /* Adjust font size for smaller screens */
+    }
+  
+    .btn {
+      padding: 5px 10px; /* Smaller padding on buttons */
+    }
+  
+    .pagination {
+      flex-direction: column;
+    }
+  
+    .pagination .btn {
+      margin-bottom: 10px; /* Space between pagination buttons on smaller screens */
+    }
+    .adminInnerBox{
+        margin-right: 20px;
+    }
+  }
+  

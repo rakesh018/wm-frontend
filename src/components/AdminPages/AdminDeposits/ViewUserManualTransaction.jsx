@@ -1,21 +1,43 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { AdminSidebar } from '../AdminHome/AdminSidebar';
 import { AdminNavbar } from '../AdminHome/AdminNavbar';
 import { useParams } from 'react-router-dom';
-import transaction1 from '../../../images/transaction1.jpeg';
-import transaction2 from '../../../images/transaction2.jpeg';
-
-const transactions = [
-  { gateway: 'PHONE PE', transactionId: '123456789', initiated: '22/02/2024', phone: '9876543210', amount: 1000, status: 'SUCCESS', UTR: '123456789098765432', image: transaction1 },
-  { gateway: 'GOOGLE PAY', transactionId: '123456799', initiated: '22/02/2024', phone: '9876543910', amount: 1000, status: 'REJECTED', UTR: '12345678912345534', image: transaction2 },
-  { gateway: 'GOOGLE PAY', transactionId: '123459799', initiated: '22/02/2024', phone: '9876593910', amount: 1000, status: 'SUCCESS', UTR: '1234567895673224', image: transaction1 },
-];
+import { alertToast } from '../../../alertToast';
 
 export const ViewUserManualTransaction = () => {
   const { uid } = useParams();
-  const transaction = transactions.find((t) => t.transactionId === uid);
-
+  const [transaction, setTransaction] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchTransaction = async () => {
+      try {
+        const response = await fetch(`https://server.trademax1.com/admin/deposits/manual/details/${uid}`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+
+        const data = await response.json();
+        setTransaction(data);
+      } catch (error) {
+        console.error('Error fetching transaction:', error);
+        setError('Transaction not found');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchTransaction();
+  }, [uid]);
 
   const handleClick = (image) => {
     setSelectedImage(image);
@@ -24,6 +46,64 @@ export const ViewUserManualTransaction = () => {
   const handleClose = () => {
     setSelectedImage(null);
   };
+
+  const markAsSuccess = async (depositId) => {
+    console.log(depositId);
+    try {
+      const response = await fetch(`https://server.trademax1.com/admin/deposits/manual/action/mark-completed`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
+        },
+        body: JSON.stringify({ depositId }),
+      });
+
+      if (!response.ok) {
+        alertToast('Error marking success','error');
+      }
+
+      const updatedTransaction = await response.json();
+      alertToast('Payment marked as success','success');
+      setTransaction(updatedTransaction);
+    } catch (error) {
+      console.error('Error updating transaction status:', error);
+      alertToast('Unable to mark','error');
+      setError('Failed to update transaction status');
+    }
+  };
+
+  const markAsRejected = async (depositId) => {
+    try {
+      const response = await fetch(`https://server.trademax1.com/admin/deposits/manual/action/mark-rejected`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
+        },
+        body: JSON.stringify({ depositId }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+    
+      const updatedTransaction = await response.json();
+      console.log(updatedTransaction);
+      alertToast('Payment marked rejected','success');
+      setTransaction(updatedTransaction);
+    } catch (error) {
+      console.error('Error updating transaction status:', error);
+      setError('Failed to update transaction status');
+    }
+  };
+
+  const formatDate = (dateString) => {
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    return new Date(dateString).toLocaleDateString(undefined, options);
+  };
+
+  if (loading) return <p>Loading...</p>;
 
   return (
     <div>
@@ -35,20 +115,28 @@ export const ViewUserManualTransaction = () => {
             <div className='adminDepositBox text-center mt-3 p-3'>
               {transaction ? (
                 <div>
-                  <h2>Deposit via {transaction.gateway}</h2>
-                  <p>Transaction ID: {transaction.transactionId}</p>
-                  <p>DATE: {transaction.initiated}</p>
-                  <p>PHONE NUMBER: {transaction.phone}</p>
+                  <h2>Deposit {}</h2>
+                  <p>User ID: {transaction.uid}</p>
+                  <p>DATE: {formatDate(transaction.createdAt)}</p>
+                  {/* <p>PHONE NUMBER: {transaction.phone}</p> */}
                   <p>AMOUNT: {transaction.amount}</p>
-                  <p>UTR NUMBER: {transaction.UTR}</p>
+                  <p>UTR NUMBER: {transaction.utr}</p>
                   <div>
                     UPLOADED SCREENSHOT:
-                    <button onClick={() => handleClick(transaction.image)}>Tap to View</button>
+                    <button onClick={() => handleClick(transaction.url)}>Tap to View</button>
                   </div>
-                  <p className='m-3'>STATUS: <span className='statusBtn'>{transaction.status}</span></p>
+                  <p className='m-3'>
+                    STATUS: <span className={`statusBtn ${transaction.status}`}>{transaction.status}</span>
+                  </p>
+                  {transaction.status === 'pending' && (
+                    <>
+                      <button onClick={()=>markAsSuccess(transaction.depositId)} className="btn btn-success m-2">Mark as Success</button>
+                      <button onClick={()=>markAsRejected(transaction.depositId)} className="btn btn-danger m-2">Reject Deposit</button>
+                    </>
+                  )}
                 </div>
               ) : (
-                <p>Transaction not found</p>
+                <p>{error || 'Transaction not found'}</p>
               )}
 
               {selectedImage && (
@@ -65,4 +153,4 @@ export const ViewUserManualTransaction = () => {
       </div>
     </div>
   );
-}
+};

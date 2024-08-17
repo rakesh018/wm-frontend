@@ -60,13 +60,20 @@ export const AdminSidebar = () => {
                 </div>
                 <hr className='line m-2' />
                 <div >
-                  <button className='wallet-btn' onClick={() => navigate('/chooseWinningTeam')}> CHOOSE WINNING TEAMS</button>
+                  <button className='wallet-btn' onClick={() => navigate('/chooseWinningTeam')}>GAMES</button>
                 </div>
                 <hr className='line m-2' />
                 <div >
                   <button className='wallet-btn' onClick={() => navigate('/demoAccount')}> DEMO ACCOUNT</button>
                 </div>
                 <hr className='line m-2' />
+                <div >
+                  <button className='wallet-btn' onClick={() => navigate('/adminUPI')}>UPI ID</button>
+                </div>
+                <hr className='line m-2' />
+                <div >
+                  <button className='wallet-btn' onClick={() => navigate('/queries')}>SUPPORT</button>
+                </div>
             
 
               </div>

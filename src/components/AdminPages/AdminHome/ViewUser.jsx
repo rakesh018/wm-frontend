@@ -1,81 +1,115 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { AdminNavbar } from './AdminNavbar';
 import { AdminSidebar } from './AdminSidebar';
 import adminDeposit from '../../../images/adminTotalDeposit.png';
 import adminWithdraw from '../../../images/adminTotalWithdraw.png';
 import adminWallet from '../../../images/adminWallet.png';
-
-const data = [
-  { uid: '123456789', name: 'Lohith', phone: '9087564321', email: 'lohith@gmail.com', date: '10/12/2022', type: 'Regular', balance: '50000' },
-  { uid: '123456799', name: 'Karthik', phone: '9087564331', email: 'karthik@gmail.com', date: '11/12/2022', type: 'Demo', balance: '50000' },
-  { uid: '123456739', name: 'Rohith', phone: '9087563321', email: 'rohith@gmail.com', date: '10/12/2022', type: 'Regular', balance: '50000' },
-  { uid: '123456239', name: 'Karthikeya', phone: '9087124331', email: 'karthikeya@gmail.com', date: '11/12/2022', type: 'Regular', balance: '50000' },
-  // Add more data as needed
-];
+import { alertToast } from '../../../alertToast';
 
 export const ViewUser = () => {
-  // const { uid } = useParams();
-  const uid='123456789';
-  const user = data.find((user) => user.uid === uid);
+  const { uid } = useParams();
+  const [userData, setUserData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const response = await fetch(`https://server.trademax1.com/admin/users/details/${uid}`, {
+          method: 'GET',
+          headers: { Authorization: `Bearer ${localStorage.getItem('adminToken')}` },
+        });
+        if (!response.ok) {
+          throw new Error('Failed to fetch user data');
+        }
+        const data = await response.json();
+        setUserData(data);
+        setLoading(false);
+      } catch (err) {
+        alertToast('Error fetching user data', 'error');
+        setError(err.message);
+        setLoading(false);
+      }
+    };
+
+    fetchUserData();
+  }, [uid]);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
+
+  if (!userData) {
+    return <div>User not found</div>;
+  }
+
+  const { user, totalDeposits, totalWithdrawals } = userData;
+  const walletBalance = user.balance;
 
   return (
-    <div>
-      <AdminNavbar />
+    <div className="d-flex">
       <AdminSidebar />
-      <div className="container-fluid adminBox">
-        <div className="adminInnerBox d-flex flex-column align-items-center">
-          {user ? (
-            <div className="data-table">
-              <table className="table">
-                <thead>
-                  <tr>
-                    <th>UID</th>
-                    <th>NAME</th>
-                    <th>PHONE NUMBER</th>
-                    <th>RECENT WITHDRAW</th>
-                    <th>COMMISSION</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>{user.uid}</td>
-                    <td>{user.name}</td>
-                    <td>{user.phone}</td>
-                    <td>500</td>
-                    <td>5% from referrals</td>
-                  </tr>
-                </tbody>
-              </table>
-              <div className="d-flex justify-content-end">
-                <button className="userEditBtn m-2">EDIT</button>
-                <button className="userEditBtn m-2">BALANCE UPDATE</button>
-                <button className="userEditBtn m-2">BAN USER</button>
+      <div className="flex-grow-1">
+        <AdminNavbar />
+        <div className="container my-4">
+          <div className="row justify-content-center">
+            <div className="col-lg-6 col-md-8">
+              <div className="card p-4 mb-4">
+                <h4 className="text-center mb-4">User Information</h4>
+                <div className="mb-3">
+                  <strong>UID:</strong> <span>{user.uid}</span>
+                </div>
+                <div className="mb-3">
+                  <strong>Email:</strong> <span>{user.email}</span>
+                </div>
+                <div className="mb-3">
+                  <strong>Phone Number:</strong> <span>{user.phone}</span>
+                </div>
+                <div className="mb-3">
+                  <strong>Referral Code:</strong> <span>{user.referralCode}</span>
+                </div>
+                <div className="mb-3">
+                  <strong>Commission:</strong> <span>{`${user.referralCommission}% from referrals`}</span>
+                </div>
+                <div className="d-flex justify-content-end">
+                  <button className="btn btn-primary m-2">Balance Update</button>
+                  <button className="btn btn-danger m-2">Ban User</button>
+                </div>
               </div>
             </div>
-          ) : (
-            <p>User not found</p>
-          )}
-          <div className="d-flex justify-content-evenly m-4 w-100">
-            <div className="text-center">
-              <img src={adminDeposit} alt="Total Amount Deposited" />
-              <div className="mt-2">
-                <strong>TOTAL AMOUNT DEPOSITED</strong>
-                <div>10000</div>
+          </div>
+          
+          <div className="row text-center">
+            <div className="col-lg-4 col-md-6 mb-4">
+              <div className="p-3 border bg-light">
+                <img src={adminDeposit} alt="Total Amount Deposited" className="img-fluid" />
+                <div className="mt-2">
+                  <strong>TOTAL AMOUNT DEPOSITED</strong>
+                  <div>{totalDeposits}</div>
+                </div>
               </div>
             </div>
-            <div className="text-center">
-              <img src={adminWithdraw} alt="Total Amount Withdrawn" />
-              <div className="mt-2">
-                <strong>TOTAL AMOUNT WITHDRAWN</strong>
-                <div>10000</div>
+            <div className="col-lg-4 col-md-6 mb-4">
+              <div className="p-3 border bg-light">
+                <img src={adminWithdraw} alt="Total Amount Withdrawn" className="img-fluid" />
+                <div className="mt-2">
+                  <strong>TOTAL AMOUNT WITHDRAWN</strong>
+                  <div>{totalWithdrawals}</div>
+                </div>
               </div>
             </div>
-            <div className="text-center">
-              <img src={adminWallet} alt="Wallet Balance" />
-              <div className="mt-2">
-                <strong>WALLET BALANCE</strong>
-                <div>10000</div>
+            <div className="col-lg-4 col-md-6 mb-4">
+              <div className="p-3 border bg-light">
+                <img src={adminWallet} alt="Wallet Balance" className="img-fluid" />
+                <div className="mt-2">
+                  <strong>WALLET BALANCE</strong>
+                  <div>{walletBalance}</div>
+                </div>
               </div>
             </div>
           </div>
