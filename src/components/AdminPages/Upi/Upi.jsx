@@ -49,7 +49,7 @@ export const UploadQR = () => {
     try {
       // Get presigned URL from backend for file upload
       const response = await fetch(
-        "http://server.trademax1.com/admin/upi/get-psu-upi",
+        "https://server.trademax1.com/admin/upi/get-psu-upi",
         {
           method: "POST",
           headers: {
@@ -73,7 +73,7 @@ export const UploadQR = () => {
         console.log('uploaded to aws');
         // Once uploaded, send UPI ID and S3 key to backend
         const updateResponse = await fetch(
-          "http://server.trademax1.com/admin/upi/update-upi-details",
+          "https://server.trademax1.com/admin/upi/update-upi-details",
           {
             method: "POST",
             headers: {

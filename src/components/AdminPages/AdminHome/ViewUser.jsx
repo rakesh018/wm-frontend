@@ -77,8 +77,8 @@ export const ViewUser = () => {
                   <strong>Commission:</strong> <span>{`${user.referralCommission}% from referrals`}</span>
                 </div>
                 <div className="d-flex justify-content-end">
-                  <button className="btn btn-primary m-2">Balance Update</button>
-                  <button className="btn btn-danger m-2">Ban User</button>
+                  <button className="btn btn-primary m-2">Update</button>
+                  <button className="btn btn-danger m-2">{user.isRestricted?'UnBan User':'Ban User'}</button>
                 </div>
               </div>
             </div>

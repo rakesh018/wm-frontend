@@ -98,7 +98,7 @@ export const Sidebar = () => {
         <div className='d-block d-lg-none '>
           <d iv className='smallScreen d-flex flex-row justify-content-evenly'>
             <div>
-              <button>
+              <button onClick={()=>navigate('/home')}>
               <img src={resImage1} alt="" />
               <label htmlFor="">HOME</label>
               

@@ -3,7 +3,7 @@ import { AdminNavbar } from "../AdminHome/AdminNavbar";
 import { AdminSidebar } from "../AdminHome/AdminSidebar";
 import "./queries.css";
 import { alertToast } from "../../../alertToast";
-import { FaEye, FaEyeSlash } from "react-icons/fa"; // For eye icons
+
 
 export const QueryList = () => {
   const [queries, setQueries] = useState([]);
