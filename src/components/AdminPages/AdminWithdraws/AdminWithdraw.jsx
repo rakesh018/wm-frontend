@@ -113,7 +113,7 @@ export const AdminWithdraw = () => {
                             <div className="row">
                                 <div className="col-6 mb-2">
                                     <button className="btn btn-outline-light w-100">
-                                        <strong>Total Withdrawals:</strong> {summary.total}
+                                        <strong>Total :</strong> {summary.total}
                                     </button>
                                 </div>
                                 <div className="col-6 mb-2">
