@@ -3,11 +3,16 @@ import { Navbar } from "../../Navbar";
 import { Sidebar } from "../../Sidebar";
 import { BetSlip } from "../../BetSlip";
 import { CheckToken } from "../../checkToken";
+import { useNavigate } from "react-router-dom";
 
 export const LeaderBoard = () => {
+  const navigate=useNavigate();
+  const token=localStorage.getItem('token');
+  if(!token){
+    navigate('/login');
+  }
   const [allTimeLeaderBoard, setAllTimeLeaderBoard] = useState([]);
   const [dailyLeaderBoard, setDailyLeaderboard] = useState([]);
-  const token=CheckToken();
   useEffect(() => {
     async function fetchLeaderBoards() {
       try {
@@ -29,6 +34,9 @@ export const LeaderBoard = () => {
             },
           }
         );
+        if(allTime.status===403){
+          navigate('/login');
+        }
         const parsedAllTime = await allTime.json();
         const parsedDaily = await daily.json();
         console.log(parsedAllTime,parsedDaily);

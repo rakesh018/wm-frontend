@@ -9,14 +9,15 @@ import { useRecoilValue } from 'recoil';
 import { toast } from 'react-toastify';
 
 export const Profile = () => {
+  const navigate=useNavigate();
+  const token=localStorage.getItem('token');
+  if(!token){
+    navigate('/login');
+  }
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const profile = useRecoilValue(profileAtom);
-  const navigate = useNavigate();
-
-  // Retrieve token from local storage
-  const token = localStorage.getItem("token");
 
   const handleChangePassword = () => {
     setIsModalOpen(true);
@@ -40,7 +41,9 @@ export const Profile = () => {
           newPassword: newPassword,
         }),
       });
-
+      if(response.status===403){
+        navigate('/login');
+      }
       if (response.ok) {
         console.log("Password changed successfully");
         toast.success("Password changed successfully!");

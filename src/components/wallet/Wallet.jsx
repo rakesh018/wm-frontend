@@ -11,6 +11,10 @@ import { useRecoilValue } from 'recoil';
 
 export const Wallet = () => {
   const navigate = useNavigate();
+  const token=localStorage.getItem('token');
+  if(!token){
+    navigate('/login');
+  }
   const profile=useRecoilValue(profileAtom);
   return (
     <div>

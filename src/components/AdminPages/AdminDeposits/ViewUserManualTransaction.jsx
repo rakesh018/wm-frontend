@@ -28,11 +28,11 @@ export const ViewUserManualTransaction = () => {
           },
         });
 
+        if(response.status===403){
+          navigate('/adminLogin');
+        }
         if (!response.ok) {
           throw new Error('Network response was not ok');
-        }
-        else if(response.status===403){
-          navigate('/adminLogin');
         }
 
         const data = await response.json();
@@ -67,7 +67,6 @@ export const ViewUserManualTransaction = () => {
         },
         body: JSON.stringify({ depositId }),
       });
-
       if (!response.ok) {
         alertToast('Error marking success','error');
       }

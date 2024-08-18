@@ -43,11 +43,11 @@ export const ViewUserWithdrawTransaction = () => {
           }
         );
 
+        if(response.status===403){
+            navigate('/adminLogin');
+        }
         if (!response.ok) {
           alertToast('Failed to fetch transaction','error');
-        }
-        else if(response.status===403){
-            navigate('/adminLogin');
         }
 
         const data = await response.json();

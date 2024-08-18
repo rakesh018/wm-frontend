@@ -12,7 +12,13 @@ import { alertToast } from "../../alertToast";
 import { useRecoilState } from "recoil";
 import { betSlipsAtom, profileAtom } from "../../atoms";
 import coinFlipSound from "../../assets/coinFlip.mp3";
+import { useNavigate } from "react-router-dom";
 export const CoinSwitch = ({ showAlert }) => {
+  const navigate = useNavigate();
+  const token = localStorage.getItem("token");
+  if (!token) {
+    navigate("/login");
+  }
   const [duration, setDuration] = useState(1); // Initial duration
   const [flipResult, setFlipResult] = useState(null);
   const [pastResults, setPastResults] = useState([]);
@@ -28,6 +34,12 @@ export const CoinSwitch = ({ showAlert }) => {
       `https://server.trademax1.com/bets/get-rounds-history/coinFlip/${roundDuration}`,
       { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
     );
+    if(response.status===403){
+      navigate('/login');
+    }
+    else if(!response.ok){
+      alertToast('Error fetching details','error');
+    }
     const data = await response.json();
     const results = data.parsedResults;
     console.log(data);
@@ -77,6 +89,12 @@ export const CoinSwitch = ({ showAlert }) => {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       }
     );
+    if(slips.status===403){
+      navigate('/login');
+    }
+    else if(!slips.ok){
+      alertToast('Error occured','error');
+    }
     const parsedSlips = await slips.json();
     setBetDetails(parsedSlips);
   }
@@ -111,6 +129,12 @@ export const CoinSwitch = ({ showAlert }) => {
             },
           }
         );
+        if(fetchedProfile.status===403){
+          navigate('/login');
+        }
+        else if(!fetchedProfile.ok){
+          alertToast('Error occured while fetching details','error');
+        }
         const parsedProfile = await fetchedProfile.json();
         setProfile(parsedProfile);
         setPastResults(parsedResults);
@@ -187,7 +211,6 @@ export const CoinSwitch = ({ showAlert }) => {
           }
         );
         const parsedRes = await response.json();
-        console.log(parsedRes);
         if (response.ok) {
           setProfile({ ...profile, balance: parsedRes.updatedBalance });
           alertToast(parsedRes.message, "success");
@@ -198,7 +221,11 @@ export const CoinSwitch = ({ showAlert }) => {
           };
           sessionStorage.setItem("AlertDetails", JSON.stringify(alertDetails));
           getSlips();
-        } else if (response.status === 400) {
+        }
+        else if(response.status===403){
+          navigate('/login');
+        }
+         else if (response.status === 400) {
           console.log(parsedRes);
           alertToast(parsedRes.error, "error");
         }

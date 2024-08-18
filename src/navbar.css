@@ -3,6 +3,10 @@
     background-color: black;
     height: 13vh;
 }
+.logoutIcon{
+  color:white;
+  height: 5vh;
+}
 .icon
 { color: white;
     font-size: 30px;
@@ -81,5 +85,20 @@
     height: 100px;
     width: 250px;
   }
-  
+  .logoutIcon{
+    display: none;
+  }
+@media (max-width:768px){
+  .logoutIcon{
+    color:white;
+    height: 5vh;
+    margin-top: 20px;
+    display: block;
+  }
+  .wallet{
+    width: 28vw;
+    padding: 5px;
+  }
 
+
+}

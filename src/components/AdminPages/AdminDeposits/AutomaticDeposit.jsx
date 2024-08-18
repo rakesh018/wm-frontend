@@ -36,14 +36,14 @@ export const AutomaticDeposit = () => {
             },
           }
         );
-
-        if (!response.ok) {
-          throw new Error("Failed to fetch transactions");
-        } else if (response.status === 403) {
+        if (response.status === 403) {
           //token error
           navigate("/adminLogin");
         }
 
+        if (!response.ok) {
+          throw new Error("Failed to fetch transactions");
+        }
         const data = await response.json();
         setTransactions(data.paginatedAutoDeposits || []);
         setTotalPages(data.totalPages || 0);

@@ -39,12 +39,12 @@ export const ViewUser = () => {
             },
           }
         );
+        if (response.status === 403) {
+          navigate("/adminLogin");
+        }
         if (!response.ok) {
           alertToast("User not found", "error");
           navigate("/adminHome");
-        }
-        else if(response.status===403){
-          navigate('/adminLogin');
         }
 
         const data = await response.json();
@@ -90,9 +90,8 @@ export const ViewUser = () => {
       );
       if (!response.ok) {
         return alertToast("Unable to update details", "error");
-      }
-      else if(response.status===403){
-        navigate('/adminLogin');
+      } else if (response.status === 403) {
+        navigate("/adminLogin");
       }
       setShowUpdateModal(false);
       // Re-fetch user data
@@ -119,9 +118,8 @@ export const ViewUser = () => {
       );
       if (!response.ok) {
         alert("Failed to ban user", "error");
-      }
-      else if(response.status===403){
-        navigate('/adminLogin');
+      } else if (response.status === 403) {
+        navigate("/adminLogin");
       }
       const parsedResponse = await response.json();
       setUserData(parsedResponse.user);

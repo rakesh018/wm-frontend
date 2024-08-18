@@ -100,12 +100,14 @@
 
 }
 .smallScreen{
-  background-color: black;
-
-  
+  background-color: black; 
+}
+.betSlipImage{
+  height: 5vh;
+  width: 8vw;
 }
 
-/*modal*/
+
 .modal {
   background: white;
   padding: 20px;

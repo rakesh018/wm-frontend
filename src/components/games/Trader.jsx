@@ -6,6 +6,7 @@ import losing from "../../images/losing.png";
 import Modal from "react-modal";
 import "./trader.css";
 import { Sidebar } from "../../Sidebar";
+import { useNavigate } from "react-router-dom";
 
 import { BetSlip } from "../../BetSlip";
 import { useRecoilState } from "recoil";
@@ -20,6 +21,11 @@ import { CandleStick } from "./CandleStick";
 const initialCandleArray = [1, 0, 1, 1, 0, 1, 0, 0, 1];
 
 export const Trader = ({ showAlert }) => {
+  const navigate=useNavigate();
+  const token=localStorage.getItem('token');
+  if(!token){
+    navigate('/login');
+  }
   // const [candleArray, setCandleArray] = useState(initialCandleArray); // State for candle data
   const [duration, setDuration] = useState(1); // Initial duration
   const [flipResult, setFlipResult] = useState(null);
@@ -37,9 +43,14 @@ export const Trader = ({ showAlert }) => {
       `https://server.trademax1.com/bets/get-rounds-history/stockTrader/${roundDuration}`,
       { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
     );
+    if(response.status===403){
+      navigate('/login');
+    }
+    else if(!response.ok){
+      alertToast('Error occured','error');
+    }
     const data = await response.json();
     const results = data.parsedResults;
-    console.log(data);
     if (results.length > 0) {
       if (pastResults.length === 0) {
         setPastResults(results);
@@ -79,6 +90,12 @@ export const Trader = ({ showAlert }) => {
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       }
     );
+    if(slips.status===403){
+      navigate('/login');
+    }
+    else if(!slips.ok){
+      alertToast('Error fetching details','error');
+    }
     const parsedSlips = await slips.json();
     setBetDetails(parsedSlips);
     console.log(parsedSlips);
@@ -114,6 +131,12 @@ export const Trader = ({ showAlert }) => {
             },
           }
         );
+        if(fetchedProfile.status===403){
+          navigate('/login');
+        }
+        else if(!fetchedProfile.ok){
+          alertToast('error occured','error');
+        }
         const parsedProfile = await fetchedProfile.json();
         setProfile(parsedProfile);
         setPastResults(parsedResults);
@@ -187,7 +210,10 @@ export const Trader = ({ showAlert }) => {
           }
         );
         const parsedRes = await response.json();
-        if (response.ok) {
+        if(response.status===403){
+          navigate('/login');
+        }
+        else if (response.ok) {
           const alertDetails = {
             duration: duration,
             gameName: "stockTrader",

@@ -9,6 +9,8 @@ import { useRecoilValue } from "recoil";
 
 export const Withdraw = () => {
   const navigate = useNavigate();
+  const token=localStorage.getItem('token');
+  navigate('/login');
   const profile = useRecoilValue(profileAtom);
   return (
     <div>

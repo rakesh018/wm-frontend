@@ -42,11 +42,11 @@ export const AdminWithdraw = () => {
           }
         );
 
+        if(response.status===403){
+            navigate('/adminLogin');
+        }
         if (!response.ok) {
           alertToast('Failed to fetch withdrawals','error');
-        }
-        else if(response.status===403){
-            navigate('/adminLogin');
         }
 
         const data = await response.json();

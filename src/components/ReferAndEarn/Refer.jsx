@@ -4,8 +4,14 @@ import { Navbar } from '../../Navbar';
 import { Sidebar } from '../../Sidebar';
 import { BetSlip } from '../../BetSlip';
 import referImg from '../../images/referImg.png';
+import { useNavigate } from 'react-router-dom';
 
 export const Refer = () => {
+  const navigate=useNavigate();
+  const token=localStorage.getItem('token');
+  if(!token){
+    navigate('/login');
+  }
   return (
     <div>
 <Navbar/>

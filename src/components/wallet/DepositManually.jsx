@@ -7,11 +7,15 @@ import { useNavigate } from "react-router-dom";
 import { alertToast } from "../../alertToast";
 
 export const DepositManually = () => {
+  const navigate = useNavigate();
+  const token=localStorage.getItem('token');
+  if(!token){
+    navigate('/login');
+  }
   const [upiId, setUpiId] = useState("");
   const [qrImage, setQrImage] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchDepositInfo = async () => {
@@ -26,6 +30,9 @@ export const DepositManually = () => {
             },
           }
         );
+        if(response.status===403){
+          navigate('/login');
+        }
         const data = await response.json();
         if (response.ok) {
           setUpiId(data.upiId);

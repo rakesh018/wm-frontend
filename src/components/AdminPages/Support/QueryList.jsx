@@ -27,13 +27,13 @@ export const QueryList = () => {
         },
       });
       const data = await response.json();
+      if(response.status===403){
+        navigate('/adminLogin');
+      }
       if (response.ok) {
         setQueries(data.queries);
         setTotalPages(data.totalPages);
       } 
-      else if(response.status===403){
-        navigate('/adminLogin');
-      }
       else {
         alertToast("Error fetching queries", "error");
       }

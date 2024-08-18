@@ -7,6 +7,10 @@ import { useState } from 'react';
 
 export const ContactSupport = () => {
     const navigate = useNavigate();
+    const token=localStorage.getItem('token');
+    if(!token){
+        navigate('/login');
+    }
     const [showTextArea, setShowTextArea] = useState(false);
     const [text, setText] = useState("");
     const wordLimit = 300;

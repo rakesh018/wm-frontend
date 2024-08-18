@@ -48,6 +48,9 @@ export const CoinFlipGamePage = () => {
       }
     );
     const parsedRes = await res.json();
+     if(res.status===403){
+      navigate('/adminLogin');
+    }
     if (res.ok) {
       alertToast(
         `Result modified : Coin Flip-${duration}min-${
@@ -56,9 +59,6 @@ export const CoinFlipGamePage = () => {
         "success"
       );
     } 
-    else if(res.status===403){
-      navigate('/adminLogin');
-    }
     else {
       alertToast(`${parsedRes.error}`, "error");
     }

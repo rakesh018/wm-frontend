@@ -4,8 +4,14 @@ import { Sidebar } from "../../Sidebar";
 import { BetSlip } from "../../BetSlip";
 import "./notification.css";
 import del from "../../images/deleteIcon.png";
+import { useNavigate } from "react-router-dom";
 
 export const Notification = () => {
+  const navigate=useNavigate();
+  const token=localStorage.getItem('token');
+  if(!token){
+    navigate('/token');
+  }
   const [notifications, setNotifications] = useState([]);
   useEffect(() => {
     async function getNotifs() {
@@ -16,6 +22,9 @@ export const Notification = () => {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         }
       );
+      if(notifs.status===403){
+        navigate('/login');
+      }
       const parsedNotifs = await notifs.json();
       const originalNotifs = parsedNotifs.notifications;
       //converting time into readable format
@@ -40,6 +49,9 @@ export const Notification = () => {
       },
       body:JSON.stringify({notificationId:id})
     });
+    if(res.status===403){
+      navigate('/login');
+    }
     const parsedRes=await res.json();
     const originalNotifs=parsedRes.notifications;
     setNotifications(originalNotifs);

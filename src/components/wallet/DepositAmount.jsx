@@ -9,16 +9,15 @@ import { Spinner } from '../../Spinner'; // Import Spinner component
 
 export const DepositAmount = () => {
   const navigate = useNavigate();
+  const token=localStorage.getItem('token');
+  if(!token){
+    navigate('/login');
+  }
   const [selectedFile, setSelectedFile] = useState(null);
   const [amount, setAmount] = useState('');
   const [utrNumber, setUtrNumber] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false); // Add loading state
-
-  const token = localStorage.getItem('token'); 
-  if (!token) {
-    navigate('/login');
-  }
 
   const handleFileChange = (event) => {
     setSelectedFile(event.target.files[0]);
@@ -67,6 +66,9 @@ export const DepositAmount = () => {
         });
 
         const data = await response.json();
+        if(response.status===403){
+          navigate('/login');
+        }
         if (!response.ok) {
           console.error('Error generating presigned URL:', data);
           alertToast('Error uploading screenshot', 'error');

@@ -7,6 +7,10 @@ import "./history.css";
 
 export const History = () => {
   const navigate = useNavigate();
+  const token=localStorage.getItem('token');
+  if(!token){
+    navigate('/login');
+  }
   const [historyData, setHistoryData] = useState([]); // for bets history
   const [transactionsData, setTransactionsData] = useState([]); // for transactions history
   const [betsPage, setBetsPage] = useState(1); // pagination for bets
@@ -35,7 +39,10 @@ export const History = () => {
             },
           }
         );
-        if (!response.ok) {
+        if(response.status===403){
+          navigate('/login');
+        }
+        else if (!response.ok) {
           throw new Error("Network response was not ok");
         }
         const data = await response.json();
@@ -80,7 +87,10 @@ export const History = () => {
             },
           }
         );
-        if (!response.ok) {
+        if(response.status===403){
+          navigate('/login');
+        }
+        else if (!response.ok) {
           throw new Error("Network response was not ok");
         }
         const data = await response.json();

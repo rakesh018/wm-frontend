@@ -11,6 +11,10 @@ import { alertToast } from "../../alertToast";
 
 export const WithdrawAmount = () => {
   const navigate = useNavigate();
+  const token=localStorage.getItem('token');
+  if(!token){
+    navigate('/login');
+  }
   const [profile,setProfile] = useRecoilState(profileAtom);
 
   const [accountInfo, setAccountInfo] = useState({
@@ -59,7 +63,9 @@ export const WithdrawAmount = () => {
           ifscCode:accountInfo.ifscCode
         }),
       });
-
+      if(response.status===403){
+        navigate('/login');
+      }
       const result = await response.json();
       if (!response.ok) {
         alertToast(`${result.error}`,'error');
@@ -75,6 +81,9 @@ export const WithdrawAmount = () => {
           },
         }
       ); //to simulate the delay artificially so to check loading
+      if(res.status===403){
+        navigate('/login');
+      }
       const parsedRes=await res.json();
       setProfile(parsedRes);
       alertToast('Withdraw request created','success');

@@ -48,15 +48,15 @@ export const TraderGamePage = () => {
       }
     );
     const parsedRes = await res.json();
+    if(res.status===403){
+      navigate('/adminLogin');
+    }
     if (res.ok) {
       alertToast(
         `Result modified : Trader-${duration}min-${result ? "Up" : "Down"}`,
         "success"
       );
     } 
-    else if(res.status===403){
-      navigate('/adminLogin');
-    }
     else {
       alertToast(`${parsedRes.error}`, "error");
     }

@@ -7,6 +7,7 @@ import resImage2 from './images/resImage2.png';
 import resImage3 from './images/resImage3.png';
 import resImage4 from './images/resImage4.png';
 import resImage5 from './images/resImage5.png';
+import betSlip from './images/betSlip.png';
 import { useState } from 'react';
 
 export const Sidebar = () => {
@@ -33,7 +34,7 @@ export const Sidebar = () => {
     <div>
      <div className=''>
        
-        <div className="sidebar-box mt-4  d-none d-lg-block">
+        <div className="sidebar-box mt-4 d-none d-lg-block">
             <div className="content-wrapper ">
         <div className="me-1 text-center">
         <div className=' mt-2'>
@@ -98,37 +99,39 @@ export const Sidebar = () => {
         <div className='d-block d-lg-none '>
           <d iv className='smallScreen d-flex flex-row justify-content-evenly'>
             <div>
-              <button onClick={()=>navigate('/home')}>
-              <img src={resImage1} alt="" />
-              <label htmlFor="">HOME</label>
+              <button>
+              <img src={resImage1} alt=""  onClick={() => navigate('/home')} />
+              <label htmlFor=""></label>
               
               </button>
              
             </div>
             <div>
             <button>
-              <img src={resImage2} alt="" />
+              <img src={resImage2} alt=""  onClick={() => navigate('/history')} />
               
               </button>
              
             </div>
             <div>
             <button>
-              <img src={resImage3}  alt="" />
+              {/* <img src={resImage3}  alt=""  onClick={() => navigate('/leaderboard')}/> */}
+              <img src={betSlip} alt="" className='betSlipImage'  onClick={() => navigate('/betSlip')}  />
+
              
               </button>
              
             </div>
             <div>
             <button>
-              <img src={resImage4}  alt="" />
+              <img src={resImage4}  alt=""  onClick={() => navigate('/wallet')} />
               
               </button>
              
             </div>
             <div>
             <button>
-              <img src={resImage5}  alt="" />
+              <img src={resImage5}  alt=""  onClick={() => navigate('/profile')} />
               
               </button>
              

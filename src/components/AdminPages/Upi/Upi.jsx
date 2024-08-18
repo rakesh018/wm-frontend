@@ -29,13 +29,13 @@ export const UploadQR = () => {
           }
         );
         const data = await response.json();
+        if(response.status===403){
+          navigate('/adminLogin');
+        }
         if (response.ok) {
           setCurrentUpiId(data.upiId);
           setCurrentQr(`${data.qrCode}?t=${new Date().getTime()}`);
           // setCurrentQr(data.qrCode); // Assuming the backend sends the URL of the existing QR code
-        }
-        else if(response.status===403){
-          navigate('/adminLogin');
         }
          else {
           alertToast("Error fetching UPI details", "error");

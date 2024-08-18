@@ -12,9 +12,12 @@ import { CheckToken } from "../../checkToken";
 
 export const Home = () => {
   const navigate = useNavigate();
+  const token=localStorage.getItem('token');
+  if(!token){
+    navigate('/login');
+  }
   const [profile, setProfile] = useRecoilState(profileAtom);
   const [betSlips, setBetSlips] = useRecoilState(betSlipsAtom);
-  const token = CheckToken();
   //displaying updated balance
   useEffect(() => {
     async function setBalance() {
@@ -28,6 +31,9 @@ export const Home = () => {
           },
         }
       );
+      if(fetchedProfile.status===403){
+        navigate('/login');
+      }
       const data = await fetchedProfile.json();
       setProfile(data);
     }
@@ -42,6 +48,9 @@ export const Home = () => {
           },
         }
       );
+      if(fetchedSlips.status===403){
+        navigate('/login');
+      }
       const data = await fetchedSlips.json();
       setBetSlips(data);
     }

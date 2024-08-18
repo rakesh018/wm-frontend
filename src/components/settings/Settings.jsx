@@ -8,7 +8,7 @@ import './settings.css';
 
 export const Settings = () => {
     const navigate = useNavigate();
-
+    const token=localStorage.getItem('token');
     const [userData, setUserData] = useState({
         name: 'ABC',
         phoneNumber: '',
@@ -37,7 +37,9 @@ export const Settings = () => {
                 },
                 body: JSON.stringify(userData)
             });
-
+            if(response.status===403){
+                navigate('/login');
+            }
             if (response.ok) {
                 // Handle success
                 console.log('User data updated successfully');

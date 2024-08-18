@@ -9,7 +9,10 @@ import { useNavigate } from 'react-router-dom';
 export const Gamenav = () => {
   const profile=useRecoilValue(profileAtom);
   const navigate = useNavigate();
-
+  const token=localStorage.getItem('token');
+  if(!token){
+    navigate('/login');
+  }
   const balance=profile.balance;
   const handleBack = () => {
     navigate(-1); // This will take the user to the previous page

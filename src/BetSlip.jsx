@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
-import "./bet.css";
+import "./betSlip.css";
+import { Navbar } from "./Navbar";
+import { Sidebar } from "./Sidebar";
 import { betSlipsAtom } from "./atoms";
 import { useRecoilState } from "recoil";
 
@@ -38,7 +40,7 @@ export const BetSlip = () => {
   }, [setBetDetails]);
 
   useEffect(() => {
-    // Countdown timer: Decrement the `ttl` for each bet locally every second
+    // Countdown timer: Decrement the ttl for each bet locally every second
     const countdownInterval = setInterval(() => {
       setLocalBets((prevBets) =>
         prevBets.map((bet) => ({
@@ -54,12 +56,15 @@ export const BetSlip = () => {
 
   return (
     <div>
+      <div className="d-lg-none">
+        <Navbar />
+      </div>
       <div className="container betBox text-center mt-5 d-none d-lg-block">
         <div>
           <button className="bet-sel mt-2">BET SLIPS</button>
         </div>
 
-        <div className="betSelectionBox mt-3 no-scrollbar">
+        <div className="betSelectionBox mt-3 ">
           <div className="betDetails no-scrollbar">
             {localBets && localBets.length > 0 ? (
               localBets.map((bet, index) => (
@@ -69,9 +74,11 @@ export const BetSlip = () => {
                     Round Duration: {bet.roundDuration}
                   </div>
                   <div className="betAmount">Bet Amount: {bet.betAmount}</div>
+                  <div className="choice">Choice: {bet.mappedChoice}</div>
                   <div className="timeRemaining">
                     Time Remaining: {bet.ttl} seconds
                   </div>
+
                 </div>
               ))
             ) : (
@@ -80,6 +87,42 @@ export const BetSlip = () => {
           </div>
         </div>
       </div>
+      <div className="  d-flex justify-content-center d-lg-none" style={{ display: 'none' }}>
+        <div className="betMobile text-center ">
+          <div>
+            <button className="bet-sel mt-2">BET SLIPS</button>
+          </div>
+
+          <div className="betSelectionBox ">
+            <div className="betDetails " style={{ overflowY: 'auto' }}>
+              {localBets && localBets.length > 0 ? (
+                localBets.map((bet, index) => (
+                  <div key={index} className="betDetailBox m-2 p-2">
+                    <div className="gameName"> {bet.gameName}</div>
+                    <div className="roundDuration">
+                      Round Duration: {bet.roundDuration}
+                    </div>
+                    <div className="betAmount">Bet Amount: {bet.betAmount}</div>
+                    <div className="timeRemaining">
+                      Time Remaining: {bet.ttl} seconds
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <div className="text-white ">No bets found</div>
+              )}
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+
+      <div className="d-lg-none">
+        <Sidebar />
+      </div>
+
     </div>
+
   );
 };

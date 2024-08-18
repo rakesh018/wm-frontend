@@ -55,11 +55,11 @@ export const TransactionalAnalytics = () => {
           }
         );
 
+        if(response.status===403){
+          navigate('/adminLogin');
+        }
         if (!response.ok) {
           alertToast("Failed to fetch analytics",'error');
-        }
-        else if(response.status===403){
-          navigate('/adminLogin');
         }
 
         let result = await response.json();
