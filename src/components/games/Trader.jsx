@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { Gamenav } from "./Gamenav";
-import logo from '../../images/logo.jpeg';
+import logo from "../../images/logo.jpeg";
 import winning from "../../images/winning.png";
 import losing from "../../images/losing.png";
 import Modal from "react-modal";
@@ -13,15 +13,13 @@ import { profileAtom } from "../../atoms";
 import { betSlipsAtom } from "../../atoms";
 import socket from "../../socket";
 
-
 import { alertToast } from "../../alertToast";
 import { CandleStick } from "./CandleStick";
-
 
 // Example placeholder data
 const initialCandleArray = [1, 0, 1, 1, 0, 1, 0, 0, 1];
 
-export const Trader = () => {
+export const Trader = ({ showAlert }) => {
   // const [candleArray, setCandleArray] = useState(initialCandleArray); // State for candle data
   const [duration, setDuration] = useState(1); // Initial duration
   const [flipResult, setFlipResult] = useState(null);
@@ -47,7 +45,10 @@ export const Trader = () => {
         setPastResults(results);
       } else {
         // Generate new values and update the array
-        const updatedResults = [...results.slice(0, 4), ...pastResults.slice(0, 4)];
+        const updatedResults = [
+          ...results.slice(0, 4),
+          ...pastResults.slice(0, 4),
+        ];
         setPastResults(updatedResults);
       }
     }
@@ -80,7 +81,7 @@ export const Trader = () => {
     );
     const parsedSlips = await slips.json();
     setBetDetails(parsedSlips);
-    console.log(parsedSlips)
+    console.log(parsedSlips);
   }
   useEffect(() => {
     const handleTimerUpdate = (data) => {
@@ -97,7 +98,11 @@ export const Trader = () => {
       }
     };
 
-    const handleResultBroadcast = async (gameName, roundDuration, parsedResults) => {
+    const handleResultBroadcast = async (
+      gameName,
+      roundDuration,
+      parsedResults
+    ) => {
       if (gameName === "stockTrader" && roundDuration === duration) {
         const fetchedProfile = await fetch(
           "https://server.trademax1.com/profile/getProfile",
@@ -105,13 +110,15 @@ export const Trader = () => {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
-              Authorization: `Bearer ${localStorage.getItem('token')}`,
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
           }
         );
         const parsedProfile = await fetchedProfile.json();
         setProfile(parsedProfile);
         setPastResults(parsedResults);
+        showAlert(gameName, roundDuration, parsedResults[0]);
+        console.log(gameName, roundDuration, parsedResults[0]);
       }
     };
 
@@ -182,12 +189,11 @@ export const Trader = () => {
         const parsedRes = await response.json();
         if (response.ok) {
           const alertDetails = {
-            decision: "Up",
-            gameName: "stockTrader",
-            choice: choice,
             duration: duration,
+            gameName: "stockTrader",
+            decision: choice,
           };
-          localStorage.setItem("alertDetails", JSON.stringify(alertDetails));
+          sessionStorage.setItem("alertDetails2", JSON.stringify(alertDetails));
           setProfile({ ...profile, balance: parsedRes.updatedBalance });
           alertToast(parsedRes.message, "success");
           getSlips();
@@ -242,11 +248,8 @@ export const Trader = () => {
         </div>
       </div>
 
-
-
       <div className="rightBox text-center">
         <div className="timer-display">{formatTime(timer)}</div>
-
       </div>
 
       <div className="gameInterface">
@@ -293,21 +296,18 @@ export const Trader = () => {
               10 MIN
             </button>
           </div>
-          <div className="trader-timer text-center d-lg-none" >{formatTime(timer)}</div>
+          <div className="trader-timer text-center d-lg-none">
+            {formatTime(timer)}
+          </div>
 
           <div className="d-flex justify-content-center">
-
             <CandleStick candleArray={pastResults} />
-
           </div>
           <div>
             <h3 className="traderText text-center">
               PLEASE WAIT UNTIL YOUR TIME STARTS
-
             </h3>
           </div>
-
-
 
           <div className="upAndDown d-flex justify-content-evenly">
             <div>
