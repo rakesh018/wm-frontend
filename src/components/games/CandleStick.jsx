@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import ReactApexChart from 'react-apexcharts';
+import React, { useState, useEffect } from "react";
+import ReactApexChart from "react-apexcharts";
 
 export const CandleStick = ({ candleArray = [] }) => {
   const [seriesData, setSeriesData] = useState([]);
@@ -10,15 +10,18 @@ export const CandleStick = ({ candleArray = [] }) => {
 
     const newSeriesData = candleArray.map((value, index) => {
       const open = previousClose;
-      const high = value === 1 ? open + Math.random() * 10 : open - Math.random() * 2;
-      const low = value === 1 ? open - Math.random() * 2 : open - Math.random() * 10;
-      const close = value === 1 ? open + Math.random() * 5 : open - Math.random() * 5;
+      const high =
+        value === 1 ? open + Math.random() * 10 : open - Math.random() * 2;
+      const low =
+        value === 1 ? open - Math.random() * 2 : open - Math.random() * 10;
+      const close =
+        value === 1 ? open + Math.random() * 5 : open - Math.random() * 5;
 
       previousClose = close; // Update previousClose for next candle
 
       return {
         x: new Date().getTime() + index * 60000, // Increment by one minute
-        y: [open, high, low, close]
+        y: [open, high, low, close],
       };
     });
 
@@ -27,7 +30,7 @@ export const CandleStick = ({ candleArray = [] }) => {
 
   const options = {
     chart: {
-      type: 'candlestick',
+      type: "candlestick",
       height: 350,
     },
     plotOptions: {
@@ -38,11 +41,14 @@ export const CandleStick = ({ candleArray = [] }) => {
       },
     },
     xaxis: {
-      type: 'datetime',
+      type: "datetime",
     },
     yaxis: {
       tooltip: {
         enabled: true,
+      },
+      labels: {
+        formatter: (value) => Math.round(value), // Ensure y-axis labels are integers
       },
     },
   };
