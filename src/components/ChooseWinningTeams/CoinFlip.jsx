@@ -154,13 +154,13 @@ export const CoinFlipGamePage = () => {
                   className="onChoose p-3"
                   onClick={() => handleResult(1, duration)}
                 >
-                  FOR HEADS WIN
+                  FOR HEADS
                 </button>
                 <button
                   className="onChoose p-3"
                   onClick={() => handleResult(0, duration)}
                 >
-                  FOR TAILS WIN
+                  FOR TAILS
                 </button>
               </div>
             </div>

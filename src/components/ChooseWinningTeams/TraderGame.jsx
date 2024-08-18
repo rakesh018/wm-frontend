@@ -152,13 +152,13 @@ export const TraderGamePage = () => {
                   className="onChoose p-3"
                   onClick={() => handleResult(1, duration)}
                 >
-                  FOR UP WIN
+                  FOR UP
                 </button>
                 <button
                   className="onChoose p-3"
                   onClick={() => handleResult(0, duration)}
                 >
-                  FOR DOWN WIN
+                  FOR DOWN
                 </button>
               </div>
             </div>

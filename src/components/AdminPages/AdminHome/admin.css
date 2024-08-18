@@ -277,3 +277,16 @@ background-color: inherit;
   cursor: pointer;
 }
 
+.logout-btn {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 10px;
+  margin: 5px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.logout-btn:hover {
+  background-color: #c82333;
+}

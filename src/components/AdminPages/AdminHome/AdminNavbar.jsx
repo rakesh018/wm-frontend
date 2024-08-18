@@ -9,9 +9,12 @@ import { useNavigate } from "react-router-dom";
 export const AdminNavbar = () => {
   const navigate = useNavigate();
   const adminToken = localStorage.getItem("adminToken");
+
+  // Redirect to login if no admin token
   if (!adminToken) {
     navigate("/adminLogin");
   }
+
   const [isMenuOpen, setIsMenuOpen] = useState(false); // State to manage menu visibility
   const menuRef = useRef(null); // Ref for the mobile menu
 
@@ -23,6 +26,11 @@ export const AdminNavbar = () => {
     if (menuRef.current && !menuRef.current.contains(event.target)) {
       setIsMenuOpen(false);
     }
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("adminToken");
+    navigate("/adminLogin");
   };
 
   useEffect(() => {
@@ -52,9 +60,6 @@ export const AdminNavbar = () => {
               <div>
                 <img className="logo1 m-2" src={logo} alt="Logo" />
               </div>
-              {/* <div className='d-none d-md-block'>
-                                <input className='text m-4' type="text" />
-                            </div> */}
             </div>
           </div>
 
@@ -124,6 +129,12 @@ export const AdminNavbar = () => {
             <Link to="/queries" onClick={() => setIsMenuOpen(false)}>
               SUPPORT
             </Link>
+          </li>
+          {/* Add Logout Option */}
+          <li>
+            <button onClick={handleLogout} className="logout-btn">
+              LOGOUT
+            </button>
           </li>
         </ul>
       </div>

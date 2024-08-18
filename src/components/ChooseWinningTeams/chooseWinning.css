@@ -110,7 +110,7 @@
   }
   
   .adminInnerBox {
-    height: 100vh; /* Ensure it takes full viewport height */
+    height: 80vh; /* Ensure it takes full viewport height */
   }
   
   .navigationButton {
@@ -137,4 +137,8 @@
   
   .timer-display{
     display: block;
+  }
+  
+  .analysisDiv{
+    height:95%;
   }
