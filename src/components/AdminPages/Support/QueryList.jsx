@@ -3,9 +3,15 @@ import { AdminNavbar } from "../AdminHome/AdminNavbar";
 import { AdminSidebar } from "../AdminHome/AdminSidebar";
 import "./queries.css";
 import { alertToast } from "../../../alertToast";
+import { useNavigate } from "react-router-dom";
 
 
 export const QueryList = () => {
+  const navigate = useNavigate();
+  const adminToken = localStorage.getItem("adminToken");
+  if (!adminToken) {
+    navigate("/adminLogin");
+  }
   const [queries, setQueries] = useState([]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -24,7 +30,11 @@ export const QueryList = () => {
       if (response.ok) {
         setQueries(data.queries);
         setTotalPages(data.totalPages);
-      } else {
+      } 
+      else if(response.status===403){
+        navigate('/adminLogin');
+      }
+      else {
         alertToast("Error fetching queries", "error");
       }
     } catch (error) {
@@ -51,7 +61,11 @@ export const QueryList = () => {
       if (response.ok) {
         alertToast("Query marked as seen", "success");
         fetchQueries(page); // Refresh the list after marking as seen
-      } else {
+      }
+      else if(response.status===403){
+        navigate('/adminLogin');
+      } 
+      else {
         alertToast(data.error, "error");
       }
     } catch (error) {

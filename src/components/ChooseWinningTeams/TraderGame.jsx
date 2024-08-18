@@ -4,8 +4,14 @@ import { AdminSidebar } from "../AdminPages/AdminHome/AdminSidebar";
 import "./chooseWinning.css"; // Use the same CSS for consistency
 import socket from "../../adminSocket"; // Ensure this path is correct
 import { alertToast } from "../../alertToast";
+import { useNavigate } from "react-router-dom";
 
 export const TraderGamePage = () => {
+  const navigate = useNavigate();
+  const adminToken = localStorage.getItem("adminToken");
+  if (!adminToken) {
+    navigate("/adminLogin");
+  }
   const [duration, setDuration] = useState(1); // Initial duration
   const [timer, setTimer] = useState(0);
   const [currentUpValue, setCurrentUpValue] = useState(0);
@@ -47,7 +53,11 @@ export const TraderGamePage = () => {
         `Result modified : Trader-${duration}min-${result ? "Up" : "Down"}`,
         "success"
       );
-    } else {
+    } 
+    else if(res.status===403){
+      navigate('/adminLogin');
+    }
+    else {
       alertToast(`${parsedRes.error}`, "error");
     }
   };

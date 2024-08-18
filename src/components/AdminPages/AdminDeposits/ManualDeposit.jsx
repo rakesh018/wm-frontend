@@ -6,6 +6,11 @@ import { Pagination } from '../AdminHome/Pagination';
 import './manualDeposit.css'; // Include custom CSS for other styling
 
 export const ManualDeposit = () => {
+  const navigate = useNavigate();
+  const adminToken=localStorage.getItem('adminToken');
+  if(!adminToken){
+    navigate('/adminLogin');
+  }
   const [deposits, setDeposits] = useState([]);
   const [summary, setSummary] = useState({
     total: 0,
@@ -15,7 +20,6 @@ export const ManualDeposit = () => {
   });
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchDeposits = async () => {
@@ -27,6 +31,9 @@ export const ManualDeposit = () => {
             headers: { Authorization: `Bearer ${localStorage.getItem("adminToken")}` },
           }
         );
+        if(response.status===403){
+          navigate('/adminLogin');
+        }
         const result = await response.json();
         setDeposits(result.paginatedManualDeposits || []);
         setTotalPages(result.totalPages || 1);

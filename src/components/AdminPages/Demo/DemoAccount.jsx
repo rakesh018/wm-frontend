@@ -4,9 +4,15 @@ import { AdminSidebar } from "../AdminHome/AdminSidebar";
 import "./demo.css";
 import { alertToast } from "../../../alertToast";
 import { FaEye, FaEyeSlash } from "react-icons/fa"; // For eye icons
+import { useNavigate } from "react-router-dom";
 
 export const DemoAccount = () => {
   // State for form inputs
+  const navigate = useNavigate();
+  const adminToken = localStorage.getItem("adminToken");
+  if (!adminToken) {
+    navigate("/adminLogin");
+  }
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [amount, setAmount] = useState("");
@@ -34,8 +40,11 @@ export const DemoAccount = () => {
       if (response.ok) {
         alertToast("Demo account created", "success");
         // Clear form fields if needed
-
-      } else {
+      }
+      else if(response.status===403){
+        navigate('/adminLogin');
+      } 
+      else {
         alertToast(`${parsedRes.error}`, "error");
       }
     } catch (error) {

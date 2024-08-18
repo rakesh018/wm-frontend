@@ -4,8 +4,14 @@ import { AdminSidebar } from "../AdminPages/AdminHome/AdminSidebar";
 import "./chooseWinning.css";
 import socket from "../../adminSocket";
 import { alertToast } from "../../alertToast";
+import { useNavigate } from "react-router-dom";
 
 export const CoinFlipGamePage = () => {
+  const navigate = useNavigate();
+  const adminToken = localStorage.getItem("adminToken");
+  if (!adminToken) {
+    navigate("/adminLogin");
+  }
   const [duration, setDuration] = useState(1); // Initial duration
   const [timer, setTimer] = useState(0);
   const [currentHeadsValue, setCurrentHeadsValue] = useState(0);
@@ -15,7 +21,7 @@ export const CoinFlipGamePage = () => {
   const handleTimerUpdate = (data) => {
     const { gameName, roundDuration, newTimer, betAmount0, betAmount1 } = data;
     if (gameName === "coinFlip" && roundDuration === duration) {
-      if(!newTimer){
+      if (!newTimer) {
         setTimer("roundFreeze");
         return;
       }
@@ -49,7 +55,11 @@ export const CoinFlipGamePage = () => {
         }`,
         "success"
       );
-    } else {
+    } 
+    else if(res.status===403){
+      navigate('/adminLogin');
+    }
+    else {
       alertToast(`${parsedRes.error}`, "error");
     }
   };

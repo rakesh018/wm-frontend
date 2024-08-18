@@ -7,6 +7,11 @@ import traderGame from '../../images/traderImg.png';
 import { useNavigate } from 'react-router-dom';
 
 export const ChooseWinningTeam = () => {
+  const navigate = useNavigate();
+  const adminToken = localStorage.getItem("adminToken");
+  if (!adminToken) {
+    navigate("/adminLogin");
+  }
 //   return (
 //     <div>
 //         <AdminNavbar/>
@@ -90,7 +95,6 @@ export const ChooseWinningTeam = () => {
 // </div>
 //     </div>
 //   )
-const navigate=useNavigate();
 return (
   <div>
     <AdminNavbar />

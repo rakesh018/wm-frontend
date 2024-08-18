@@ -1,13 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import { AdminNavbar } from '../AdminHome/AdminNavbar';
-import { AdminSidebar } from '../AdminHome/AdminSidebar';
-import adminDeposit from '../../../images/adminTotalDeposit.png';
-import adminWithdraw from '../../../images/adminTotalWithdraw.png';
-import { useNavigate } from 'react-router-dom';
-import './adminDeposit.css';
-import { alertToast } from '../../../alertToast'; // Assuming alertToast is used for error handling
+import React, { useState, useEffect } from "react";
+import { AdminNavbar } from "../AdminHome/AdminNavbar";
+import { AdminSidebar } from "../AdminHome/AdminSidebar";
+import adminDeposit from "../../../images/adminTotalDeposit.png";
+import adminWithdraw from "../../../images/adminTotalWithdraw.png";
+import { useNavigate } from "react-router-dom";
+import "./adminDeposit.css";
+import { alertToast } from "../../../alertToast"; // Assuming alertToast is used for error handling
 
 export const AutomaticDeposit = () => {
+  const navigate = useNavigate();
+  const adminToken = localStorage.getItem("adminToken");
+  if (!adminToken) {
+    navigate("/adminLogin");
+  }
   const [transactions, setTransactions] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
@@ -17,21 +22,26 @@ export const AutomaticDeposit = () => {
   const [total, setTotal] = useState(0);
   const [rejected, setRejected] = useState(0);
   const [error, setError] = useState(null);
-  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchTransactions = async () => {
       try {
         setLoading(true);
-        const response = await fetch(`https://server.trademax1.com/admin/deposits/auto?page=${currentPage}`, {
-          method: 'GET',
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('adminToken')}`,
-          },
-        });
+        const response = await fetch(
+          `https://server.trademax1.com/admin/deposits/auto?page=${currentPage}`,
+          {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("adminToken")}`,
+            },
+          }
+        );
 
         if (!response.ok) {
-          throw new Error('Failed to fetch transactions');
+          throw new Error("Failed to fetch transactions");
+        } else if (response.status === 403) {
+          //token error
+          navigate("/adminLogin");
         }
 
         const data = await response.json();
@@ -45,7 +55,7 @@ export const AutomaticDeposit = () => {
       } catch (error) {
         setError(error.message);
         setLoading(false);
-        alertToast('Error fetching transactions', 'error');
+        alertToast("Error fetching transactions", "error");
       }
     };
 
@@ -59,7 +69,7 @@ export const AutomaticDeposit = () => {
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   const formatDate = (dateString) => {
-    const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+    const options = { year: "numeric", month: "2-digit", day: "2-digit" };
     return new Date(dateString).toLocaleDateString(undefined, options);
   };
 
@@ -152,14 +162,19 @@ export const AutomaticDeposit = () => {
               <tbody>
                 {transactions.length > 0 ? (
                   transactions.map((transaction) => (
-                    <tr key={transaction.transactionId} onClick={() => handleRowClick(transaction.transactionId)}>
+                    <tr
+                      key={transaction.transactionId}
+                      onClick={() => handleRowClick(transaction.transactionId)}
+                    >
                       <td>{transaction.gateway}</td>
                       <td>{transaction.transactionId}</td>
                       <td>{formatDate(transaction.initiated)}</td>
                       <td>{transaction.phone}</td>
                       <td>{transaction.amount}</td>
                       <td>{transaction.status}</td>
-                      <td><button className="btn btn-dark">Details</button></td>
+                      <td>
+                        <button className="btn btn-dark">Details</button>
+                      </td>
                     </tr>
                   ))
                 ) : (
@@ -179,19 +194,23 @@ export const AutomaticDeposit = () => {
                   <div
                     className="card p-3 h-100"
                     onClick={() => handleRowClick(transaction.transactionId)}
-                    style={{ cursor: 'pointer' }}
+                    style={{ cursor: "pointer" }}
                   >
                     <div className="mb-2">
-                      <strong>Transaction ID:</strong> <span>{transaction.transactionId}</span>
+                      <strong>Transaction ID:</strong>{" "}
+                      <span>{transaction.transactionId}</span>
                     </div>
                     <div className="mb-2">
-                      <strong>Gateway:</strong> <span>{transaction.gateway}</span>
+                      <strong>Gateway:</strong>{" "}
+                      <span>{transaction.gateway}</span>
                     </div>
                     <div className="mb-2">
-                      <strong>Initiated:</strong> <span>{formatDate(transaction.initiated)}</span>
+                      <strong>Initiated:</strong>{" "}
+                      <span>{formatDate(transaction.initiated)}</span>
                     </div>
                     <div className="mb-2">
-                      <strong>User Phone Number:</strong> <span>{transaction.phone}</span>
+                      <strong>User Phone Number:</strong>{" "}
+                      <span>{transaction.phone}</span>
                     </div>
                     <div className="mb-2">
                       <strong>Amount:</strong> <span>{transaction.amount}</span>
@@ -204,23 +223,28 @@ export const AutomaticDeposit = () => {
               ))
             ) : (
               <div className="col-12">
-                <div className="alert alert-info text-center">No transactions found</div>
+                <div className="alert alert-info text-center">
+                  No transactions found
+                </div>
               </div>
             )}
           </div>
 
           {/* Pagination */}
           <div className="d-flex justify-content-center">
-            {totalPages > 1 && Array.from({ length: totalPages }, (_, index) => (
-              <button
-                key={index}
-                onClick={() => paginate(index + 1)}
-                className={`btn ${currentPage === index + 1 ? 'btn-primary' : 'btn-light'}`}
-                style={{ margin: '0 5px' }}
-              >
-                {index + 1}
-              </button>
-            ))}
+            {totalPages > 1 &&
+              Array.from({ length: totalPages }, (_, index) => (
+                <button
+                  key={index}
+                  onClick={() => paginate(index + 1)}
+                  className={`btn ${
+                    currentPage === index + 1 ? "btn-primary" : "btn-light"
+                  }`}
+                  style={{ margin: "0 5px" }}
+                >
+                  {index + 1}
+                </button>
+              ))}
           </div>
         </div>
       </div>

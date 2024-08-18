@@ -3,8 +3,14 @@ import { AdminSidebar } from '../AdminHome/AdminSidebar';
 import { AdminNavbar } from '../AdminHome/AdminNavbar';
 import { useParams } from 'react-router-dom';
 import { alertToast } from '../../../alertToast';
+import { useNavigate } from 'react-router-dom';
 
 export const ViewUserManualTransaction = () => {
+  const navigate=useNavigate();
+  const adminToken=localStorage.getItem('adminToken');
+  if(!adminToken){
+    navigate('/adminLogin');
+  }
   const { uid } = useParams();
   const [transaction, setTransaction] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
@@ -24,6 +30,9 @@ export const ViewUserManualTransaction = () => {
 
         if (!response.ok) {
           throw new Error('Network response was not ok');
+        }
+        else if(response.status===403){
+          navigate('/adminLogin');
         }
 
         const data = await response.json();

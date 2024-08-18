@@ -3,8 +3,14 @@ import { AdminNavbar } from "../AdminHome/AdminNavbar";
 import { AdminSidebar } from "../AdminHome/AdminSidebar";
 import "../Demo/demo.css";
 import { alertToast } from "../../../alertToast";
+import { useNavigate } from "react-router-dom";
 
 export const UploadQR = () => {
+  const navigate = useNavigate();
+  const adminToken = localStorage.getItem("adminToken");
+  if (!adminToken) {
+    navigate("/adminLogin");
+  }
   const [fileType, setFileType] = useState("");
   const [qrFile, setQrFile] = useState(null);
   const [upiId, setUpiId] = useState("");
@@ -15,17 +21,23 @@ export const UploadQR = () => {
   useEffect(() => {
     const fetchUpiData = async () => {
       try {
-        const response = await fetch("https://server.trademax1.com/admin/upi/get-upi-details",{
-          method:'GET',
-          headers:{'Content-Type':'application/json'}
-        }
+        const response = await fetch(
+          "https://server.trademax1.com/admin/upi/get-upi-details",
+          {
+            method: "GET",
+            headers: { "Content-Type": "application/json" },
+          }
         );
         const data = await response.json();
         if (response.ok) {
           setCurrentUpiId(data.upiId);
           setCurrentQr(`${data.qrCode}?t=${new Date().getTime()}`);
           // setCurrentQr(data.qrCode); // Assuming the backend sends the URL of the existing QR code
-        } else {
+        }
+        else if(response.status===403){
+          navigate('/adminLogin');
+        }
+         else {
           alertToast("Error fetching UPI details", "error");
         }
       } catch (error) {
@@ -60,6 +72,9 @@ export const UploadQR = () => {
         }
       );
       const { url, key } = await response.json();
+      if(response.status===403){
+        navigate('/adminLogin');
+      }
 
       if (response.ok && url) {
         // Upload file to AWS S3
@@ -70,7 +85,7 @@ export const UploadQR = () => {
           },
           body: qrFile,
         });
-        console.log('uploaded to aws');
+        console.log("uploaded to aws");
         // Once uploaded, send UPI ID and S3 key to backend
         const updateResponse = await fetch(
           "https://server.trademax1.com/admin/upi/update-upi-details",
@@ -91,7 +106,11 @@ export const UploadQR = () => {
           setCurrentUpiId(updateData.upiId);
           setCurrentQr(`${updateData.qrCode}?t=${new Date().getTime()}`);
           // setCurrentQr(updateData.qrCode); // Update displayed QR code
-        } else {
+        } 
+        else if(response.status===403){
+          navigate('/adminLogin');
+        }
+        else {
           alertToast(updateData.error, "error");
         }
       } else {

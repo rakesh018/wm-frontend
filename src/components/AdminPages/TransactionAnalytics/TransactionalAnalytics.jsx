@@ -1,10 +1,22 @@
-import React, { useState, useEffect } from 'react';
-import { AdminSidebar } from '../AdminHome/AdminSidebar';
-import { AdminNavbar } from '../AdminHome/AdminNavbar';
-import './transactions.css';
-import { Bar } from 'react-chartjs-2';
-import { Line } from 'react-chartjs-2';
-import { Chart, LinearScale, CategoryScale, BarElement, PointElement, LineElement, Legend, Title, Tooltip } from 'chart.js';
+import React, { useState, useEffect } from "react";
+import { AdminSidebar } from "../AdminHome/AdminSidebar";
+import { AdminNavbar } from "../AdminHome/AdminNavbar";
+import "./transactions.css";
+import { useNavigate } from "react-router-dom";
+import { Bar } from "react-chartjs-2";
+import { Line } from "react-chartjs-2";
+import {
+  Chart,
+  LinearScale,
+  CategoryScale,
+  BarElement,
+  PointElement,
+  LineElement,
+  Legend,
+  Title,
+  Tooltip,
+} from "chart.js";
+import { alertToast } from "../../../alertToast";
 
 Chart.register(
   LinearScale,
@@ -18,6 +30,11 @@ Chart.register(
 );
 
 export const TransactionalAnalytics = () => {
+  const navigate = useNavigate();
+  const adminToken = localStorage.getItem("adminToken");
+  if (!adminToken) {
+    navigate("/adminLogin");
+  }
   const [labels, setLabels] = useState([]);
   const [withdrawData, setWithdrawData] = useState([]);
   const [depositData, setDepositData] = useState([]);
@@ -27,32 +44,38 @@ export const TransactionalAnalytics = () => {
   useEffect(() => {
     const fetchAnalyticsData = async () => {
       try {
-        const response = await fetch('https://server.trademax1.com/admin/analytics/annual-analytics', {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${localStorage.getItem('adminToken')}`
-          },
-        });
+        const response = await fetch(
+          "https://server.trademax1.com/admin/analytics/annual-analytics",
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${localStorage.getItem("adminToken")}`,
+            },
+          }
+        );
 
         if (!response.ok) {
-          throw new Error('Network response was not ok');
+          alertToast("Failed to fetch analytics",'error');
+        }
+        else if(response.status===403){
+          navigate('/adminLogin');
         }
 
         let result = await response.json();
-        result=result.analyticsData;
+        result = result.analyticsData;
         // Process the array of analytics data
-        const months = result.map(item => item.month);
-        const withdrawals = result.map(item => item.totalWithdrawn);
-        const deposits = result.map(item => item.totalDeposited);
+        const months = result.map((item) => item.month);
+        const withdrawals = result.map((item) => item.totalWithdrawn);
+        const deposits = result.map((item) => item.totalDeposited);
 
         // Update state
         setLabels(months);
         setWithdrawData(withdrawals);
         setDepositData(deposits);
       } catch (error) {
-        console.error('Error fetching analytics data:', error);
-        setError('Failed to load data');
+        console.error("Error fetching analytics data:", error);
+        setError("Failed to load data");
       } finally {
         setLoading(false);
       }
@@ -65,24 +88,24 @@ export const TransactionalAnalytics = () => {
     labels: labels,
     datasets: [
       {
-        label: 'Withdraw',
+        label: "Withdraw",
         data: withdrawData,
-        backgroundColor: 'black'
+        backgroundColor: "black",
       },
       {
-        label: 'Deposited',
+        label: "Deposited",
         data: depositData,
-        backgroundColor: 'yellow'
-      }
-    ]
+        backgroundColor: "yellow",
+      },
+    ],
   };
 
   const options = {
     plugins: {
       legend: {
-        position: 'top',
-      }
-    }
+        position: "top",
+      },
+    },
   };
 
   if (loading) return <p>Loading...</p>;
@@ -95,15 +118,11 @@ export const TransactionalAnalytics = () => {
       <div className="container-fluid adminBox">
         <div className="row adminInnerBox">
           <div className="analysisDiv col m-2">
-            <div>
-              TOTAL MONEY WITHDRAWN/DEPOSITED
-            </div>
+            <div>TOTAL MONEY WITHDRAWN/DEPOSITED</div>
             <Bar options={options} data={chartData} />
           </div>
           <div className="analysisDiv col m-2">
-            <div>
-              TOTAL MONEY WITHDRAWN/DEPOSITED (Line Chart)
-            </div>
+            <div>TOTAL MONEY WITHDRAWN/DEPOSITED (Line Chart)</div>
             <Line options={options} data={chartData} />
           </div>
         </div>
