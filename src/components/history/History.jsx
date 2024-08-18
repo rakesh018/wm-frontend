@@ -43,7 +43,7 @@ export const History = () => {
           navigate('/login');
         }
         else if (!response.ok) {
-          throw new Error("Network response was not ok");
+          setBetsHasMore(false);
         }
         const data = await response.json();
         const { paginatedBets, totalPages } = data;
@@ -170,7 +170,7 @@ export const History = () => {
               <div>Date</div>
               <div>Money</div>
             </div>
-            {historyData.map((item) => (
+            {historyData && historyData.map((item) => (
               <div className="d-flex justify-content-evenly" key={item._id}>
                 <div>{item.createdAt}</div>
                 <div style={{ color: item.color, fontWeight: "bold" }}>
@@ -189,7 +189,7 @@ export const History = () => {
               <div>Date</div>
               <div>Money</div>
             </div>
-            {transactionsData.map((item) => (
+            {transactionsData && transactionsData.map((item) => (
               <div className="d-flex justify-content-evenly" key={item._id}>
                 <div>{item.createdAt}</div>
                 <div style={{color:item.color,fontWeight:'bold'}}>{item.amount}</div>
