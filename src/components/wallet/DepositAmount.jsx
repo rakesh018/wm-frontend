@@ -97,7 +97,7 @@ export const DepositAmount = () => {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization':' Bearer ${token}'
+            'Authorization':`Bearer ${token}`
           },
           body: JSON.stringify({ key, amount: numericAmount, utr: utrNumber })
         });

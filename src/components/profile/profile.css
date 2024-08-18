@@ -191,12 +191,12 @@ border:2px solid darkgoldenrod;
     width: 57vw;
 }
 .SettingsInnerBox {
-    height: 44vh;
-    
+    height: 55vh;
  }
-
+ .edit-btn{
+    width: 50vw;
+}
 }
 .edit-btn{
-    width: 30vw;
-    
+    width: 15vw;
 }

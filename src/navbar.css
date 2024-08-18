@@ -1,104 +1,144 @@
-.top-nav
-{
-    background-color: black;
-    height: 13vh;
+/* General Styles */
+.top-nav {
+  background-color: black;
+  height: 13vh;
 }
-.logoutIcon{
-  color:white;
-  height: 5vh;
+
+.icon {
+  color: white;
+  font-size: 30px;
 }
-.icon
-{ color: white;
-    font-size: 30px;
+
+.logo1 {
+  height: 9vh;
+  width: auto;
 }
-.logo1{
-    height: 9vh;
-    width: auto;
+
+.wallet, .text {
+  text-decoration: none;
+  background-color: white;
+  border-radius: 6px;
+  border: 2px solid darkgoldenrod;
+  padding: 10px 20px;
 }
-.wallet,.text{
-    text-decoration: none;
-    background-color:white;
-    border-radius: 6px;
-    -webkit-border-radius: 6px;
-    -moz-border-radius: 6px;
-    -ms-border-radius: 6px;
-    -o-border-radius: 6px;
-    border: 2px solid darkgoldenrod;
+
+.logoutIcon {
+  display: none;
 }
+
+/* Slider Styles */
 @-webkit-keyframes scroll {
-    0% {
+  0% {
       -webkit-transform: translateX(0);
-              transform: translateX(0);
-    }
-    100% {
-      -webkit-transform: translateX(calc(-250px * 7));
-              transform: translateX(calc(-250px * 7));
-    }
+      transform: translateX(0);
   }
-  
-  @keyframes scroll {
-    0% {
+  100% {
+      -webkit-transform: translateX(calc(-250px * 7));
+      transform: translateX(calc(-250px * 7));
+  }
+}
+
+@keyframes scroll {
+  0% {
       -webkit-transform: translateX(0);
-              transform: translateX(0);
-    }
-    100% {
-      -webkit-transform: translateX(calc(-250px * 7));
-              transform: translateX(calc(-250px * 7));
-    }
+      transform: translateX(0);
   }
+  100% {
+      -webkit-transform: translateX(calc(-250px * 7));
+      transform: translateX(calc(-250px * 7));
+  }
+}
+
+.client-slider {
+  background: white;
+  height: 100px;
+  margin: auto;
+  overflow: hidden;
+  position: relative;
+  padding: 2px;
+}
+
+.client-slider::before,
+.client-slider::after {
+  background: linear-gradient(to right, white 0%, rgba(255, 255, 255, 0) 100%);
+  content: "";
+  height: 100px;
+  position: absolute;
+  width: 200px;
+  z-index: 2;
+}
+
+.client-slider::after {
+  right: 0;
+  top: 0;
+  transform: rotateZ(180deg);
+}
+
+.client-slider::before {
+  left: 0;
+  top: 0;
+}
+
+.client-slider .client-slide-track {
+  animation: scroll 40s linear infinite;
+  display: flex;
+  width: calc(250px * 14);
+}
+
+.client-slider .client-slide {
+  height: 100px;
+  width: 250px;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .top-nav {
+      height: 10vh;
+      display: flex;
+      justify-content: space-between;
+  }
+
+  .logoutIcon {
+      display: block;
+      color: rgb(0, 0, 0);
+      background-color: black;
+      height: 4vh;
+      margin-top: 20px;
+      cursor: pointer;
+  }
+
+  .icon {
+      font-size: 24px;
+      margin-right: 15px;
+      margin-bottom: 5px;
+  }
+
+  .logo1 {
+      height: 6vh;
+  }
+
+  .wallet {
+      font-size: 12px;
+      width: 28vw;
+      padding: 5px;
+      /* margin: 25px; */
+  }
+
   .client-slider {
-    background: white;
-    box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.125);
-    height: 100px;
-    margin: auto;
-    overflow: hidden;
-    position: relative;
-    padding: 2px;
+      height: 80px;
   }
-  .client-slider::before, .client-slider::after {
-    background: -webkit-gradient(linear, left top, right top, from(white), to(rgba(255, 255, 255, 0)));
-    background: linear-gradient(to right, white 0%, rgba(255, 255, 255, 0) 100%);
-    content: "";
-    height: 100px;
-    position: absolute;
-    width: 200px;
-    z-index: 2;
-  }
-  .client-slider::after {
-    right: 0;
-    top: 0;
-    -webkit-transform: rotateZ(180deg);
-            transform: rotateZ(180deg);
-  }
-  .client-slider::before {
-    left: 0;
-    top: 0;
-  }
-  .client-slider .client-slide-track {
-    -webkit-animation: scroll 40s linear infinite;
-            animation: scroll 40s linear infinite;
-    display: -webkit-box;
-    display: flex;
-    width: calc(250px * 14);
-  }
+
   .client-slider .client-slide {
-    height: 100px;
-    width: 250px;
-  }
-  .logoutIcon{
-    display: none;
-  }
-@media (max-width:768px){
-  .logoutIcon{
-    color:white;
-    height: 5vh;
-    margin-top: 20px;
-    display: block;
-  }
-  .wallet{
-    width: 28vw;
-    padding: 5px;
+      height: 80px;
+      width: 180px;
   }
 
+  .client-slider .client-slide-track {
+      width: calc(180px * 14);
+  }
 
+  .questionMark,
+  .roundImg {
+      display: none;
+  }
 }

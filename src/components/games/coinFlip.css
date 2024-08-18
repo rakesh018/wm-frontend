@@ -368,4 +368,7 @@ width: 35vw;
  .leftBox,.rightBox{
   background-color: white;
  }
+  .rightBox{
+    display: none;
+  }
   }

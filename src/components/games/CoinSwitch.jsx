@@ -226,8 +226,7 @@ export const CoinSwitch = ({ showAlert }) => {
           navigate('/login');
         }
          else if (response.status === 400) {
-          console.log(parsedRes);
-          alertToast(parsedRes.error, "error");
+          alertToast(parsedRes, "error");
         }
       } catch (error) {
         alertToast("Unable to place bet", "error");

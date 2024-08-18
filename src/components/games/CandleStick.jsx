@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from "react";
 import ReactApexChart from "react-apexcharts";
 
-export const CandleStick = ({ candleArray = [] }) => {
+export const CandleStick = ({ candleArray }) => {
   const [seriesData, setSeriesData] = useState([]);
 
   useEffect(() => {
     // Initialize the first candle values
     let previousClose = 100;
+    let reversedArr = []; //cuz candle array is passed by reference and changing it will change everything
 
-    const newSeriesData = candleArray.map((value, index) => {
+    for (let i = candleArray.length - 1; i >= 0; i--) {
+      reversedArr.push(candleArray[i]);
+    }
+    const newSeriesData = reversedArr.map((value, index) => {
       const open = previousClose;
       const high =
         value === 1 ? open + Math.random() * 10 : open - Math.random() * 2;
@@ -24,7 +28,6 @@ export const CandleStick = ({ candleArray = [] }) => {
         y: [open, high, low, close],
       };
     });
-
     setSeriesData(newSeriesData);
   }, [candleArray]);
 

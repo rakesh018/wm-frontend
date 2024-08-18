@@ -51,20 +51,7 @@ export const Trader = ({ showAlert }) => {
     }
     const data = await response.json();
     const results = data.parsedResults;
-    if (results.length > 0) {
-      if (pastResults.length === 0) {
-        setPastResults(results);
-      } else {
-        // Generate new values and update the array
-        const updatedResults = [
-          ...results.slice(0, 4),
-          ...pastResults.slice(0, 4),
-        ];
-        setPastResults(updatedResults);
-      }
-    }
-
-    // setPastResults(results);
+    setPastResults(results);
   };
 
   useEffect(() => {
@@ -140,6 +127,7 @@ export const Trader = ({ showAlert }) => {
         const parsedProfile = await fetchedProfile.json();
         setProfile(parsedProfile);
         setPastResults(parsedResults);
+        console.log(parsedResults);
         showAlert(gameName, roundDuration, parsedResults[0]);
         console.log(gameName, roundDuration, parsedResults[0]);
       }

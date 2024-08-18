@@ -2,13 +2,19 @@ import React from 'react';
 import './logopage.css';
 import logoImage from '../../images/logoImage.jpeg';
 import { useNavigate } from 'react-router-dom';
-
+import { useEffect } from 'react';
 
 
 
 
 export const Logopage = () => {
   const navigate = useNavigate();
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      navigate("/home");
+    }
+  }, [navigate]);
   return (
     <div className='logo container-fluid d-flex justify-content-center col-sm-12'>
       <div className='box mt-5 text-center'>
