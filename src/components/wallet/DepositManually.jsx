@@ -22,7 +22,7 @@ export const DepositManually = () => {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
+              Authorization:`Bearer ${localStorage.getItem("token")}` ,
             },
           }
         );
@@ -49,8 +49,8 @@ export const DepositManually = () => {
       <div className="container homeBox mt-2">
         <button className="featuredGames-btn">DEPOSIT MANUALLY</button>
         <div className="innerNotificationBox mt-3 text-center">
-          <h2 className="m-3">
-            <u>DEPOSIT MONEY MANUALLY</u>
+          <h2 className="m-3" >
+            <u className="d-none d-md-block">DEPOSIT MONEY MANUALLY</u>
           </h2>
           {loading && <div>Loading...</div>}
           {error && <div className="error-text">{error}</div>}
@@ -82,7 +82,9 @@ export const DepositManually = () => {
         </div>
       </div>
       <Sidebar />
-      <BetSlip />
+      <div className="d-none d-lg-block">
+     <BetSlip />
+     </div>
     </div>
   );
 };

@@ -50,7 +50,7 @@ export const WithdrawAmount = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem('token')}`, // Add the token here
+          Authorization:` Bearer ${localStorage.getItem('token')}`, // Add the token here
         },
         body: JSON.stringify({
           amount,
@@ -162,7 +162,9 @@ export const WithdrawAmount = () => {
         </div>
       </div>
       <Sidebar />
-      <BetSlip />
+      <div className="d-none d-lg-block">
+     <BetSlip />
+     </div>
     </div>
   );
 };

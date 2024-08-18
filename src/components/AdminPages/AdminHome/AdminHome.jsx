@@ -95,7 +95,7 @@ export const AdminHome = () => {
                       <td>{row.email}</td>
                       <td>{formatDate(row.createdAt)}</td>
                       <td>{row.userType}</td>
-                      <td>{row.balance}</td>
+                      <td>{row.balance+row.withdrawableBalance}</td>
                     </tr>
                   ))
                 ) : (
@@ -133,7 +133,7 @@ export const AdminHome = () => {
                       <strong>Account Type:</strong> <span>{user.userType}</span>
                     </div>
                     <div>
-                      <strong>Wallet Balance:</strong> <span>{user.balance}</span>
+                      <strong>Wallet Balance:</strong> <span>{user.balance+user.withdrawableBalance}</span>
                     </div>
                   </div>
                 </div>

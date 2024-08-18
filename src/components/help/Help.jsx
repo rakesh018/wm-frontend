@@ -4,14 +4,19 @@ import { Sidebar } from '../../Sidebar';
 import { BetSlip } from '../../BetSlip';
 import helpImage from '../../images/helpImage.png';
 import './help.css';
+import { useNavigate } from 'react-router-dom';
 
 export const Help = () => {
+  const navigate = useNavigate();
+  
   return (
     <div>
       <Navbar />
       <div className="container notificationBox mt-2 col-12">
         <button className='notificationBtn ms-3'>HELP</button>
-        <div className="innerNotificationBox m-3 p-3 text-center">
+        <button className='supportBtn  ms-3 p-2 d-lg-none' onClick={() => navigate("/contactSupport")}>CONTACT SUPPORT</button>
+       
+        <div className="innerNotificationBox m-3 p-3 text-center"  >
           <div className="d-flex justify-content-center">
             <div>
               <img src={helpImage} alt="Help" />
@@ -67,7 +72,9 @@ export const Help = () => {
                 </h2>
                 <div id="collapseFour" className="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#helpAccordion">
                   <div className="accordion-body">
-                    <p>PLEASE REPORT THE ISSUE THROUGH OUR SUPPORT CHAT</p>
+                    <p>PLEASE REPORT THE ISSUE THROUGH OUR SUPPORT</p>
+                    <button className='queryBtn' onClick={() => navigate("/contactSupport")}>CONTACT SUPPORT</button>
+
                   </div>
                 </div>
               </div>
@@ -79,7 +86,9 @@ export const Help = () => {
         </div>
       </div>
       <Sidebar />
-      <BetSlip />
+  <div className="d-none d-lg-block">
+  <BetSlip />
+  </div>
     </div>
   )
 }

@@ -51,7 +51,9 @@ export const Wallet = () => {
      </div>   
      <Sidebar/>
 
-<BetSlip/> 
+     <div className="d-none d-lg-block">
+     <BetSlip />
+     </div>
     </div>
   )
 }

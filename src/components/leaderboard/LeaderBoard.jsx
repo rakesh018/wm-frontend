@@ -47,7 +47,9 @@ export const LeaderBoard = () => {
       <div className="container historyBox mt-2">
         <div>
           <button className="historybtn">Leader Board</button>
+         
         </div>
+        
         <div className="d-flex justify-content-evenly mt-3">
           <div className="history1 ">
             <button className="game1 p-2 m-2">All Time Leaderboard</button>
@@ -102,7 +104,9 @@ export const LeaderBoard = () => {
         </div>
       </div>
       <Sidebar />
-      <BetSlip />
+      <div className="d-none d-lg-block">
+     <BetSlip />
+     </div>
     </div>
   );
 };

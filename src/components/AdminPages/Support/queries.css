@@ -12,7 +12,7 @@
     overflow-y: auto ;
   }
   .adminInnerBox{
-    height: fit-content;
+    height: 70vh;
   }
   /* Ensure query cards are responsive and fit within the container */
   .queryCard {

@@ -14,7 +14,7 @@ export const Home = () => {
   const navigate = useNavigate();
   const [profile, setProfile] = useRecoilState(profileAtom);
   const [betSlips, setBetSlips] = useRecoilState(betSlipsAtom);
-  const token=CheckToken();
+  const token = CheckToken();
   //displaying updated balance
   useEffect(() => {
     async function setBalance() {
@@ -42,7 +42,7 @@ export const Home = () => {
           },
         }
       );
-      const data=await fetchedSlips.json();
+      const data = await fetchedSlips.json();
       setBetSlips(data);
     }
     setBalance();
@@ -81,7 +81,9 @@ export const Home = () => {
 
       <Sidebar />
 
-      <BetSlip />
+     <div className="d-none d-lg-block">
+     <BetSlip />
+     </div>
     </div>
   );
 };

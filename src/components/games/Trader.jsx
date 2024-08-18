@@ -1,17 +1,22 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { Gamenav } from "./Gamenav";
-import logo from "../../images/logo.png";
+import logo from '../../images/logo.jpeg';
 import winning from "../../images/winning.png";
 import losing from "../../images/losing.png";
 import Modal from "react-modal";
 import "./trader.css";
-import { CandleChart } from "./CandleChart";
+import { Sidebar } from "../../Sidebar";
+
 import { BetSlip } from "../../BetSlip";
 import { useRecoilState } from "recoil";
 import { profileAtom } from "../../atoms";
 import { betSlipsAtom } from "../../atoms";
 import socket from "../../socket";
+
+
 import { alertToast } from "../../alertToast";
+import { CandleStick } from "./CandleStick";
+
 
 // Example placeholder data
 const initialCandleArray = [1, 0, 1, 1, 0, 1, 0, 0, 1];
@@ -37,7 +42,17 @@ export const Trader = () => {
     const data = await response.json();
     const results = data.parsedResults;
     console.log(data);
-    setPastResults(results);
+    if (results.length > 0) {
+      if (pastResults.length === 0) {
+        setPastResults(results);
+      } else {
+        // Generate new values and update the array
+        const updatedResults = [...results.slice(0, 4), ...pastResults.slice(0, 4)];
+        setPastResults(updatedResults);
+      }
+    }
+
+    // setPastResults(results);
   };
 
   useEffect(() => {
@@ -65,6 +80,7 @@ export const Trader = () => {
     );
     const parsedSlips = await slips.json();
     setBetDetails(parsedSlips);
+    console.log(parsedSlips)
   }
   useEffect(() => {
     const handleTimerUpdate = (data) => {
@@ -81,7 +97,7 @@ export const Trader = () => {
       }
     };
 
-    const handleResultBroadcast = async(gameName, roundDuration, parsedResults) => {
+    const handleResultBroadcast = async (gameName, roundDuration, parsedResults) => {
       if (gameName === "stockTrader" && roundDuration === duration) {
         const fetchedProfile = await fetch(
           "https://server.trademax1.com/profile/getProfile",
@@ -93,7 +109,7 @@ export const Trader = () => {
             },
           }
         );
-        const parsedProfile=await fetchedProfile.json();
+        const parsedProfile = await fetchedProfile.json();
         setProfile(parsedProfile);
         setPastResults(parsedResults);
       }
@@ -165,6 +181,13 @@ export const Trader = () => {
         );
         const parsedRes = await response.json();
         if (response.ok) {
+          const alertDetails = {
+            decision: "Up",
+            gameName: "stockTrader",
+            choice: choice,
+            duration: duration,
+          };
+          localStorage.setItem("alertDetails", JSON.stringify(alertDetails));
           setProfile({ ...profile, balance: parsedRes.updatedBalance });
           alertToast(parsedRes.message, "success");
           getSlips();
@@ -182,29 +205,35 @@ export const Trader = () => {
   return (
     <div className="tradergame">
       <Gamenav />
-      <div className="leftBox d-none d-sm-block">
+      <div className="leftBox ">
         <div className="text-center">
-          <button className="coin m-3">TRADER</button>
+          <div className="d-none d-sm-block">
+            <button className="coin m-3">TRADER</button>
+          </div>
         </div>
-        <div className="d-flex justify-content-center">
-          <div className="whiteBox m-2">
-            <div className="d-flex justify-content-center mt-3">
-              <div className="blackBox">
-                <div className="roundHistory mt-4 text-center m-2">
-                  ROUND HISTORY
-                </div>
-                <div className="d-flex justify-content-center">
-                  <div className="CoinInnerBox">
-                    {Array.isArray(pastResults) && pastResults.length > 0 ? (
-                      pastResults.map((result, index) => (
-                        <div key={index} className="pastResult">
-                          {/* Render result details */}
-                          {result === 1 ? "Up" : "Down"}
-                        </div>
-                      ))
-                    ) : (
-                      <div>No past results available.</div>
-                    )}
+        <div className="d-none d-sm-block">
+          <div className="d-flex justify-content-center">
+            <div className="whiteBox m-2">
+              <div className="d-flex justify-content-center mt-3">
+                <div className="">
+                  <div className="d-none d-sm-block">
+                    <div className="roundHistory mt-4 text-center m-2">
+                      ROUND HISTORY
+                    </div>
+                  </div>
+                  <div className="d-flex justify-content-center">
+                    <div className="CoinInnerBox text-center">
+                      {Array.isArray(pastResults) && pastResults.length > 0 ? (
+                        pastResults.map((result, index) => (
+                          <div key={index} className="pastResult">
+                            {/* Render result details */}
+                            {result === 1 ? "Up" : "Down"}
+                          </div>
+                        ))
+                      ) : (
+                        <div>No past results available.</div>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -213,11 +242,11 @@ export const Trader = () => {
         </div>
       </div>
 
+
+
       <div className="rightBox text-center">
-        <div className="timer-display m-3">{formatTime(timer)}</div>
-        <div className="d-flex justify-content-center">
-          <BetSlip />
-        </div>
+        <div className="timer-display">{formatTime(timer)}</div>
+
       </div>
 
       <div className="gameInterface">
@@ -264,15 +293,21 @@ export const Trader = () => {
               10 MIN
             </button>
           </div>
+          <div className="trader-timer text-center d-lg-none" >{formatTime(timer)}</div>
 
           <div className="d-flex justify-content-center">
-            <CandleChart candleArray={pastResults} />
+
+            <CandleStick candleArray={pastResults} />
+
           </div>
           <div>
             <h3 className="traderText text-center">
               PLEASE WAIT UNTIL YOUR TIME STARTS
+
             </h3>
           </div>
+
+
 
           <div className="upAndDown d-flex justify-content-evenly">
             <div>
@@ -337,7 +372,7 @@ export const Trader = () => {
                 </button>
               </div>
             </div>
-            <div>
+            <div className="forDown">
               <button className="forDOWN" id="fordown">
                 FOR DOWN
               </button>
@@ -398,6 +433,12 @@ export const Trader = () => {
                   SELECT
                 </button>
               </div>
+            </div>
+            <div className="d-none d-lg-block">
+              <BetSlip />
+            </div>
+            <div className="d-lg-none">
+              <Sidebar />
             </div>
           </div>
         </div>

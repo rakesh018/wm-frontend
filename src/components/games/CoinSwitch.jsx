@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Gamenav } from "./Gamenav";
+import { Sidebar } from "../../Sidebar";
 import "./coinFlip.css";
-import logo from "../../images/logo.png";
+import logo from '../../images/logo.jpeg';
 import winning from "../../images/winning.png";
 import losing from "../../images/losing.png";
 import Modal from "react-modal";
@@ -10,7 +11,7 @@ import { BetSlip } from "../../BetSlip";
 import { alertToast } from "../../alertToast";
 import { useRecoilState } from "recoil";
 import { betSlipsAtom, profileAtom } from "../../atoms";
-
+import coinFlipSound from '../../assets/coinFlip.mp3';
 export const CoinSwitch = () => {
   const [duration, setDuration] = useState(1); // Initial duration
   const [flipResult, setFlipResult] = useState(null);
@@ -18,12 +19,12 @@ export const CoinSwitch = () => {
   const [timer, setTimer] = useState(0);
   const [selectedValueHeads, setSelectedValueHeads] = useState(100);
   const [selectedValueTails, setSelectedValueTails] = useState(100);
+  const [isFlipping,setIsFlipping]=useState(false)
   const [result, setResult] = useState(null);
   const [profile, setProfile] = useRecoilState(profileAtom);
-  const [isFlipping,setIsFlipping]=useState(false);
+  const coinFlipAudio = new Audio(coinFlipSound);
   const fetchPastDetails = async (roundDuration) => {
-    // Fetch data from server based on roundDuration
-    // Example fetch API call
+
     const response = await fetch(
       `https://server.trademax1.com/bets/get-rounds-history/coinFlip/${roundDuration}`,
       { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
@@ -38,10 +39,12 @@ export const CoinSwitch = () => {
     fetchPastDetails(duration);
   }, [duration]);
 
+ 
+
   const handleCoinFlip = async (result) => {
     setIsFlipping(true); // Start the animation immediately
     setFlipResult(null); // Reset the flip result for re-flipping animation
-  
+    coinFlipAudio.play();
     // Use a timeout to match the animation duration
     setTimeout(() => {
       // Update the result after the animation duration
@@ -109,10 +112,10 @@ export const CoinSwitch = () => {
             },
           }
         );
-        const parsedProfile=await fetchedProfile.json();
+        const parsedProfile = await fetchedProfile.json();
         setProfile(parsedProfile);
         setPastResults(parsedResults);
-        handleCoinFlip(parsedResults[0]);
+        handleCoinFlip(parsedResults[0])
       }
     };
 
@@ -161,6 +164,9 @@ export const CoinSwitch = () => {
     setSelectedValueTails(value);
   };
 
+
+
+
   const handleBet = async (duration, selectedAmt, choice) => {
     const numValue = parseFloat(selectedAmt);
 
@@ -202,31 +208,41 @@ export const CoinSwitch = () => {
   };
 
   return (
-    <div className="mainBox">
+    <div className="coinFlipgame">
+        {/* container-fluid */}
       <Gamenav />
+
       <div className="leftBox">
         <div className="text-center">
-          <button className="coin m-3">COIN FLIP</button>
+          <div className="d-none d-sm-block">
+            <button className="coin m-3">COIN FLIP</button>
+          </div>
         </div>
-        <div className="d-flex justify-content-center">
-          <div className="whiteBox m-2">
-            <div className="d-flex justify-content-center mt-3">
-              <div className="blackBox">
-                <div className="roundHistory mt-4 text-center m-2">
-                  ROUND HISTORY
-                </div>
-                <div className="d-flex justify-content-center">
-                  <div className="CoinInnerBox">
-                    {Array.isArray(pastResults) && pastResults.length > 0 ? (
-                      pastResults.map((result, index) => (
-                        <div key={index} className="pastResult">
-                          {/* Render result details */}
-                          {result === 1 ? "Head" : "Tail"}
-                        </div>
-                      ))
-                    ) : (
-                      <div>No past results available.</div>
-                    )}
+
+        <div className="d-flex justify-content-center sidebar-container">
+          <div className="">
+            <div className="whiteBox">
+              <div className="d-flex justify-content-center mt-3">
+                <div className="" >
+                  <div className="d-none d-sm-block">
+                    <div className="roundHistory mt-4 text-center m-2">
+                      ROUND HISTORY
+                    </div>
+                  </div>
+                  <div className="d-flex justify-content-center">
+                    <div className="CoinInnerBox text-center" >
+
+                      {Array.isArray(pastResults) && pastResults.length > 0 ? (
+                        pastResults.map((result, index) => (
+                          <div key={index} className="pastResult">
+                            {/* Render result details */}
+                            {result === 1 ? "Head" : "Tail"}
+                          </div>
+                        ))
+                      ) : (
+                        <div>No past results available.</div>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -236,10 +252,11 @@ export const CoinSwitch = () => {
       </div>
 
       <div className="rightBox text-center">
-        <div className="timer-display m-3">{formatTime(timer)}</div>
-        <div className="d-flex justify-content-center">
+
+        <div className="timer-display">{formatTime(timer)}</div>
+        {/* <div className="d-flex justify-content-center">
           <BetSlip />
-        </div>
+        </div> */}
       </div>
 
       <div className="gameInterface">
@@ -286,20 +303,33 @@ export const CoinSwitch = () => {
               10 MIN
             </button>
           </div>
+
+
+
+
+          <div className="d-flex justify-content-center">
+
+          </div>
           <div className="desc text-center mt-3">
             <h2>PLEASE WAIT UNTIL THE TIMER STARTS</h2>
           </div>
+          <div className="d-flex justify-content-center">
+          <div className="small-timer-display d-lg-none">{formatTime(timer)}</div>
+          </div>
           <div className="d-flex justify-content-center m-4">
-            <div id="coin" className={flipResult} onClick={handleCoinFlip}>
+            <div id="coin" className={flipResult} >
+            {/* onClick={handleCoinFlip} */}
               <div className="side-a"></div>
               <div className="side-b"></div>
             </div>
           </div>
           <div className="desc text-center m-5">
-            <h2>CHOOSE YOUR SIDE</h2>
+            <h4>CHOOSE YOUR SIDE</h4>
           </div>
+        
 
-          <div className="d-flex justify-content-evenly">
+
+          <div className="headsAndTails d-flex justify-content-evenly">
             <div>
               <button className="forheads">FOR HEADS</button>
               <div className="selection-box m-2">
@@ -360,7 +390,7 @@ export const CoinSwitch = () => {
                 </button>
               </div>
             </div>
-            <div>
+            <div className="tailsDiv">
               <button className="fortails">FOR TAILS</button>
               <div className="selection-box m-2">
                 <div className="counter">
@@ -420,6 +450,34 @@ export const CoinSwitch = () => {
                 </button>
               </div>
             </div>
+            <div className="verticalwhiteBox d-block d-lg-none m-3">
+  <div className="d-flex flex-column align-items-center mt-1">
+    <span style={{ color: 'black' }}>ROUND HISTORY:</span>
+    <div className="CoinInnerBox text-center mt-2">
+      {Array.isArray(pastResults) && pastResults.length > 0 ? (
+        <div className="d-flex flex-column align-items-center">
+          <span></span>
+          {pastResults.map((result, index) => (
+            <span key={index} className="pastResult my-1">
+              {/* Render result details */}
+              {result === 1 ? "Heads" : "Tails"}
+            </span>
+          ))}
+          <span></span>
+        </div>
+      ) : (
+        <div>No past results available.</div>
+      )}
+    </div>
+  </div>
+</div>
+
+          <div className="d-none d-lg-block">
+     <BetSlip />
+     </div>
+          <div  className="d-lg-none">
+           <Sidebar />
+           </div>
           </div>
         </div>
       </div>

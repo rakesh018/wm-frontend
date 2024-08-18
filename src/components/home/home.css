@@ -63,8 +63,12 @@
   .homeBox
   {
     width:100vw;
-    
-  }
+    border-radius: 0px;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    -ms-border-radius: 0px;
+    -o-border-radius: 0px;
+}
   .featuredGames-btn
   {
     width: 50vw;
@@ -73,7 +77,7 @@
   .gameBox
   {
     width: 50vw;
-    height: 35vh;
+    height: 25vh;
   }
   .game1-btn,.game2-btn
   {

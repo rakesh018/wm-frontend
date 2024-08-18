@@ -41,7 +41,7 @@ import { ViewUserWithdrawTransaction } from './components/AdminPages/AdminWithdr
 import { ChooseWinningTeam } from './components/ChooseWinningTeams/ChooseWinningTeam';
 import { DemoAccount } from './components/AdminPages/Demo/DemoAccount';
 import { DepositAmount } from './components/wallet/DepositAmount';
-import { CandleChart } from './components/games/CandleChart';
+// import { CandleChart } from './components/games/CandleChart';
 import { Verification } from './components/register/Verification';
 import { ForgotVerification } from './components/register/ForgotVerification';
 import { Forgotpassword } from './components/login/Forgotpassword';
@@ -49,6 +49,8 @@ import { DepositManually } from './components/wallet/DepositManually';
 import { ToastContainer } from 'react-toastify';
 import { UploadQR } from './components/AdminPages/Upi/Upi';
 import {  QueryList } from './components/AdminPages/Support/QueryList';
+import { TraderGamePage } from './components/ChooseWinningTeams/TraderGame';
+import { CoinFlipGamePage } from './components/ChooseWinningTeams/CoinFlip';
 
 
 
@@ -102,9 +104,11 @@ function App() {
           <Route path='/adminWithdraw' element={<AdminWithdraw />} />
           <Route path='/chooseWinningTeam' element={<ChooseWinningTeam />} />
           <Route path='demoAccount' element={<DemoAccount />} />
-          <Route path='/candleChat' element={<CandleChart />} />
+          {/* <Route path='/candleChat' element={<CandleChart />} /> */}
           <Route path='/adminUPI' element={<UploadQR/>}/>
           <Route path='/queries' element={<QueryList/>}/>
+          <Route path='/adminTrader' element={<TraderGamePage/>}/>
+          <Route path='/adminCoinFlip' element={<CoinFlipGamePage/>}/>
         </Routes>
 
       </Router>

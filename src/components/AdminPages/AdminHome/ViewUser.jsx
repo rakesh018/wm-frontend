@@ -37,7 +37,7 @@ export const ViewUser = () => {
   
         const data = await response.json();
         setUserData(data.user);
-        setBalance(data.user.balance || '');
+        setBalance(data.user.balance+data.user.withdrawableBalance || '');
         setReferral(data.user.referralCommission || '');
         setTotalDeposits(data.totalDeposits);
         setTotalWithdrawals(data.totalWithdrawals);
@@ -182,7 +182,7 @@ export const ViewUser = () => {
                 <img src={adminWallet} alt="Wallet Balance" className="img-fluid" />
                 <div className="mt-2">
                   <strong>WALLET BALANCE</strong>
-                  <div>{userData.balance}</div>
+                  <div>{userData.balance+userData.withdrawableBalance}</div>
                 </div>
               </div>
             </div>

@@ -22,13 +22,14 @@
 }
 .otp-container{
     background-color: white;
-    max-height: 75vh;
+   
     border: 2px solid darkgoldenrod;
     border-radius: 10px;
     -webkit-border-radius: 10px;
     -moz-border-radius: 10px;
     -ms-border-radius: 10px;
     -o-border-radius: 10px;
+    position: fixed;
 }
 .login-btn{
     background-color: black;
@@ -77,4 +78,22 @@
     -moz-border-radius: 10px;
     -ms-border-radius: 10px;
     -o-border-radius: 10px;
+}
+@media (max-width: 768px){
+    .otp-container{
+        background-color: white;
+        height: 50vh;
+        max-height: 85vh;
+        border: 2px solid darkgoldenrod;
+        border-radius: 10px;
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        -ms-border-radius: 10px;
+        -o-border-radius: 10px;
+    }
+    .phoneBox{
+        width: 25vw;
+
+    }
+
 }

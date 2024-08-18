@@ -61,7 +61,7 @@ export const DepositAmount = () => {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
+            'Authorization':` Bearer ${token}`
           },
           body: JSON.stringify({ fileName: selectedFile.name, fileType: selectedFile.type })
         });
@@ -95,7 +95,7 @@ export const DepositAmount = () => {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
+            'Authorization':' Bearer ${token}'
           },
           body: JSON.stringify({ key, amount: numericAmount, utr: utrNumber })
         });
@@ -185,7 +185,9 @@ export const DepositAmount = () => {
         </div>
       </div>
       <Sidebar />
-      <BetSlip />
+      <div className="d-none d-lg-block">
+     <BetSlip />
+     </div>
     </div>
   );
 };

@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState } from 'react';
 import './gameResult.css';
-import logo from '../../images/logo.png';
+import logo from '../../images/logo.jpeg';
 import winning from '../../images/winning.png';
 import losing from '../../images/losing.png';
 

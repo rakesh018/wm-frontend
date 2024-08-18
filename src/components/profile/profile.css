@@ -1,4 +1,4 @@
-@media (max-width: 575.98px) 
+@media (max-width: 768px) 
 {
     .settingsBtn
     {
@@ -6,14 +6,11 @@
     }
 .name,.password{
     width: 57vw;
+    height: 30vh;
 }
 
  }
- .support
- {
-    background-color: inherit;
-    border: none;
- }
+
  .about-btn{
     background-color: darkgoldenrod;
     border-radius: 10px;
@@ -21,4 +18,185 @@
     -moz-border-radius: 10px;
     -ms-border-radius: 10px;
     -o-border-radius: 10px;
+}
+
+.settingsBox{
+    height: 70vh;
+    width:68vw;
+    flex: 5;
+    background: rgb(2,1,11);
+    background-image: linear-gradient(black,rgb(57, 57, 57));
+    padding: 20px;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
+.edit-btn,.save-changes-btn{
+    background-color: black;
+    color: white;
+    border: 1px solid darkgoldenrod;
+}
+.settingsBtn{
+    border: 2px solid #e2b543;
+    background-color: white;
+    width: 10vw;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
+.SettingsInnerBox{
+    height: 57vh;
+    background-color: white;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
+
+#blinking-button{
+    padding: 8px 35px;
+    border-radius: 10PX;
+    border: 0px solid #6C8003;
+    -webkit-border-radius: 10PX;
+    -moz-border-radius: 10PX;
+    -ms-border-radius: 10PX;
+    -o-border-radius: 10PX;
+}
+@keyframes blink {
+  0%, 100% {background-color:darkgoldenrod;}
+  50% {background-color: rgb(182, 108, 108);}
+}
+#blinking-button {
+  background-color: darkgoldenrod;
+  color:black;
+  font-weight: bold;
+  animation: blink 1s linear infinite;
+}
+
+.name,.password{
+    background-color:white;
+    height: 15vh;
+    width: 20vw;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    border: 2px solid black;
+   
+}
+.setting-input{
+ 
+    border-style: none;
+    
+    
+}
+.profile
+{
+    height: 10vh;
+}
+.uid{
+    background-color: darkgoldenrod;
+    color: black;
+}
+.getHelp-btn{
+    background-color: #D9D9D9;
+    color: black;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
+.changePassword,.getHelp-btn{
+    background-color: black;
+    color: white;
+    border:2px solid darkgoldenrod;   
+    
+}
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Ensures it overlays all content */
+  }
+  .edit-save-btn{
+    background-color: white;
+    color: black;
+    border:2px solid darkgoldenrod;    
+}
+.edit-save-btn:hover{
+    background-color: black;
+    color: white;
+    border:2px solid darkgoldenrod;   
+}
+.edit-cancel-btn{
+    background-color: darkgoldenrod;
+}
+.edit-cancel-btn:hover{
+background-color: white;
+border:2px solid darkgoldenrod;   
+}
+
+@media (max-width: 768px) 
+{
+   
+
+    .settings-item{
+        padding: 10px;
+    }
+    .edit-save-btn{
+        background-color: white;
+        color: black;
+        border:2px solid darkgoldenrod;    
+    }
+    .edit-save-btn:hover{
+        background-color: black;
+        color: white;
+        border:2px solid darkgoldenrod;   
+    }
+    .edit-cancel-btn{
+        background-color: darkgoldenrod;
+    }
+    .edit-cancel-btn:hover{
+    background-color: white;
+    border:2px solid darkgoldenrod;   
+
+    }
+   .settingsBox{
+    width: 100%;
+    background-color: black;
+    border-radius: 0px;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    -ms-border-radius: 0px;
+    -o-border-radius: 0px;
+}
+    .settingsBtn
+    {
+        width: 30vw;
+    }
+.name,.password{
+    width: 57vw;
+}
+.SettingsInnerBox {
+    height: 44vh;
+    
+ }
+
+}
+.edit-btn{
+    width: 30vw;
+    
 }

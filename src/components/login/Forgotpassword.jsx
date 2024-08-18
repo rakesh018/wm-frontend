@@ -12,6 +12,7 @@ export const Forgotpassword = () => {
   const [otp, setOtp] = useState(["", "", "", ""]);
   const [newPassword, setNewPassword] = useState("");
   const [reEnterPassword, setReEnterPassword] = useState("");
+  const [containerHeight, setContainerHeight] = useState('35vh');
 
   const handleOtpChange = (index, value) => {
     if (/^[0-9]?$/.test(value)) {
@@ -47,6 +48,7 @@ export const Forgotpassword = () => {
       console.log(error);
       alertToast("Error sending OTP", "error");
     }
+    setContainerHeight('85vh');
   };
 
   const handleSavePassword = async () => {
@@ -76,7 +78,7 @@ export const Forgotpassword = () => {
   return (
     <div className="container-fluid login d-flex justify-content-center col-sm-12 col-md-12">
       <ToastContainer />
-      <div className="otp-container text-center mt-5">
+      <div className="otp-container text-center mt-5" style={{ height: containerHeight }}>
         <div className="otp-box">
           <div className="forgotPass m-2">FORGOT PASSWORD</div>
           <div>

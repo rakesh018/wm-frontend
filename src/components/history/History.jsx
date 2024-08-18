@@ -2,9 +2,11 @@ import React, { useState, useEffect, useRef } from "react";
 import { Navbar } from "../../Navbar";
 import { Sidebar } from "../../Sidebar";
 import { BetSlip } from "../../BetSlip";
+import { useNavigate } from "react-router-dom";
 import "./history.css";
 
 export const History = () => {
+  const navigate = useNavigate();
   const [historyData, setHistoryData] = useState([]); // for bets history
   const [transactionsData, setTransactionsData] = useState([]); // for transactions history
   const [betsPage, setBetsPage] = useState(1); // pagination for bets
@@ -20,6 +22,7 @@ export const History = () => {
   
   // Fetching bets history
   useEffect(() => {
+
     const fetchBetsHistory = async () => {
       setBetsLoading(true);
       try {
@@ -146,11 +149,13 @@ export const History = () => {
       <div className="container historyBox mt-2">
         <div>
           <button className="historybtn">HISTORY</button>
+          <button className="leaderbtn ms-5 d-lg-none" onClick={() => navigate('/leaderboard')}>LEADER BOARD</button>
         </div>
+        
         <div className="d-flex justify-content-evenly mt-3 me-2">
           {/* Bets History */}
-          <div className="history1 no-scrollbar">
-            <button className="game1 p-2 m-2">Bets</button>
+          <div className="history1 " style={{  overflowY: 'auto' }}>
+            <button className="game1 p-2 m-2" >Bets</button>
             <div className="d-flex justify-content-evenly">
               <div>Date</div>
               <div>Money</div>
@@ -168,7 +173,7 @@ export const History = () => {
           </div>
 
           {/* Transactions History */}
-          <div className="history2 no-scrollbar">
+          <div className="history2" style={{  overflowY: 'auto' }}>
             <button className="game2 p-2 m-2">Transactions</button>
             <div className="d-flex justify-content-evenly">
               <div>Date</div>
@@ -188,7 +193,9 @@ export const History = () => {
         </div>
       </div>
       <Sidebar />
-      <BetSlip />
+      <div className="d-none d-lg-block">
+     <BetSlip />
+     </div>
     </div>
   );
 };
