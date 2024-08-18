@@ -135,3 +135,6 @@
     justify-content: center;
   }
   
+  .timer-display{
+    display: block;
+  }
