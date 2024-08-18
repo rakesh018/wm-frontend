@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import "./login.css";
 import { useNavigate } from "react-router-dom";
 import { alertToast } from "../../alertToast";
@@ -6,10 +6,17 @@ import { alertToast } from "../../alertToast";
 export const Login = () => {
   const emailOrPhoneRef = useRef(null);
   const passwordRef = useRef(null);
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const navigate = useNavigate();
+
+  const togglePasswordVisibility = () => {
+    setIsPasswordVisible(!isPasswordVisible);
+  };
 
   const handleSignIn = async (e) => {
+    e.preventDefault();
+
     try {
-      e.preventDefault();
       const response = await fetch("https:server.trademax1.com/auth/signin", {
         method: "POST",
         headers: {
@@ -20,31 +27,35 @@ export const Login = () => {
           password: passwordRef.current.value,
         }),
       });
+
       const data = await response.json();
+
       if (response.ok) {
         localStorage.setItem("token", data.token);
+        alertToast("Login successful!", "success"); // Show success toast
+
         setTimeout(() => {
           navigate("/home");
         }, 1500);
+      } else {
+        alertToast("Invalid credentials. Please try again.", "error"); // Show error toast
       }
     } catch (error) {
       console.error("Error:", error);
-      alert("Error occured while loggin in.");
+      alertToast("An error occurred while logging in.", "error"); // Show error toast
     }
   };
-  const navigate = useNavigate();
+
   return (
-    
     <div className="container-fluid login d-flex justify-content-center col-sm-12 col-md-12">
-      
       <form action="">
-        <div className="login-container  text-center mt-5">
-          <div className="login-box ">
+        <div className="login-container text-center mt-5">
+          <div className="login-box">
             <div>
               <button className="login-btn m-5">LOGIN WITH PHONE NUMBER</button>
             </div>
             <div className="icons">
-              <span class="material-symbols-outlined">smartphone</span>
+              <span className="material-symbols-outlined">smartphone</span>
               <button className="login-btn">PHONE NUMBER</button>
             </div>
             <div>
@@ -56,12 +67,12 @@ export const Login = () => {
               />
             </div>
             <div>
-              <span class="material-symbols-outlined">lock</span>
+              <span className="material-symbols-outlined">lock</span>
               <button className="login-btn">PASSWORD</button>
             </div>
             <div style={{ margin: "16px 0", position: "relative" }}>
               <input
-                type="text"
+                type={isPasswordVisible ? "text" : "password"}
                 className="login-input"
                 id="password"
                 ref={passwordRef}
@@ -76,14 +87,11 @@ export const Login = () => {
                   transform: "translateY(-50%)",
                   cursor: "pointer",
                 }}
+                onClick={togglePasswordVisibility}
               >
-                visibility_off
+                {isPasswordVisible ? "visibility" : "visibility_off"}
               </span>
             </div>
-            {/* <div>
-              <input type="radio" name="" id="" />
-              <label> remember password?</label>
-            </div> */}
             <div>
               <button className="login-btn m-3" onClick={handleSignIn}>
                 LOGIN
