@@ -51,6 +51,7 @@ import { UploadQR } from "./components/AdminPages/Upi/Upi";
 import { QueryList } from "./components/AdminPages/Support/QueryList";
 import { TraderGamePage } from "./components/ChooseWinningTeams/TraderGame";
 import { CoinFlipGamePage } from "./components/ChooseWinningTeams/CoinFlip";
+import { ContactSupport } from './components/help/ContactSupport';
 function App() {
   const showAlert = (gameName, roundDuration, result) => {
     const alertDetails = JSON.parse(sessionStorage.getItem("AlertDetails"));
@@ -189,6 +190,7 @@ function App() {
           <Route path="/queries" element={<QueryList />} />
           <Route path="/adminTrader" element={<TraderGamePage />} />
           <Route path="/adminCoinFlip" element={<CoinFlipGamePage />} />
+          <Route path='/contactSupport'  element={<ContactSupport/>}/>
         </Routes>
       </Router>
     </div>
