@@ -35,6 +35,7 @@ export const Trader = ({ showAlert }) => {
   const [selectedValueTails, setSelectedValueTails] = useState(100);
   const [result, setResult] = useState(null);
   const [profile, setProfile] = useRecoilState(profileAtom);
+  const [candleArray,setCandleArray]=useState([]);
 
   const fetchPastDetails = async (roundDuration) => {
     // Fetch data from server based on roundDuration
@@ -52,6 +53,7 @@ export const Trader = ({ showAlert }) => {
     const data = await response.json();
     const results = data.parsedResults;
     setPastResults(results);
+    setCandleArray(data.parsedCandleStickData);
   };
 
   useEffect(() => {
@@ -105,7 +107,8 @@ export const Trader = ({ showAlert }) => {
     const handleResultBroadcast = async (
       gameName,
       roundDuration,
-      parsedResults
+      parsedResults,
+      parsedCandleStickData
     ) => {
       if (gameName === "stockTrader" && roundDuration === duration) {
         const fetchedProfile = await fetch(
@@ -127,9 +130,9 @@ export const Trader = ({ showAlert }) => {
         const parsedProfile = await fetchedProfile.json();
         setProfile(parsedProfile);
         setPastResults(parsedResults);
-        console.log(parsedResults);
+        setCandleArray(parsedCandleStickData);
         showAlert(gameName, roundDuration, parsedResults[0]);
-        console.log(gameName, roundDuration, parsedResults[0]);
+        
       }
     };
 
@@ -315,7 +318,7 @@ export const Trader = ({ showAlert }) => {
           </div>
 
           <div className="d-flex justify-content-center">
-            <CandleStick candleArray={pastResults} />
+            <CandleStick candleArray={candleArray} />
           </div>
           <div>
             <h3 className="traderText text-center">

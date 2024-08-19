@@ -44,7 +44,7 @@ export const Navbar = () => {
           <div className="col-6 d-flex justify-content-start">
             <div className="top-left d-flex justify-content-evenly d-sm-blok">
               <div className="icon d-lg-none" onClick={handleBackClick}>
-                <span className="material-symbols-outlined m-4">
+                <span className="material-symbols-outlined m-4 no-select">
                   arrow_back_ios
                 </span>
               </div>

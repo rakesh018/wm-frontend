@@ -5,30 +5,16 @@ export const CandleStick = ({ candleArray }) => {
   const [seriesData, setSeriesData] = useState([]);
 
   useEffect(() => {
-    // Initialize the first candle values
-    let previousClose = 100;
-    let reversedArr = []; //cuz candle array is passed by reference and changing it will change everything
+    if (candleArray && candleArray.length > 0) {
+      const newSeriesData = candleArray.map((candle) => {
+        return {
+          x: new Date(candle.x).getTime(), // Convert x to a timestamp
+          y: candle.y, // y is already an array of [open, high, low, close]
+        };
+      });
 
-    for (let i = candleArray.length - 1; i >= 0; i--) {
-      reversedArr.push(candleArray[i]);
+      setSeriesData(newSeriesData);
     }
-    const newSeriesData = reversedArr.map((value, index) => {
-      const open = previousClose;
-      const high =
-        value === 1 ? open + Math.random() * 10 : open - Math.random() * 2;
-      const low =
-        value === 1 ? open - Math.random() * 2 : open - Math.random() * 10;
-      const close =
-        value === 1 ? open + Math.random() * 5 : open - Math.random() * 5;
-
-      previousClose = close; // Update previousClose for next candle
-
-      return {
-        x: new Date().getTime() + index * 60000, // Increment by one minute
-        y: [open, high, low, close],
-      };
-    });
-    setSeriesData(newSeriesData);
   }, [candleArray]);
 
   const options = {

@@ -121,3 +121,89 @@
   /* Styles for large devices */ 
 }
 
+.scrollbar-hidden::-webkit-scrollbar {
+    display: none; /* Hides the scrollbar */
+}
+
+.historyBox {
+    height: 70vh;
+    width: 68vw;
+    background-color: black;
+    flex: 5;
+    background: rgb(2,1,11);
+    background-image: linear-gradient(black, rgb(57, 57, 57));
+    padding: 20px;
+    border-radius: 10px;
+    font-size: 1rem; /* Base font size */
+}
+
+.leaderbtn, .historybtn {
+    border: 2px solid darkgoldenrod;
+    background-color: white;
+    border-radius: 10px;
+    font-size: 0.9rem; /* Slightly smaller font size for buttons */
+}
+
+.history1, .history2 {
+    background-color: white;
+    height: 55vh;
+    max-height: 55vh;
+    border-radius: 10px;
+    overflow-y: auto;
+    font-size: 0.9rem; /* Font size for history items */
+}
+
+.game1, .game2 {
+    background-color: black;
+    border-radius: 8px;
+    color: white;
+    border: 2px solid darkgoldenrod;
+    font-size: 1rem; /* Font size for game buttons */
+}
+
+/* Extra small devices (portrait phones, less than 576px) */
+@media (max-width: 575.98px) {
+    .historybtn {
+        width: 40%;
+        font-size: 0.8rem; /* Smaller font size for mobile */
+    }
+    .historyBox {
+        width: 100vw;
+        border-radius: 0;
+        font-size: 0.8rem; /* Smaller font size for mobile */
+    }
+    .history1, .history2 {
+        width: 90vw;
+        font-size: 0.8rem; /* Smaller font size for mobile */
+        margin: 5px;
+    }
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (min-width: 576px) and (max-width: 767.98px) {
+    .historyBox {
+        width: 100vw;
+        font-size: 0.9rem; /* Adjusted font size for small devices */
+    }
+    .history1, .history2 {
+        width: 90vw;
+        font-size: 0.9rem; /* Adjusted font size for small devices */
+    }
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .historyBox {
+        width: 90vw;
+        font-size: 1rem; /* Default font size for tablets */
+    }
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+    /* Styles for larger screens */
+    .historyBox {
+        width: 68vw;
+        font-size: 1rem; /* Default font size for desktops */
+    }
+}
