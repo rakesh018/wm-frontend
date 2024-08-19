@@ -92,6 +92,10 @@
 
 /* Responsive Styles */
 @media (max-width: 768px) {
+  .row{
+    display: flex;
+    justify-content: flex-end;
+  }
   .top-nav {
       height: 10vh;
       display: flex;
@@ -137,7 +141,11 @@
       width: calc(180px * 14);
   }
 
-  .questionMark,
+  .questionMark{
+    margin-left:5%;
+    margin-right:10%;
+    height:50%;
+  }
   .roundImg {
       display: none;
   }

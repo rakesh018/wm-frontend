@@ -132,7 +132,7 @@ export const DepositAmount = () => {
         <div className="innerNotificationBox m-3 p-3 text-center">
           <div>
             <div>ENTER THE AMOUNT, PLEASE</div>
-            <div className='mt-2'>(FROM 200-100000)</div>
+            <div className='mt-2'>(FROM 300-300000)</div>
             <div className='mt-2'>
               <input
                 className='amountInput'

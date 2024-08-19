@@ -87,7 +87,7 @@ export const BetSlip = () => {
           </div>
         </div>
       </div>
-      <div className="  d-flex justify-content-center d-lg-none" style={{ display: 'none' }}>
+      <div className="betSlips  d-flex justify-content-center d-lg-none" style={{ display: 'none' }}>
         <div className="betMobile text-center ">
           <div>
             <button className="bet-sel mt-2">BET SLIPS</button>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import logo from "../../../images/logo.png";
+import logo from "../../../images/logo.jpeg";
 import round from "../../../images/roundimage.png";
 import question from "../../../images/questionMark.png";
 import search from "../../../images/searchImage.png";

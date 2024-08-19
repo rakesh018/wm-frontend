@@ -1,202 +1,261 @@
-@media (max-width: 768px) 
-{
-    .settingsBtn
-    {
-        width: 30vw;
-    }
-.name,.password{
-    width: 57vw;
-    height: 30vh;
+/* Global Styles */
+:root {
+    --primary-color: darkgoldenrod;
+    --secondary-color: white;
+    --background-color: black;
+    --text-color: white;
+    --border-color: darkgoldenrod;
+    --hover-color: #4a3d1c;
 }
 
- }
-
- .about-btn{
-    background-color: darkgoldenrod;
-    border-radius: 10px;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    -ms-border-radius: 10px;
-    -o-border-radius: 10px;
+/* Buttons */
+.button-standard,.uid {
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: 2px solid var(--border-color);
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    width: 200px; /* Set a fixed width */
+    text-align: center;
+    margin-bottom: 15px; /* Added margin to create space */
+    margin-top: 15px;
 }
 
-.settingsBox{
+.button-standard:hover {
+    background-color: var(--hover-color);
+}
+
+/* General Layout */
+.settingsBox {
     height: 70vh;
-    width:68vw;
-    flex: 5;
-    background: rgb(2,1,11);
-    background-image: linear-gradient(black,rgb(57, 57, 57));
+    width: 100%;
+    background-color: var(--background-color);
+    background-image: linear-gradient(to bottom, #000000, #383838);
     padding: 20px;
     border-radius: 10px;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    -ms-border-radius: 10px;
-    -o-border-radius: 10px;
-}
-.edit-btn,.save-changes-btn{
-    background-color: black;
-    color: white;
-    border: 1px solid darkgoldenrod;
-}
-.settingsBtn{
-    border: 2px solid #e2b543;
-    background-color: white;
-    width: 10vw;
-    border-radius: 10px;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    -ms-border-radius: 10px;
-    -o-border-radius: 10px;
-}
-.SettingsInnerBox{
-    height: 57vh;
-    background-color: white;
-    border-radius: 10px;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    -ms-border-radius: 10px;
-    -o-border-radius: 10px;
+    color: var(--text-color);
+    box-sizing: border-box;
 }
 
-#blinking-button{
-    padding: 8px 35px;
-    border-radius: 10PX;
-    border: 0px solid #6C8003;
-    -webkit-border-radius: 10PX;
-    -moz-border-radius: 10PX;
-    -ms-border-radius: 10PX;
-    -o-border-radius: 10PX;
-}
-@keyframes blink {
-  0%, 100% {background-color:darkgoldenrod;}
-  50% {background-color: rgb(182, 108, 108);}
-}
-#blinking-button {
-  background-color: darkgoldenrod;
-  color:black;
-  font-weight: bold;
-  animation: blink 1s linear infinite;
+.SettingsInnerBox {
+    height: 100%;
+    background-color: var(--secondary-color);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
 }
 
-.name,.password{
-    background-color:white;
+/* Input Fields */
+.name,
+.password {
+    background-color: var(--secondary-color);
+    color: var(--background-color);
+    border: 2px solid var(--primary-color);
     height: 15vh;
-    width: 20vw;
+    width: 100%;
     border-radius: 10px;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    -ms-border-radius: 10px;
-    -o-border-radius: 10px;
-    border: 2px solid black;
-   
+    padding: 10px;
+    font-size: 16px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
-.setting-input{
- 
-    border-style: none;
-    
-    
-}
-.profile
-{
-    height: 10vh;
-}
-.uid{
-    background-color: darkgoldenrod;
-    color: black;
-}
-.getHelp-btn{
-    background-color: #D9D9D9;
-    color: black;
+
+/* Blinking Button */
+#blinking-button {
+    padding: 8px 35px;
     border-radius: 10px;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    -ms-border-radius: 10px;
-    -o-border-radius: 10px;
+    background-color: var(--primary-color);
+    color: black;
+    font-weight: bold;
+    align-self: center;
+    transition: background-color 0.3s ease;
+    margin-bottom: 15px; /* Added margin to create space */
+    width: 200px; /* Set the same fixed width */
 }
-.changePassword,.getHelp-btn{
-    background-color: black;
-    color: white;
-    border:2px solid darkgoldenrod;   
-    
+
+@keyframes blink {
+    0%,
+    100% {
+        background-color: var(--primary-color);
+    }
+    50% {
+        background-color: #b88b3d;
+    }
 }
+
+/* UID and Other Sections */
+/* .uid {
+    background-color: var(--primary-color);
+    color: black;
+    padding: 10px;
+    width: auto;
+    border-radius: 10px;
+    margin: 10px;
+} */
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .settingsBox {
+        height: 70vh;
+    }
+
+    .SettingsInnerBox {
+        height: 90%;
+    }
+
+    .name,
+    .password {
+        width: 100%;
+        height: auto;
+    }
+
+    .button-standard,.uid {
+        width: 100%;
+        font-size: 16px;
+    }
+
+    .settingsPfBtn {
+        width: 40vh;
+        margin-left: 2vw;
+        border-radius: 15px;
+    }
+    .logout-btn{
+        width:100%;
+    }
+}
+
+/* Referral Section */
+.referral-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    word-wrap: break-word;
+    width: 100%;
+    text-align: center;
+    margin-top: 1rem;
+}
+
+.referral-link {
+    margin-left: 20px;
+    font-size: 1.1rem;
+    word-break: normal;
+    text-align: left;
+}
+
+@media (min-width: 768px) {
+    .referral-section {
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        flex-wrap: wrap;
+    }
+
+    .referral-link {
+        margin-left: 20px;
+        font-size: 1.1rem;
+    }
+
+    .button-standard,.uid {
+        font-size: 1.1rem;
+        padding: 10px 20px;
+        margin-bottom: 15px; /* Ensure space between buttons */
+        width: 200px; /* Set fixed width to make both buttons equal */
+    }
+    .logout-btn{
+        width:120px;
+        margin-top: -20px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .referral-section {
+        gap: 30px;
+        flex-wrap: wrap;
+    }
+
+    .referral-link {
+        font-size: 1.2rem;
+        margin-left: 25px;
+    }
+
+    .button-standard ,.uid{
+        font-size: 1.2rem;
+        padding: 10px 10px;
+        margin-bottom: 15px; /* Ensure space between buttons */
+        width: 200px; /* Keep buttons the same width */
+    }
+    .logout-btn{
+        width:120px;
+        margin-top: -20px;
+    }
+}
+/* Modal Overlay */
 .modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
+    background: rgba(0, 0, 0, 0.7);
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 1000; /* Ensures it overlays all content */
-  }
-  .edit-save-btn{
+    z-index: 999;
+}
+
+/* Modal Box */
+.edit-modal {
     background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    width: 90%;
+    max-width: 400px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Modal Content */
+.modal-content {
+    text-align: center;
+}
+
+/* Modal Buttons */
+.edit-save-btn, .edit-cancel-btn {
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin-top: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+}
+
+.edit-save-btn {
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+}
+
+.edit-cancel-btn {
+    background-color: lightgray;
     color: black;
-    border:2px solid darkgoldenrod;    
-}
-.edit-save-btn:hover{
-    background-color: black;
-    color: white;
-    border:2px solid darkgoldenrod;   
-}
-.edit-cancel-btn{
-    background-color: darkgoldenrod;
-}
-.edit-cancel-btn:hover{
-background-color: white;
-border:2px solid darkgoldenrod;   
 }
 
-@media (max-width: 768px) 
-{
-   
+/* Copy to Clipboard Notification */
+.copy-notification {
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    padding: 10px;
+    text-align: center;
+    margin-top: 10px;
+    border-radius: 5px;
+    display: none; /* Hidden by default */
+}
 
-    .settings-item{
-        padding: 10px;
-    }
-    .edit-save-btn{
-        background-color: white;
-        color: black;
-        border:2px solid darkgoldenrod;    
-    }
-    .edit-save-btn:hover{
-        background-color: black;
-        color: white;
-        border:2px solid darkgoldenrod;   
-    }
-    .edit-cancel-btn{
-        background-color: darkgoldenrod;
-    }
-    .edit-cancel-btn:hover{
-    background-color: white;
-    border:2px solid darkgoldenrod;   
+.copy-notification.show {
+    display: block;
+}
 
-    }
-   .settingsBox{
-    width: 100%;
-    background-color: black;
-    border-radius: 0px;
-    -webkit-border-radius: 0px;
-    -moz-border-radius: 0px;
-    -ms-border-radius: 0px;
-    -o-border-radius: 0px;
-}
-    .settingsBtn
-    {
-        width: 30vw;
-    }
-.name,.password{
-    width: 57vw;
-}
-.SettingsInnerBox {
-    height: 55vh;
- }
- .edit-btn{
-    width: 50vw;
-}
-}
-.edit-btn{
-    width: 15vw;
+.container{
+    margin-bottom: 30px;
 }

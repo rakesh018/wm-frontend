@@ -7,6 +7,7 @@ import "./profile.css";
 import { profileAtom } from "../../atoms";
 import { useRecoilValue } from "recoil";
 import { toast } from "react-toastify";
+import { alertToast } from "../../alertToast";
 
 export const Profile = () => {
   const navigate = useNavigate();
@@ -19,6 +20,7 @@ export const Profile = () => {
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const profile = useRecoilValue(profileAtom);
+  const [showCopyNotification, setShowCopyNotification] = useState(false);
 
   const handleChangePassword = () => {
     setIsModalOpen(true);
@@ -76,12 +78,48 @@ export const Profile = () => {
     toast.success("Logged out successfully!");
   };
 
+  function handleCopyReferralLink() {
+    const text=`https://trademax1.com/register?referral=${profile.referralCode}`
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard
+        .writeText(text)
+        .then(() => {
+          alertToast("Text copied to clipboard!",'success');
+        })
+        .catch((err) => {
+          console.error("Failed to copy text: ", err);
+          fallbackCopyText(text);
+        });
+    } else {
+      fallbackCopyText(text); // Fallback for unsupported browsers
+    }
+  }
+  function fallbackCopyText(text) {
+    const textarea = document.createElement("textarea");
+    textarea.value = text;
+    document.body.appendChild(textarea);
+    textarea.focus();
+    textarea.select();
+
+    try {
+      const successful = document.execCommand("copy");
+      const msg = successful
+        ? "Text copied to clipboard!"
+        : "Failed to copy text";
+      alertToast('Link copied to clipboard','success');
+    } catch (err) {
+      console.error("Fallback: Failed to copy text", err);
+    }
+
+    document.body.removeChild(textarea);
+  }
+
   return (
     <div>
       <Navbar />
 
       <div className="container settingsBox mt-2 col-12">
-        <button className="settingsBtn">PROFILE</button>
+        <button className="settingsPfBtn">PROFILE</button>
 
         <div className="SettingsInnerBox mt-2 d-flex justify-content-center align-items-center">
           <div className="d-flex flex-column align-items-center">
@@ -103,14 +141,21 @@ export const Profile = () => {
                 />
               </div>
             </div>
-
+            <div>
+              <input
+                type="text"
+                className="uid mt-2"
+                value={`UID: ${profile?.uid || ""}`}
+                readOnly
+              />
+            </div>
             <div>
               <button
                 type="button"
-                className="edit-btn mt-2"
+                className="button-standard"
                 onClick={handleChangePassword}
               >
-                CHANGE THE PASSWORD
+                CHANGE PASSWORD
               </button>
 
               {isModalOpen && (
@@ -156,19 +201,16 @@ export const Profile = () => {
             </div>
 
             <div>
-              <input
-                type="text"
-                className="uid mt-2"
-                value={`UID: ${profile?.uid || ""}`}
-                readOnly
-              />
-            </div>
-
-            <div className="text-center mt-2">
-              <button id="blinking-button">REFER AND EARN</button>
-              <h3>
-                <span>{profile.referralCode}</span>
-              </h3>
+              <button
+                type="button"
+                className="button-standard"
+                onClick={handleCopyReferralLink}
+              >
+                COPY REFERRAL LINK
+              </button>
+              {showCopyNotification && (
+                <div className="copy-notification">Referral link copied!</div>
+              )}
             </div>
 
             {/* Logout Button */}
@@ -183,12 +225,21 @@ export const Profile = () => {
 
             {/* Logout Modal */}
             {logoutModalOpen && (
-              <div className="modal-overlay" onClick={() => setLogoutModalOpen(false)}>
-                <div className="edit-modal" onClick={(e) => e.stopPropagation()}>
+              <div
+                className="modal-overlay"
+                onClick={() => setLogoutModalOpen(false)}
+              >
+                <div
+                  className="edit-modal"
+                  onClick={(e) => e.stopPropagation()}
+                >
                   <div className="modal-content">
                     <h3>Confirm Logout</h3>
                     <p>Are you sure you want to logout?</p>
-                    <button onClick={handleLogout} className="edit-save-btn m-2">
+                    <button
+                      onClick={handleLogout}
+                      className="edit-save-btn m-2"
+                    >
                       Logout
                     </button>
                     <button

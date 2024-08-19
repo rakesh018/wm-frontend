@@ -108,10 +108,7 @@
   width: 100%;
   z-index: 1000; /* Optional: To ensure it stays above other content */
 }
-.betSlipImage{
-  height:90%;
-  width: 8vw;
-}
+
 
 
 .modal {

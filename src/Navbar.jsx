@@ -4,11 +4,11 @@ import "./navbar.css";
 import logo from "./images/logo.jpeg";
 import question from "./images/questionMark.png";
 import round from "./images/roundimage.png";
-import image1 from "./images/image1.png";
-import image2 from "./images/image2.png";
-import image3 from "./images/image3.png";
-import image4 from "./images/image4.png";
-import image5 from "./images/image5.png";
+import image2 from "./images/image1.jpeg";
+import image1 from "./images/image2.jpeg";
+import image3 from "./images/image3.jpeg";
+import image4 from "./images/image4.jpeg";
+// import image5 from "./images/image5.png";
 import { useRecoilValue } from "recoil";
 import logoutIcon from "./images/logoutIcon.png";
 import { profileAtom } from "./atoms";
@@ -146,9 +146,9 @@ export const Navbar = () => {
           <div class="client-slide">
             <img src={image4} height="100" width="250" alt="" />
           </div>
-          <div class="client-slide">
+          {/* <div class="client-slide">
             <img src={image5} height="100" width="250" alt="" />
-          </div>
+          </div> */}
           <div class="client-slide">
             <img src={image1} height="100" width="250" alt="" />
           </div>
@@ -161,8 +161,20 @@ export const Navbar = () => {
           <div class="client-slide">
             <img src={image4} height="100" width="250" alt="" />
           </div>
-          <div class="client-slide">
+          {/* <div class="client-slide">
             <img src={image5} height="100" width="250" alt="" />
+          </div> */}
+          <div class="client-slide">
+            <img src={image1} height="100" width="250" alt="" />
+          </div>
+          <div class="client-slide">
+            <img src={image2} height="100" width="250" alt="" />
+          </div>
+          <div class="client-slide">
+            <img src={image3} height="100" width="250" alt="" />
+          </div>
+          <div class="client-slide">
+            <img src={image4} height="100" width="250" alt="" />
           </div>
           <div class="client-slide">
             <img src={image1} height="100" width="250" alt="" />

@@ -171,6 +171,7 @@ border: 2px solid darkgoldenrod;;
      .innerNotificationBox {
         width: 93vw;
         height: 57vh;
+        transform: translateX(-15px);
     }
     .continueBtn{
         width: 35vw;

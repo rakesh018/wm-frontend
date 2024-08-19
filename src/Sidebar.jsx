@@ -7,7 +7,7 @@ import resImage2 from "./images/resImage2.png";
 import resImage3 from "./images/resImage3.png";
 import resImage4 from "./images/resImage4.png";
 import resImage5 from "./images/resImage5.png";
-import betSlip from "./images/betSlip.png";
+import betSlip from "./images/betslips.png";
 import { useState } from "react";
 
 export const Sidebar = () => {

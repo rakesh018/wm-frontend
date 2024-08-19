@@ -134,18 +134,20 @@
 }
 
 .side-a {
-  background-image: url('../../images/flipImage.jpeg');
-
+  background-image: url('../../images/coinHead.png');
   background-size: cover;
   z-index: 100;
+  width: 100px;
+  height: 100px;
 }
 
 .side-b {
   
-
-  background-image: url('../../images/trails.png');
+  background-image: url('../../images/coinTail.png');
   background-size: cover;
   transform: rotateY(180deg);
+  width: 100px;
+  height: 100px;
 }
 
 #coin.heads {
@@ -351,14 +353,16 @@ width: 35vw;
     {
       flex-direction: column;
       align-items: center;
-  
     }
     .timer-display{
      
       font-size: 1em;
    
   }
-
+  .CoinInnerBox{
+    margin-bottom: 10vh;
+    width: 110%;
+  }
   .gameInterface{
     background-color:white;
     height: 100vh;

@@ -1,41 +1,40 @@
 .betBox {
-    background-color: black;
-    background-image: linear-gradient(black,rgb(57, 57, 57)); 
-    width: 15vw;
-    height: 70vh;
-    border-radius: 10px;
-    color: white;
-    position: fixed;
-    top: 22%;
-    right: 0;
-    overflow-y: auto; 
-  }
-  .bet-sel{
-    border: 2px solid darkgoldenrod;
-    background-color: white;
-    color: black;
-  height:5vh ;
+  background-color: black;
+  background-image: linear-gradient(black, rgb(57, 57, 57));
+  width: 15vw;
+  height: 70vh;
+  border-radius: 10px;
+  color: white;
+  position: fixed;
+  top: 22%;
+  right: 0;
+  overflow-y: auto;
+}
+.bet-sel {
+  border: 2px solid darkgoldenrod;
+  background-color: white;
+  color: black;
+  height: 5vh;
   width: 10vw;
-  border-radius:10px ;
-  -webkit-border-radius:10px ;
-  -moz-border-radius:10px ;
-  -ms-border-radius:10px ;
-  -o-border-radius:10px ;
-  
-  }
-  
-  .betSelectionBox{
-    color: black;
-  height:60vh ;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+}
+
+.betSelectionBox {
+  color: black;
+  height: 60vh;
   max-height: 60vh;
   overflow-y: auto;
-  border-radius:10px ;
-  -webkit-border-radius:10px ;
-  -moz-border-radius:10px ;
-  -ms-border-radius:10px ;
-  -o-border-radius:10px ;
-  }
-  .gameName{
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+}
+.gameName {
   background-color: black;
   color: white;
   border-radius: 10px;
@@ -44,57 +43,58 @@
   -ms-border-radius: 10px;
   -o-border-radius: 10px;
   border: 2px solid darkgoldenrod;
-  }
-  .betAmount,.timeRemaining,.roundDuration,.choice{
+}
+.betAmount,
+.timeRemaining,
+.roundDuration,
+.choice {
   border: 2px solid darkgoldenrod;
   border-radius: 10px;
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   -ms-border-radius: 10px;
   -o-border-radius: 10px;
-  }
-  .betDetailBox {
-  background-color: #ffffff; 
-  border: 2px solid darkgoldenrod; 
+}
+.betDetailBox {
+  background-color: #ffffff;
+  border: 2px solid darkgoldenrod;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
-  padding: 20px; 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 20px;
   margin-bottom: 15px;
-  }
-  
-  .betDetailBox div {
+}
+
+.betDetailBox div {
   margin-bottom: 10px;
-  }
-  
-  .betDetailBox div:last-child {
-  margin-bottom: 0; 
-  }
-  
-  .betMobile{
-    background-color: black;
-    background-image: linear-gradient(black,rgb(57, 57, 57)); 
-    width: 70vw;
-    height: 70vh;
-    border-radius: 10px;
-    color: white;
-    top:0;
-   
-  
-  }
-  @media (max-width: 768px){
-    .bet-sel{
-        border: 2px solid darkgoldenrod;
+}
+
+.betDetailBox div:last-child {
+  margin-bottom: 0;
+}
+
+.betMobile {
+  background-color: black;
+  background-image: linear-gradient(black, rgb(57, 57, 57));
+  width: 70vw;
+  height: 70vh;
+  border-radius: 10px;
+  color: white;
+  top: 0;
+}
+@media (max-width: 768px) {
+  .bet-sel {
+    border: 2px solid darkgoldenrod;
     background-color: white;
     color: black;
-  height:5vh ;
-  width: 45vw;
-  border-radius:10px ;
-  -webkit-border-radius:10px ;
-  -moz-border-radius:10px ;
-  -ms-border-radius:10px ;
-  -o-border-radius:10px ;
-  
-    }
-  
-  
+    height: 5vh;
+    width: 45vw;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
   }
+}
+.betSlips{
+  margin-bottom: 50px;
+}
