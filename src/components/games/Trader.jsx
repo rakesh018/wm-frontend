@@ -335,9 +335,9 @@ export const Trader = ({ showAlert }) => {
                 <div className="counter">
                   <button
                     className="counter-btn"
-                    onClick={handleIncrementHeads}
+                    onClick={handleDecrementHeads}
                   >
-                    +
+                    -
                   </button>
                   <input
                     type="number"
@@ -348,9 +348,9 @@ export const Trader = ({ showAlert }) => {
                   />
                   <button
                     className="counter-btn"
-                    onClick={handleDecrementHeads}
+                    onClick={handleIncrementHeads}
                   >
-                    -
+                    +
                   </button>
                 </div>
                 <div className="values">
@@ -397,9 +397,9 @@ export const Trader = ({ showAlert }) => {
                 <div className="counter">
                   <button
                     className="counter-btn"
-                    onClick={handleIncrementTails}
+                    onClick={handleDecrementTails}
                   >
-                    +
+                    -
                   </button>
                   <input
                     type="number"
@@ -410,9 +410,9 @@ export const Trader = ({ showAlert }) => {
                   />
                   <button
                     className="counter-btn"
-                    onClick={handleDecrementTails}
+                    onClick={handleIncrementTails}
                   >
-                    -
+                    +
                   </button>
                 </div>
                 <div className="values">
