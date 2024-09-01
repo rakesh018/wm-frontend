@@ -105,7 +105,7 @@ export const DepositAmount = () => {
         const saveData = await saveResponse.json();
         if (!saveResponse.ok) {
           console.error('Error saving file key:', saveData);
-          alertToast(`Error saving file key: ${saveData.error}`, 'error');
+          alertToast(`${saveData.error}`, 'error');
           setLoading(false);
           return;
         }
@@ -145,7 +145,7 @@ export const DepositAmount = () => {
             {error && <div className="error-text mt-2">{error}</div>}
 
             <div className='d-flex flex-row justify-content-evenly text-center m-2'>
-              <div className='amount p-2' onClick={() => handlePredefinedAmountClick('200')}>200</div>
+              <div className='amount p-2' onClick={() => handlePredefinedAmountClick('300')}>300</div>
               <div className='amount p-2' onClick={() => handlePredefinedAmountClick('500')}>500</div>
               <div className='amount p-2' onClick={() => handlePredefinedAmountClick('1000')}>1000</div>
               <div className='amount p-2' onClick={() => handlePredefinedAmountClick('2500')}>2500</div>

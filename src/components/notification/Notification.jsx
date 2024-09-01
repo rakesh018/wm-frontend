@@ -7,10 +7,10 @@ import del from "../../images/deleteIcon.png";
 import { useNavigate } from "react-router-dom";
 
 export const Notification = () => {
-  const navigate=useNavigate();
-  const token=localStorage.getItem('token');
-  if(!token){
-    navigate('/token');
+  const navigate = useNavigate();
+  const token = localStorage.getItem("token");
+  if (!token) {
+    navigate("/token");
   }
   const [notifications, setNotifications] = useState([]);
   useEffect(() => {
@@ -22,8 +22,8 @@ export const Notification = () => {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
         }
       );
-      if(notifs.status===403){
-        navigate('/login');
+      if (notifs.status === 403) {
+        navigate("/login");
       }
       const parsedNotifs = await notifs.json();
       const originalNotifs = parsedNotifs.notifications;
@@ -41,19 +41,22 @@ export const Notification = () => {
       notifications.filter((notification) => notification.id !== id)
     );
     //mark seen in database
-    const res=await fetch("https://server.trademax1.com/profile/mark-notification-seen", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-      body:JSON.stringify({notificationId:id})
-    });
-    if(res.status===403){
-      navigate('/login');
+    const res = await fetch(
+      "https://server.trademax1.com/profile/mark-notification-seen",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify({ notificationId: id }),
+      }
+    );
+    if (res.status === 403) {
+      navigate("/login");
     }
-    const parsedRes=await res.json();
-    const originalNotifs=parsedRes.notifications;
+    const parsedRes = await res.json();
+    const originalNotifs = parsedRes.notifications;
     setNotifications(originalNotifs);
   };
 
@@ -62,7 +65,10 @@ export const Notification = () => {
       <Navbar />
       <div className="container notificationBox mt-2">
         <button className="notificationBtn ms-3">NOTIFICATIONS</button>
-        <div className="innerNotificationBox m-3 p-3 text-center "style={{  overflowY: 'auto' }}>
+        <div
+          className="innerNotificationBox m-3 p-3 text-center "
+          style={{ overflowY: "auto" }}
+        >
           {notifications?.length > 0 ? (
             notifications.map((notification) => (
               <div key={notification._id} className="loginNotification m-3 ">
@@ -84,7 +90,9 @@ export const Notification = () => {
         </div>
       </div>
       <Sidebar />
-      <BetSlip />
+      <div className="betslip-mobile-hidden">
+        <BetSlip />
+      </div>
     </div>
   );
 };

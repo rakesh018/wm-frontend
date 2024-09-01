@@ -91,4 +91,10 @@
 @media (min-width: 992px) and (max-width: 1199.98px) { 
   /* Styles for large devices */ 
 }
-
+/* Hide BetSlip on mobile devices (screen width less than 768px) */
+@media (max-width: 768px) {
+    .betslip-mobile-hidden {
+      display: none;
+    }
+  }
+  
