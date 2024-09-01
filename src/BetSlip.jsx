@@ -53,7 +53,14 @@ export const BetSlip = () => {
     // Cleanup the interval on component unmount
     return () => clearInterval(countdownInterval);
   }, [localBets]);
-
+  // const mapChoice=(gameName,mappedChoice)=>{
+  //   if(gameName==='stockTrader'){
+  //     return mappedChoice?'Up':'Down';
+  //   }
+  //   else if(gameName==='coinFlip'){
+  //     return mappedChoice?'Head':'Tail';
+  //   }
+  // }
   return (
     <div>
       <div className="d-lg-none">
@@ -74,11 +81,20 @@ export const BetSlip = () => {
                     Round Duration: {bet.roundDuration}
                   </div>
                   <div className="betAmount">Bet Amount: {bet.betAmount}</div>
-                  <div className="choice">Choice: {bet.mappedChoice}</div>
+                  <div className="choice">
+                    Choice:{bet.gameName === "coinFlip"
+                      ? bet.mappedChoice === 1
+                        ? "Heads"
+                        : "Tails"
+                      : bet.gameName === "stockTrader"
+                      ? bet.mappedChoice === 1
+                        ? "Up"
+                        : "Down"
+                      : "Unknown Game"}
+                  </div>
                   <div className="timeRemaining">
                     Time Remaining: {bet.ttl} seconds
                   </div>
-
                 </div>
               ))
             ) : (
@@ -87,14 +103,17 @@ export const BetSlip = () => {
           </div>
         </div>
       </div>
-      <div className="betSlips  d-flex justify-content-center d-lg-none" style={{ display: 'none' }}>
+      <div
+        className="betSlips  d-flex justify-content-center d-lg-none"
+        style={{ display: "none" }}
+      >
         <div className="betMobile text-center ">
           <div>
             <button className="bet-sel mt-2">BET SLIPS</button>
           </div>
 
           <div className="betSelectionBox ">
-            <div className="betDetails " style={{ overflowY: 'auto' }}>
+            <div className="betDetails " style={{ overflowY: "auto" }}>
               {localBets && localBets.length > 0 ? (
                 localBets.map((bet, index) => (
                   <div key={index} className="betDetailBox m-2 p-2">
@@ -103,6 +122,7 @@ export const BetSlip = () => {
                       Round Duration: {bet.roundDuration}
                     </div>
                     <div className="betAmount">Bet Amount: {bet.betAmount}</div>
+                    <div className="choice">Choice: {bet.mappedChoice}</div>
                     <div className="timeRemaining">
                       Time Remaining: {bet.ttl} seconds
                     </div>
@@ -114,15 +134,11 @@ export const BetSlip = () => {
             </div>
           </div>
         </div>
-
-
       </div>
 
       <div className="d-lg-none">
         <Sidebar />
       </div>
-
     </div>
-
   );
 };
