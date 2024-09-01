@@ -16,7 +16,7 @@ export const WithdrawAmount = () => {
     navigate('/login');
   }
   const [profile,setProfile] = useRecoilState(profileAtom);
-
+  console.log(profileAtom);
   const [accountInfo, setAccountInfo] = useState({
     accountNumber: "",
     ifscCode: "",
@@ -50,7 +50,7 @@ export const WithdrawAmount = () => {
     }
 
     try {
-      const response = await fetch("https://server.trademax1.com/payments/withdrawal-request", {
+      const response = await fetch("https:server.trademax1.com/payments/withdrawal-request", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -72,7 +72,7 @@ export const WithdrawAmount = () => {
         return;
       }
       const res = await fetch(
-        "https://server.trademax1.com/profile/getProfile",
+        "https:server.trademax1.com/profile/getProfile",
         {
           method: "GET",
           headers: {
@@ -112,6 +112,16 @@ export const WithdrawAmount = () => {
             <div className="row">
               <div className="col-md-12">
                 <div className="accountDiv">
+                <div className="mb-2 withdrawable">
+                    <input
+                      id="withdrawable"
+                      placeholder={`WITHDRAWABLE AMOUNT : ${profile?.withdrawableBalance?profile.withdrawableBalance:0}`}
+                      type="number"
+                      value={amount}
+                      onChange={handleAmountChange}
+                      readOnly
+                    />
+                  </div>
                   <div className="mb-2">
                     <input
                       id="amount"
