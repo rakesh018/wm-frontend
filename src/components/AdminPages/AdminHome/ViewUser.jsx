@@ -167,8 +167,8 @@ export const ViewUser = () => {
                   <strong>Phone Number:</strong> <span>{userData.phone}</span>
                 </div>
                 <div className="mb-3">
-                  <strong>Referral Code:</strong>{" "}
-                  <span>{userData.referralCode}</span>
+                  <strong>Referral Link:</strong>{" "}
+                  <span>{`https://trademax1.com/register?referral=${userData.referralCode}`}</span>
                 </div>
                 <div className="mb-3">
                   <strong>Commission:</strong>{" "}
