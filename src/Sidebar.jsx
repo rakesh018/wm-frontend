@@ -96,7 +96,7 @@ export const Sidebar = () => {
                   </button>
                 </div>
                 <hr className="line m-2" />
-                <div>
+                {/* <div>
                   <button
                     className="refer-btn"
                     onClick={() => navigate("/refer")}
@@ -104,7 +104,7 @@ export const Sidebar = () => {
                     {" "}
                     REFER AND EARN
                   </button>
-                </div>
+                </div> */}
               </div>
               <div className=" mt-4 ms-3">
                 <button className="pro-logout " onClick={handleLogoutClick}>
