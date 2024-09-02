@@ -52,6 +52,8 @@ import { QueryList } from "./components/AdminPages/Support/QueryList";
 import { TraderGamePage } from "./components/ChooseWinningTeams/TraderGame";
 import { CoinFlipGamePage } from "./components/ChooseWinningTeams/CoinFlip";
 import { ContactSupport } from './components/help/ContactSupport';
+import { TransactionHistory } from "./components/history/TransactionHistory";
+import { BettingHistory } from "./components/history/BettingHistory";
 function App() {
   const showAlert = (gameName, roundDuration, result) => {
     const alertDetails = JSON.parse(sessionStorage.getItem("AlertDetails"));
@@ -191,6 +193,8 @@ function App() {
           <Route path="/adminTrader" element={<TraderGamePage />} />
           <Route path="/adminCoinFlip" element={<CoinFlipGamePage />} />
           <Route path='/contactSupport'  element={<ContactSupport/>}/>
+          <Route path="/transactionHistory" element={<TransactionHistory/>}/>
+          <Route path="/betHistory" element={<BettingHistory/>}/>
         </Routes>
       </Router>
     </div>

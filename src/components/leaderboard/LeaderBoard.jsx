@@ -2,17 +2,20 @@ import React, { useState, useEffect } from "react";
 import { Navbar } from "../../Navbar";
 import { Sidebar } from "../../Sidebar";
 import { BetSlip } from "../../BetSlip";
-import { CheckToken } from "../../checkToken";
 import { useNavigate } from "react-router-dom";
+import "./leaderBoard.css"
 
 export const LeaderBoard = () => {
-  const navigate=useNavigate();
-  const token=localStorage.getItem('token');
-  if(!token){
+  const navigate = useNavigate();
+  const token = localStorage.getItem('token');
+  
+  if (!token) {
     navigate('/login');
   }
+
   const [allTimeLeaderBoard, setAllTimeLeaderBoard] = useState([]);
   const [dailyLeaderBoard, setDailyLeaderboard] = useState([]);
+
   useEffect(() => {
     async function fetchLeaderBoards() {
       try {
@@ -34,87 +37,90 @@ export const LeaderBoard = () => {
             },
           }
         );
-        if(allTime.status===403){
+        
+        if (allTime.status === 403) {
           navigate('/login');
         }
+
         const parsedAllTime = await allTime.json();
         const parsedDaily = await daily.json();
-        console.log(parsedAllTime,parsedDaily);
+        console.log(parsedAllTime, parsedDaily);
+
         setAllTimeLeaderBoard(parsedAllTime);
         setDailyLeaderboard(parsedDaily);
       } catch (error) {
-        console.error("Error occured while fetching leaderboard data.");
+        console.error("Error occurred while fetching leaderboard data.");
       }
     }
+
     fetchLeaderBoards();
-  }, []);
+  }, [token, navigate]);
 
   return (
     <div>
       <Navbar />
       <div className="container historyBox mt-2">
-        <div>
+        {/* <div>
           <button className="historybtn">Leader Board</button>
-         
-        </div>
-        
-        <div className="d-flex justify-content-evenly mt-3">
-          <div className="history1 ">
+        </div> */}
+
+        <div className="leaderboard-section mt-3">
+          {/* All Time Leaderboard */}
+          <div className="history1 mb-4">
             <button className="game1 p-2 m-2">All Time Leaderboard</button>
             <div className="d-flex justify-content-evenly">
               <div>
-                NAME
+                <strong>NAME</strong>
                 <div>
-                  {allTimeLeaderBoard.leaderboardData
-                    ?.map((item, index) => (
-                      <div key={index}>
-                        {index + 1}. {item.userId}
-                      </div>
-                    ))}
+                  {allTimeLeaderBoard.leaderboardData?.slice(0,10)?.map((item, index) => (
+                    <div key={index}>
+                      {index + 1}. {item.userId}
+                    </div>
+                  ))}
                 </div>
               </div>
               <div>
-                MONEY
+                <strong>MONEY</strong>
                 <div>
-                  {allTimeLeaderBoard.leaderboardData
-                    ?.map((item, index) => (
-                      <div key={index}>{item.totalWinnings}</div>
-                    ))}
+                  {allTimeLeaderBoard.leaderboardData?.slice(0,10)?.map((item, index) => (
+                    <div key={index}>{item.totalWinnings}</div>
+                  ))}
                 </div>
               </div>
             </div>
           </div>
+
+          {/* Daily Leaderboard */}
           <div className="history2">
             <button className="game2 p-2 m-2">Daily Leaderboard</button>
             <div className="d-flex justify-content-evenly">
               <div>
-                NAME
+                <strong>NAME</strong>
                 <div>
-                  {dailyLeaderBoard.leaderboardData
-                    ?.map((item, index) => (
-                      <div key={index}>
-                        {index + 1}. {item.userId}
-                      </div>
-                    ))}
+                  {dailyLeaderBoard.leaderboardData?.slice(0,10)?.map((item, index) => (
+                    <div key={index}>
+                      {index + 1}. {item.userId}
+                    </div>
+                  ))}
                 </div>
               </div>
               <div>
-                MONEY
+                <strong>MONEY</strong>
                 <div>
-                  {dailyLeaderBoard.leaderboardData
-                    ?.map((item, index) => (
-                      <div key={index}>{item.totalWinnings}</div>
-                    ))}
+                  {dailyLeaderBoard.leaderboardData?.slice(0,10)?.map((item, index) => (
+                    <div key={index}>{item.totalWinnings}</div>
+                  ))}
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+
       <Sidebar />
       <div className="d-none d-lg-block">
-     <BetSlip />
-     </div>
+        <BetSlip />
+      </div>
     </div>
   );
 };

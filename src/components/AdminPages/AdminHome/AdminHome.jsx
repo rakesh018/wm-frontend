@@ -30,6 +30,7 @@ export const AdminHome = () => {
           }
         );
         if(response.status===403){
+          localStorage.removeItem('adminToken');
           navigate('/adminLogin');
         }
         const result = await response.json();

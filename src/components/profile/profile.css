@@ -74,7 +74,9 @@
     margin-bottom: 15px; /* Added margin to create space */
     width: 200px; /* Set the same fixed width */
 }
-
+.settingsPfBtn{
+    display: none;
+}
 @keyframes blink {
     0%,
     100% {
@@ -117,6 +119,7 @@
     }
 
     .settingsPfBtn {
+        display: none;
         width: 40vh;
         margin-left: 2vw;
         border-radius: 15px;

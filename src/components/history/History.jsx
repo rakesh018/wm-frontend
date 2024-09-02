@@ -159,7 +159,7 @@ export const History = () => {
       <div className="container historyBox mt-2">
         <div>
           <button className="historybtn">HISTORY</button>
-          <button className="leaderbtn ms-5 d-lg-none" onClick={() => navigate('/leaderboard')}>LEADER BOARD</button>
+          {/* <button className="leaderbtn ms-5 d-lg-none" onClick={() => navigate('/leaderboard')}>LEADER BOARD</button> */}
         </div>
         
         <div className="d-flex justify-content-evenly mt-3 me-2">

@@ -1,209 +1,205 @@
+/* General Styles */
 .scrollbar-hidden::-webkit-scrollbar {
-    display: none; /* Hides the scrollbar */
-}
-.betColor{
-    color: black;
-}
-.historyBox{
-    height: 70vh;
-    width:68vw;
-    background-color: black;
-    flex: 5;
-    background: rgb(2,1,11);
-    background-image: linear-gradient(black,rgb(57, 57, 57));
-    padding: 20px;
-    border-radius: 10px;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    -ms-border-radius: 10px;
-    -o-border-radius: 10px;
-}
-.leaderbtn{
-    border: 2px solid darkgoldenrod;
-    background-color: white;
-    border-radius: 10px;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    -ms-border-radius: 10px;
-    -o-border-radius: 10px;
-
-}
-.historybtn{
-    border: 2px solid darkgoldenrod;
-    background-color: white;
-    width: 10vw;
-    border-radius: 10px;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    -ms-border-radius: 10px;
-    -o-border-radius: 10px;
-}
-.history1
-{
-    background-color:white;
-    height:55vh;
-    max-height: 55vh;
-    width: 25vw;
-    border-radius: 10px;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    -ms-border-radius: 10px;
-    -o-border-radius: 10px;
-    overflow-y: auto;
-}
-.history2{
-    background-color:white;
-    height:55vh;
-    max-height: 55vh;
-    width: 25vw;
-    border-radius: 10px;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    -ms-border-radius: 10px;
-    -o-border-radius: 10px;
-    overflow-y: auto;
-}
-    .game1,.game2
-    {
-        background-color: black;
-        border-radius: 8px;
-        -webkit-border-radius: 8px;
-        -moz-border-radius: 8px;
-        -ms-border-radius: 8px;
-        -o-border-radius: 8px;
-        color: white;
-        border: 2px solid darkgoldenrod;
-    }
-
-
-/*Extra small */
-@media (max-width: 768px)
-    {
-        .historybtn
-        {
-            width: 25vw;
-        }
-        .historyBox
-        {
-            width: 100vw;
-            border-radius: 0px;
-            -webkit-border-radius: 0px;
-            -moz-border-radius: 0px;
-            -ms-border-radius: 0px;
-            -o-border-radius: 0px;
-}
-        .history1,.history2
-        {
-            width: 40vw;
-        }
-
-
-    }
-
-/* Small devices (landscape phones, 576px and up) */
-@media (min-width: 576px) and (max-width: 767.98px) { 
-    .historyBox
-    {
-        width: 100vw;
-    }
-  
-}
-
-/* Medium devices (tablets, 768px and up) */
-@media (min-width: 768px) and (max-width: 991.98px) { 
-.historyBox{
-    width: 100vh;
-}
-}
-
-/* Large devices (desktops, 992px and up) */
-@media (min-width: 992px) and (max-width: 1199.98px) { 
-  /* Styles for large devices */ 
-}
-
-.scrollbar-hidden::-webkit-scrollbar {
-    display: none; /* Hides the scrollbar */
+  display: none; /* Hides the scrollbar */
 }
 
 .historyBox {
-    height: 70vh;
-    width: 68vw;
-    background-color: black;
-    flex: 5;
-    background: rgb(2,1,11);
-    background-image: linear-gradient(black, rgb(57, 57, 57));
-    padding: 20px;
-    border-radius: 10px;
-    font-size: 1rem; /* Base font size */
+  height: 70vh;
+  width: 68vw;
+  background-color: black;
+  flex: 5;
+  background: rgb(2, 1, 11);
+  background-image: linear-gradient(black, rgb(57, 57, 57));
+  padding: 20px;
+  border-radius: 10px;
+  font-size: 1rem; /* Base font size */
+  overflow: hidden; /* Prevent overflow */
 }
 
-.leaderbtn, .historybtn {
-    border: 2px solid darkgoldenrod;
-    background-color: white;
-    border-radius: 10px;
-    font-size: 0.9rem; /* Slightly smaller font size for buttons */
+.leaderbtn,
+.historybtn {
+  font-size: 28px;
+  font-weight: bold;
+  color: darkgoldenrod; /* Custom color for "Transaction History" */
+  background-color: rgb(0, 0, 0);
+  align-self: center;
+  border-radius: 10px;
 }
 
-.history1, .history2 {
-    background-color: white;
-    height: 55vh;
-    max-height: 55vh;
-    border-radius: 10px;
-    overflow-y: auto;
-    font-size: 0.9rem; /* Font size for history items */
+.history1,
+.history2 {
+  background-color: white;
+  height: 55vh;
+  max-height: 55vh;
+  width: 90%;
+  border-radius: 10px;
+  overflow-y: auto; /* Enable vertical scrolling */
+  font-size: 0.9rem; /* Font size for history items */
 }
 
-.game1, .game2 {
-    background-color: black;
-    border-radius: 8px;
-    color: white;
-    border: 2px solid darkgoldenrod;
-    font-size: 1rem; /* Font size for game buttons */
+.game1,
+.game2 {
+  background-color: black;
+  border-radius: 8px;
+  color: white;
+  border: 2px solid darkgoldenrod;
+  font-size: 1rem; /* Font size for game buttons */
 }
 
 /* Extra small devices (portrait phones, less than 576px) */
 @media (max-width: 575.98px) {
-    .historybtn {
-        width: 40%;
-        font-size: 0.8rem; /* Smaller font size for mobile */
-    }
-    .historyBox {
-        width: 100vw;
-        border-radius: 0;
-        font-size: 0.8rem; /* Smaller font size for mobile */
-    }
-    .history1, .history2 {
-        width: 90vw;
-        font-size: 0.8rem; /* Smaller font size for mobile */
-        margin: 5px;
-    }
+  .historybtn {
+    width: 40%;
+    font-size: 0.8rem; /* Smaller font size for mobile */
+  }
+  .historyBox {
+    width: 100vw;
+    border-radius: 0;
+    font-size: 0.8rem; /* Smaller font size for mobile */
+    overflow: auto; /* Ensure scrollability */
+  }
+  .history1,
+  .history2 {
+    width: 90vw;
+    font-size: 0.8rem; /* Smaller font size for mobile */
+    margin: 5px;
+  }
 }
 
 /* Small devices (landscape phones, 576px and up) */
 @media (min-width: 576px) and (max-width: 767.98px) {
-    .historyBox {
-        width: 100vw;
-        font-size: 0.9rem; /* Adjusted font size for small devices */
-    }
-    .history1, .history2 {
-        width: 90vw;
-        font-size: 0.9rem; /* Adjusted font size for small devices */
-    }
+  .historyBox {
+    width: 100vw;
+    font-size: 0.9rem; /* Adjusted font size for small devices */
+    overflow: auto; /* Ensure scrollability */
+  }
+  .transaction-list {
+    margin-right: 0;
+    max-height: 70vh; /* Adjust height for mobile screens */
+  }
 }
 
 /* Medium devices (tablets, 768px and up) */
 @media (min-width: 768px) and (max-width: 991.98px) {
-    .historyBox {
-        width: 90vw;
-        font-size: 1rem; /* Default font size for tablets */
-    }
+  .historyBox {
+    width: 90vw;
+    font-size: 1rem; /* Default font size for tablets */
+    overflow: auto; /* Ensure scrollability */
+  }
 }
 
 /* Large devices (desktops, 992px and up) */
 @media (min-width: 992px) {
-    /* Styles for larger screens */
-    .historyBox {
-        width: 68vw;
-        font-size: 1rem; /* Default font size for desktops */
-    }
+  .historyBox {
+    width: 68vw;
+    font-size: 1rem; /* Default font size for desktops */
+    overflow: hidden; /* Prevent unnecessary scrolling */
+  }
+
+  .transaction-list {
+    max-height: 80vh; /* Set a maximum height for large screens */
+    overflow-y: auto; /* Enable vertical scrolling */
+  }
 }
+
+/* Additional Styles for Scrollable Content */
+.transaction-list {
+  flex-grow: 1;
+  margin-right: 20px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-height: 80vh; /* Set a maximum height */
+  overflow-y: auto; /* Ensure vertical scrolling */
+}
+
+.transaction-title {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.transaction-header {
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 10px;
+  margin-bottom: 10px; /* Add margin for separation */
+}
+
+.transaction-item {
+  padding: 12px 0;
+  border-bottom: 1px solid #f1f1f1;
+}
+
+.transaction-item:last-child {
+  border-bottom: none;
+}
+
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 60px;
+}
+
+/* Media Query for Mobile Screens */
+@media (max-width: 768px) {
+  .historyBox {
+    max-width: 100%; /* Full width on mobile screens */
+    padding: 0 10px; /* Add some padding */
+    height: fit-content;
+  }
+
+  .header-section {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .history-title {
+    font-size: 24px; /* Slightly smaller font size on mobile */
+  }
+
+  .transaction-list {
+    margin-right: 0;
+    margin-bottom: 15px;
+    max-height: 70vh; /* Adjust height for mobile screens */
+  }
+
+  .betslip-wrapper {
+    width: 100%;
+  }
+}
+
+.historyBox {
+  max-width: 1200px; /* Default width for larger screens */
+  margin: auto;
+  overflow: auto; /* Ensure content doesn't overflow */
+}
+
+.header-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap; /* Ensure items wrap on smaller screens */
+}
+
+.history-title {
+  font-size: 28px;
+  font-weight: bold;
+  color: darkgoldenrod; /* Custom color for "Transaction History" */
+  background-color: lightgray;
+  border-radius: 10px;
+}
+
+.leaderboard-btn {
+  background-color: #007bff;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.leaderboard-btn:hover {
+  background-color: #0056b3;
+}
+

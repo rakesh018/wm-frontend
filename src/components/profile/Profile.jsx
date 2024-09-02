@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Navbar } from "../../Navbar";
 import { Sidebar } from "../../Sidebar";
 import { BetSlip } from "../../BetSlip";
@@ -15,12 +15,38 @@ export const Profile = () => {
   if (!token) {
     navigate("/login");
   }
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [logoutModalOpen, setLogoutModalOpen] = useState(false);
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
+  const [referrals, setReferrals] = useState(""); // State for referrals
   const profile = useRecoilValue(profileAtom);
   const [showCopyNotification, setShowCopyNotification] = useState(false);
+
+  useEffect(() => {
+    // Fetch referrals from backend
+    const fetchReferrals = async () => {
+      try {
+        const response = await fetch("https://server.trademax1.com/profile/referral-count", {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        if (response.ok) {
+          const data = await response.json();
+          setReferrals(data.referralCount || 0);
+        } else {
+          throw new Error("Failed to fetch referrals");
+        }
+      } catch (error) {
+        toast.error("Failed to fetch referrals.",'error');
+      }
+    };
+
+    fetchReferrals();
+  }, []);
 
   const handleChangePassword = () => {
     setIsModalOpen(true);
@@ -79,12 +105,12 @@ export const Profile = () => {
   };
 
   function handleCopyReferralLink() {
-    const text=`https://trademax1.com/register?referral=${profile.referralCode}`
+    const text = `https://trademax1.com/register?referral=${profile.referralCode}`;
     if (navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard
         .writeText(text)
         .then(() => {
-          alertToast("Text copied to clipboard!",'success');
+          alertToast("Text copied to clipboard!", "success");
         })
         .catch((err) => {
           console.error("Failed to copy text: ", err);
@@ -94,6 +120,7 @@ export const Profile = () => {
       fallbackCopyText(text); // Fallback for unsupported browsers
     }
   }
+
   function fallbackCopyText(text) {
     const textarea = document.createElement("textarea");
     textarea.value = text;
@@ -106,13 +133,18 @@ export const Profile = () => {
       const msg = successful
         ? "Text copied to clipboard!"
         : "Failed to copy text";
-      alertToast('Link copied to clipboard','success');
+      alertToast("Link copied to clipboard", "success");
     } catch (err) {
       console.error("Fallback: Failed to copy text", err);
     }
 
     document.body.removeChild(textarea);
   }
+
+  const handleHelp = () => {
+    // Define what the help button should do, e.g., navigate to help page or open modal
+    navigate("/help"); // Example of navigating to a help page
+  };
 
   return (
     <div>
@@ -137,6 +169,14 @@ export const Profile = () => {
                   type="text"
                   className="setting-input m-2"
                   value={`PHONE NUMBER: ${profile?.phone || ""}`}
+                  readOnly
+                />
+              </div>
+              <div>
+                <input
+                  type="text"
+                  className="setting-input m-2"
+                  value={`REFERRALS: ${referrals || "0"}`}
                   readOnly
                 />
               </div>
@@ -211,6 +251,13 @@ export const Profile = () => {
               {showCopyNotification && (
                 <div className="copy-notification">Referral link copied!</div>
               )}
+            </div>
+
+            {/* Help Button */}
+            <div className="mt-2">
+              <button className="button-standard" onClick={handleHelp}>
+                HELP
+              </button>
             </div>
 
             {/* Logout Button */}

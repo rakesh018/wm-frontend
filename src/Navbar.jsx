@@ -1,21 +1,26 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import "./navbar.css";
 import logo from "./images/logo.jpeg";
-import question from "./images/questionMark.png";
+import question from "./images/bell.png";
+import questionRedDot from "./images/bellwithdot.png"; // Import the bell with the red dot
 import round from "./images/roundimage.png";
 import image2 from "./images/image1.jpeg";
 import image1 from "./images/image2.jpeg";
 import image3 from "./images/image3.jpeg";
 import image4 from "./images/image4.jpeg";
-// import image5 from "./images/image5.png";
-import { useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import logoutIcon from "./images/logoutIcon.png";
 import { profileAtom } from "./atoms";
 import { useNavigate } from "react-router-dom";
 
 export const Navbar = () => {
   const profile = useRecoilValue(profileAtom);
+  const [redDot,setRedDot]=useState(false);
+  useEffect(() => {
+    // Update the profile atom
+    setRedDot(profile.redDot);
+  }, []);
   const navigate = useNavigate();
 
   const handleBackClick = () => {
@@ -37,9 +42,10 @@ export const Navbar = () => {
     navigate("/login");
     setLogoutModal(null);
   };
+
   return (
     <div>
-      <div className="container-fluid top-nav ">
+      <div className="container-fluid top-nav">
         <div className="row align-items-center">
           <div className="col-6 d-flex justify-content-start">
             <div className="top-left d-flex justify-content-evenly d-sm-blok">
@@ -48,35 +54,6 @@ export const Navbar = () => {
                   arrow_back_ios
                 </span>
               </div>
-              {/* <div>
-                <img
-                  src={logoutIcon}
-                  className="logoutIcon "
-                  alt=""
-                  onClick={handleLogoutClick}
-                />
-                {LogoutModal === "logout" && (
-                  <div className="modal-overlay">
-                    <div className="modal-content">
-                      <h2>Are you sure you want to log out?</h2>
-                      <div className="d-flex flex-row justify-content-center">
-                        <button
-                          className="modal-btn yes"
-                          onClick={handleConfirmLogout}
-                        >
-                          Yes
-                        </button>
-                        <button
-                          className="modal-btn no"
-                          onClick={handleModalClose}
-                        >
-                          No
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                )}
-              </div> */}
               <div>
                 <img
                   className="logo1 m-2"
@@ -94,23 +71,23 @@ export const Navbar = () => {
                 </div>
                 <img
                   className="questionMark mt-3 d-lg-none"
-                  src={question}
-                  alt="Question Mark"
-                  onClick={() => navigate("/help")}
+                  src={redDot ? questionRedDot : question} // Conditional icon
+                  alt="Notification Icon"
+                  onClick={() => navigate("/notification")}
                 />
               </div>
             </div>
           </div>
 
-          <div className="col-6 d-flex justify-content-end ">
+          <div className="col-6 d-flex justify-content-end">
             <div className="top-right d-flex justify-content-evenly">
               <div className="group d-flex justify-content-evenly">
                 <div className="d-none d-md-block">
                   <img
                     className="questionMark m-2"
-                    src={question}
-                    alt="Question Mark"
-                    onClick={() => navigate("/help")}
+                    src={redDot ? questionRedDot : question} // Conditional icon
+                    alt="Notification Icon"
+                    onClick={() => navigate("/notification")}
                   />
                 </div>
                 <div className="d-none d-md-block">
@@ -123,7 +100,7 @@ export const Navbar = () => {
                 </div>
                 <div>
                   <button className="wallet m-4">
-                    WALLET BALANCE:{profile.balance}
+                    WALLET BALANCE: {profile.balance}
                   </button>
                 </div>
               </div>
@@ -132,60 +109,42 @@ export const Navbar = () => {
         </div>
       </div>
       {/* slider */}
-      <div class="client-slider col-sm-12  ">
-        <div class="client-slide-track ">
-          <div class="client-slide">
+      <div className="client-slider col-sm-12">
+        <div className="client-slide-track">
+          <div className="client-slide">
             <img src={image1} height="100" width="250" alt="" />
           </div>
-          <div class="client-slide">
+          <div className="client-slide">
             <img src={image2} height="100" width="250" alt="" />
           </div>
-          <div class="client-slide">
+          <div className="client-slide">
             <img src={image3} height="100" width="250" alt="" />
           </div>
-          <div class="client-slide">
+          <div className="client-slide">
             <img src={image4} height="100" width="250" alt="" />
           </div>
-          {/* <div class="client-slide">
-            <img src={image5} height="100" width="250" alt="" />
-          </div> */}
-          <div class="client-slide">
+          <div className="client-slide">
             <img src={image1} height="100" width="250" alt="" />
           </div>
-          <div class="client-slide">
+          <div className="client-slide">
             <img src={image2} height="100" width="250" alt="" />
           </div>
-          <div class="client-slide">
+          <div className="client-slide">
             <img src={image3} height="100" width="250" alt="" />
           </div>
-          <div class="client-slide">
+          <div className="client-slide">
             <img src={image4} height="100" width="250" alt="" />
           </div>
-          {/* <div class="client-slide">
-            <img src={image5} height="100" width="250" alt="" />
-          </div> */}
-          <div class="client-slide">
+          <div className="client-slide">
             <img src={image1} height="100" width="250" alt="" />
           </div>
-          <div class="client-slide">
+          <div className="client-slide">
             <img src={image2} height="100" width="250" alt="" />
           </div>
-          <div class="client-slide">
+          <div className="client-slide">
             <img src={image3} height="100" width="250" alt="" />
           </div>
-          <div class="client-slide">
-            <img src={image4} height="100" width="250" alt="" />
-          </div>
-          <div class="client-slide">
-            <img src={image1} height="100" width="250" alt="" />
-          </div>
-          <div class="client-slide">
-            <img src={image2} height="100" width="250" alt="" />
-          </div>
-          <div class="client-slide">
-            <img src={image3} height="100" width="250" alt="" />
-          </div>
-          <div class="client-slide">
+          <div className="client-slide">
             <img src={image4} height="100" width="250" alt="" />
           </div>
         </div>
