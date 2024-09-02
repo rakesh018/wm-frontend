@@ -150,7 +150,8 @@
   .questionMark{
     margin-left:5%;
     margin-right:10%;
-    height:65%;
+    margin-bottom: 15px;
+    height:60%;
   }
   .roundImg {
       display: none;

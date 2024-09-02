@@ -100,11 +100,11 @@
 /* Responsive Styles */
 @media (max-width: 768px) {
     .settingsBox {
-        height: 70vh;
+        height: 80vh;
     }
 
     .SettingsInnerBox {
-        height: 90%;
+        height: fit-content;
     }
 
     .name,
