@@ -162,7 +162,7 @@ export const AdminHome = () => {
             )}
           </div>
 
-          <div className="d-flex justify-content-center">
+          <div className="d-flex justify-content-center pagination-container">
             <Pagination
               totalPages={totalPages}
               paginate={paginate}
@@ -171,6 +171,6 @@ export const AdminHome = () => {
           </div>
         </div>
       </div>
-    </div>
+    </div>  
   );
 };

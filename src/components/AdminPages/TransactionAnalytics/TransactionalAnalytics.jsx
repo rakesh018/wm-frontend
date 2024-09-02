@@ -121,10 +121,10 @@ export const TransactionalAnalytics = () => {
             <div>TOTAL MONEY WITHDRAWN/DEPOSITED</div>
             <Bar options={options} data={chartData} />
           </div>
-          <div className="analysisDiv col m-2">
+          {/* <div className="analysisDiv col m-2">
             <div>TOTAL MONEY WITHDRAWN/DEPOSITED (Line Chart)</div>
             <Line options={options} data={chartData} />
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

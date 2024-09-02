@@ -1,3 +1,13 @@
+.analysisDiv {
+  border: 2px solid darkgoldenrod;
+  border-radius: 10px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height:auto;
+  box-sizing: border-box;
+}
 .transaction
 {
     background-image: linear-gradient(black, rgb(57, 57, 57));
@@ -27,16 +37,8 @@
     -o-border-radius: 10px;
     border: 2px solid #e2b543;
 }
-.analysisDiv {
-    border: 2px solid darkgoldenrod;
-    border-radius: 10px;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-   
-    box-sizing: border-box;
-  }
+
+
   
   .analysisDesc {
     text-align: center;
@@ -48,3 +50,4 @@
     flex-grow: 1;
   }
   
+ 

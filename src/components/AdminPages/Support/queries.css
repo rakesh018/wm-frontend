@@ -33,12 +33,12 @@
   }
   
   /* Center and ensure pagination buttons fit within the container */
-  .pagination {
+  /* .pagination {
     display: flex;
     justify-content: center;
     align-items: center;
     margin-top: 20px;
-  }
+  } */
   
   /* Ensure buttons are responsive and do not overflow */
   .btn {
@@ -56,9 +56,9 @@
       padding: 5px 10px; /* Smaller padding on buttons */
     }
   
-    .pagination {
+    /* .pagination {
       flex-direction: column;
-    }
+    } */
   
     .pagination .btn {
       margin-bottom: 10px; /* Space between pagination buttons on smaller screens */
