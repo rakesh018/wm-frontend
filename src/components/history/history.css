@@ -140,13 +140,29 @@
   align-items: center;
   height: 60px;
 }
-
+.button-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 12%;
+    height:80%;
+    gap: 50px; /* This will give equal spacing between the buttons */
+  }
+  
+  .big-btn {
+    width: 250px; /* Adjust the width as needed */
+    height: 60px; /* Adjust the height as needed */
+    font-size: 18px; /* Adjust the font size as needed */
+    border-radius: 5px; /* Rounded corners */
+  }
+  
 /* Media Query for Mobile Screens */
 @media (max-width: 768px) {
   .historyBox {
     max-width: 100%; /* Full width on mobile screens */
     padding: 0 10px; /* Add some padding */
     height: fit-content;
+    min-height: 65vh;
   }
 
   .header-section {
@@ -167,12 +183,16 @@
   .betslip-wrapper {
     width: 100%;
   }
+  .button-container{
+    margin-top: 30%;
+  }
 }
 
 .historyBox {
   max-width: 1200px; /* Default width for larger screens */
   margin: auto;
   overflow: auto; /* Ensure content doesn't overflow */
+  min-width: 40vh;
 }
 
 .header-section {
@@ -203,3 +223,5 @@
   background-color: #0056b3;
 }
 
+
+  
