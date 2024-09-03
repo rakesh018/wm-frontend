@@ -92,7 +92,6 @@ export const WithdrawAmount = () => {
       setProfile(parsedRes);
       alertToast("Withdraw request created", "success");
     } catch (error) {
-      console.log(error);
       alertToast("Withdraw request failed", "error");
     }
   };
