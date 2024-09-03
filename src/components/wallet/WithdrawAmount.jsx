@@ -11,12 +11,11 @@ import { alertToast } from "../../alertToast";
 
 export const WithdrawAmount = () => {
   const navigate = useNavigate();
-  const token=localStorage.getItem('token');
-  if(!token){
-    navigate('/login');
+  const token = localStorage.getItem("token");
+  if (!token) {
+    navigate("/login");
   }
-  const [profile,setProfile] = useRecoilState(profileAtom);
-  console.log(profileAtom);
+  const [profile, setProfile] = useRecoilState(profileAtom);
   const [accountInfo, setAccountInfo] = useState({
     accountNumber: "",
     ifscCode: "",
@@ -44,51 +43,57 @@ export const WithdrawAmount = () => {
 
   const handleWithdraw = async (e) => {
     e.preventDefault();
-    if (!amount || !accountInfo.accountNumber || !accountInfo.ifscCode || !accountInfo.bankName) {
+    if (
+      !amount ||
+      !accountInfo.accountNumber ||
+      !accountInfo.ifscCode ||
+      !accountInfo.bankName
+    ) {
       setErrorMessage("Please fill all the fields.");
       return;
     }
 
     try {
-      const response = await fetch("https:server.trademax1.com/payments/withdrawal-request", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization:` Bearer ${localStorage.getItem('token')}`, // Add the token here
-        },
-        body: JSON.stringify({
-          amount,
-          bankName:accountInfo.bankName,
-          accountNumber:accountInfo.accountNumber,
-          ifscCode:accountInfo.ifscCode
-        }),
-      });
-      if(response.status===403){
-        navigate('/login');
+      const response = await fetch(
+        "https:server.trademax1.com/payments/withdrawal-request",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: ` Bearer ${localStorage.getItem("token")}`, // Add the token here
+          },
+          body: JSON.stringify({
+            amount,
+            bankName: accountInfo.bankName,
+            accountNumber: accountInfo.accountNumber,
+            ifscCode: accountInfo.ifscCode,
+          }),
+        }
+      );
+      if (response.status === 403) {
+        navigate("/login");
       }
       const result = await response.json();
       if (!response.ok) {
-        alertToast(`${result.error}`,'error');
+        alertToast(`${result.error}`, "error");
         return;
       }
-      const res = await fetch(
-        "https:server.trademax1.com/profile/getProfile",
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        }
-      ); //to simulate the delay artificially so to check loading
-      if(res.status===403){
-        navigate('/login');
+      const res = await fetch("https:server.trademax1.com/profile/getProfile", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }); //to simulate the delay artificially so to check loading
+      if (res.status === 403) {
+        navigate("/login");
       }
-      const parsedRes=await res.json();
+      const parsedRes = await res.json();
       setProfile(parsedRes);
-      alertToast('Withdraw request created','success');
+      alertToast("Withdraw request created", "success");
     } catch (error) {
-      alertToast('Withdraw request failed','error');
+      console.log(error);
+      alertToast("Withdraw request failed", "error");
     }
   };
 
@@ -112,15 +117,13 @@ export const WithdrawAmount = () => {
             <div className="row">
               <div className="col-md-12">
                 <div className="accountDiv">
-                <div className="mb-2 withdrawable">
-                    <input
-                      id="withdrawable"
-                      placeholder={`WITHDRAWABLE AMOUNT : ${profile?.withdrawableBalance?profile.withdrawableBalance:0}`}
-                      type="number"
-                      value={amount}
-                      onChange={handleAmountChange}
-                      readOnly
-                    />
+                  <div className="mb-2 withdrawable">
+                    <div>
+                      <strong>WITHDRAWABLE AMOUNT :  {profile?.withdrawableBalance
+                        ? profile.withdrawableBalance
+                        : 0} </strong>
+                    </div>
+                    <div className="small-font">(Note : Winning Amount + Referral Amount)</div>
                   </div>
                   <div className="mb-2">
                     <input
@@ -182,8 +185,8 @@ export const WithdrawAmount = () => {
       </div>
       <Sidebar />
       <div className="d-none d-lg-block">
-     <BetSlip />
-     </div>
+        <BetSlip />
+      </div>
     </div>
   );
 };
