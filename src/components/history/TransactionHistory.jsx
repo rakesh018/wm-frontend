@@ -90,8 +90,9 @@ export const TransactionHistory = () => {
           {/* Transactions History */}
           <div className="transaction-list bg-white p-3 rounded shadow-sm">
             <h4 className="transaction-title mb-3">Your Transactions</h4>
-            <div className="transaction-header d-flex justify-content-between fw-bold mb-2">
+            <div className="transaction-header d-flex justify-content-around fw-bold mb-2">
               <div>Date</div>
+              <div style={{ marginLeft: '50px' }}>Transaction</div>
               <div>Amount</div>
             </div>
 
@@ -101,8 +102,9 @@ export const TransactionHistory = () => {
 
             {transactionsData &&
               transactionsData.map((item) => (
-                <div className="transaction-item d-flex justify-content-between mb-2" key={item._id}>
+                <div className="transaction-item d-flex justify-content-around mb-2" key={item._id}>
                   <div>{item.createdAt}</div>
+                  <div>{item.type}</div>
                   <div style={{ color: item.color, fontWeight: "bold" }}>
                     {item.amount}
                   </div>
