@@ -55,7 +55,7 @@ export const WithdrawAmount = () => {
 
     try {
       const response = await fetch(
-        "https:server.trademax1.com/payments/withdrawal-request",
+        "https://server.trademax1.com/payments/withdrawal-request",
         {
           method: "POST",
           headers: {
@@ -78,7 +78,7 @@ export const WithdrawAmount = () => {
         alertToast(`${result.error}`, "error");
         return;
       }
-      const res = await fetch("https:server.trademax1.com/profile/getProfile", {
+      const res = await fetch("https://server.trademax1.com/profile/getProfile", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
