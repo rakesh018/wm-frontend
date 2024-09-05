@@ -70,12 +70,13 @@ export const ViewUserManualTransaction = () => {
       if (!response.ok) {
         alertToast('Error marking success','error');
       }
-
-      const updatedTransaction = await response.json();
-      alertToast('Payment marked as success','success');
-      setTransaction(updatedTransaction);
+      else{
+        const updatedTransaction = await response.json();
+        alertToast('Payment marked as success','success');
+        setTransaction(updatedTransaction);
+      }
+      
     } catch (error) {
-      console.error('Error updating transaction status:', error);
       alertToast('Unable to mark','error');
       setError('Failed to update transaction status');
     }
