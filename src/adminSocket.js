@@ -1,9 +1,10 @@
 // socket.js
 import io from 'socket.io-client';
+import Base_Url from './config';
 
 const adminToken = localStorage.getItem('adminToken');
 
-const socket = io('https://server.trademax1.com/admin', {
+const socket = io( `${Base_Url}/admin`, {
   auth: {
     adminToken: `Bearer ${adminToken}`,
   },

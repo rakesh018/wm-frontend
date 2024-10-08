@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { TbPasswordMobilePhone } from "react-icons/tb";
+import Base_Url from '../../config';
 
 export const ForgotVerification = () => {
   const [verificationCode, setVerificationCode] = useState('');
@@ -20,7 +21,7 @@ export const ForgotVerification = () => {
 
   const handleSendOTP = async () => {
     try {
-      const response = await fetch('https://your-api-endpoint.com/auth/send-otp', {
+      const response = await fetch( `${Base_Url}/auth/send-otp`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -45,7 +46,7 @@ export const ForgotVerification = () => {
 
   const handleVerification = async () => {
     try {
-      const response = await fetch('https://your-api-endpoint.com/auth/verify-otp', {
+      const response = await fetch(`${Base_Url}/auth/verify-otp`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

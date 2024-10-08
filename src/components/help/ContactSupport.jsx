@@ -4,6 +4,7 @@ import { Sidebar } from '../../Sidebar';
 import { BetSlip } from '../../BetSlip';
 import { useNavigate } from 'react-router-dom';
 import { alertToast } from '../../alertToast';
+import Base_Url from '../../config';
 
 export const ContactSupport = () => {
     const navigate = useNavigate();
@@ -30,7 +31,7 @@ export const ContactSupport = () => {
         }
 
         try {
-            const response = await fetch("https://server.trademax1.com/profile/make-query", {
+            const response = await fetch( `${Base_Url}/profile/make-query`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

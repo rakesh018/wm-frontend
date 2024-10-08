@@ -8,6 +8,7 @@ import { profileAtom } from "../../atoms";
 import { useRecoilValue } from "recoil";
 import { toast } from "react-toastify";
 import { alertToast } from "../../alertToast";
+import Base_Url from "../../config";
 
 export const Profile = () => {
   const navigate = useNavigate();
@@ -28,7 +29,7 @@ export const Profile = () => {
     // Fetch referrals from backend
     const fetchReferrals = async () => {
       try {
-        const response = await fetch("https://server.trademax1.com/profile/referral-count", {
+        const response = await fetch( `${Base_Url}/profile/referral-count`, {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
@@ -60,7 +61,7 @@ export const Profile = () => {
 
     try {
       const response = await fetch(
-        "https://server.trademax1.com/auth/change-password",
+         `${Base_Url}/auth/change-password`,
         {
           method: "PUT",
           headers: {
@@ -105,7 +106,7 @@ export const Profile = () => {
   };
 
   function handleCopyReferralLink() {
-    const text = `https://trademax1.com/register?referral=${profile.referralCode}`;
+    const text =  `${Base_Url}/register?referral=${profile.referralCode}`;
     if (navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard
         .writeText(text)

@@ -8,6 +8,7 @@ import pendingWithdraw from "../../../images/pendingWithdraw.png";
 import rejectedWithdraw from "../../../images/rejectedWithdraw.png";
 import "./adminWithdraw.css"; // Include custom CSS for other styling
 import { alertToast } from "../../../alertToast";
+import Base_Url from "../../../config";
 
 export const AdminWithdraw = () => {
   const navigate = useNavigate();
@@ -32,7 +33,7 @@ export const AdminWithdraw = () => {
       setLoading(true);
       try {
         const response = await fetch(
-          `https://server.trademax1.com/admin/withdrawals/get-all-withdrawals?page=${currentPage}`,
+          `${Base_Url}/admin/withdrawals/get-all-withdrawals?page=${currentPage}`,
           {
             method: "GET",
             headers: {

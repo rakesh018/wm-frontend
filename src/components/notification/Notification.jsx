@@ -5,6 +5,7 @@ import { BetSlip } from "../../BetSlip";
 import "./notification.css";
 import del from "../../images/deleteIcon.png";
 import { useNavigate } from "react-router-dom";
+import Base_Url from "../../config";
 
 export const Notification = () => {
   const navigate = useNavigate();
@@ -16,7 +17,7 @@ export const Notification = () => {
   useEffect(() => {
     async function getNotifs() {
       const notifs = await fetch(
-        "https://server.trademax1.com/profile/get-all-notifications",
+         `${Base_Url}/profile/get-all-notifications`,
         {
           method: "GET",
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
@@ -42,7 +43,7 @@ export const Notification = () => {
     );
     //mark seen in database
     const res = await fetch(
-      "https://server.trademax1.com/profile/mark-notification-seen",
+       `${Base_Url}/profile/mark-notification-seen`,
       {
         method: "POST",
         headers: {

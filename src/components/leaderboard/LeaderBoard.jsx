@@ -4,6 +4,7 @@ import { Sidebar } from "../../Sidebar";
 import { BetSlip } from "../../BetSlip";
 import { useNavigate } from "react-router-dom";
 import "./leaderBoard.css"
+import Base_Url from "../../config";
 
 export const LeaderBoard = () => {
   const navigate = useNavigate();
@@ -20,7 +21,7 @@ export const LeaderBoard = () => {
     async function fetchLeaderBoards() {
       try {
         const allTime = await fetch(
-          "https://server.trademax1.com/profile/leaderboard/all-time-leaderboard",
+           `${Base_Url}/profile/leaderboard/all-time-leaderboard`,
           {
             method: "GET",
             headers: {
@@ -29,7 +30,7 @@ export const LeaderBoard = () => {
           }
         );
         const daily = await fetch(
-          "https://server.trademax1.com/profile/leaderboard/daily-leaderboard",
+           `${Base_Url}/profile/leaderboard/daily-leaderboard`,
           {
             method: "GET",
             headers: {

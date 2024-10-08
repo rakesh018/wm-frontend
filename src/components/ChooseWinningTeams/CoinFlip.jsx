@@ -5,6 +5,7 @@ import "./chooseWinning.css";
 import socket from "../../adminSocket";
 import { alertToast } from "../../alertToast";
 import { useNavigate } from "react-router-dom";
+import Base_Url from "../../config";
 
 export const CoinFlipGamePage = () => {
   const navigate = useNavigate();
@@ -33,7 +34,7 @@ export const CoinFlipGamePage = () => {
   // Placeholder for handling the result button
   const handleResult = async (result, duration) => {
     const res = await fetch(
-      "https://server.trademax1.com/admin/games/change-game-result",
+       `${Base_Url}/admin/games/change-game-result`,
       {
         method: "POST",
         headers: {

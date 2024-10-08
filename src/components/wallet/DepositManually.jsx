@@ -5,6 +5,7 @@ import { BetSlip } from "../../BetSlip";
 import "./wallet.css";
 import { useNavigate } from "react-router-dom";
 import { alertToast } from "../../alertToast";
+import Base_Url from "../../config";
 
 export const DepositManually = () => {
   const navigate = useNavigate();
@@ -21,7 +22,7 @@ export const DepositManually = () => {
     const fetchDepositInfo = async () => {
       try {
         const response = await fetch(
-          "https://server.trademax1.com/payments/get-upi-details",
+           `${Base_Url}/payments/get-upi-details`,
           {
             method: "GET",
             headers: {

@@ -5,6 +5,7 @@ import { Sidebar } from "../../Sidebar";
 import { BetSlip } from "../../BetSlip";
 import deposit from "../../images/deposit.png";
 import "./wallet.css";
+
 export const Deposit = () => {
   const navigate = useNavigate();
   return (

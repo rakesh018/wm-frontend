@@ -4,6 +4,7 @@ import { AdminNavbar } from '../AdminHome/AdminNavbar';
 import { useParams } from 'react-router-dom';
 import { alertToast } from '../../../alertToast';
 import { useNavigate } from 'react-router-dom';
+import Base_Url from '../../../config';
 
 export const ViewUserManualTransaction = () => {
   const navigate=useNavigate();
@@ -20,7 +21,7 @@ export const ViewUserManualTransaction = () => {
   useEffect(() => {
     const fetchTransaction = async () => {
       try {
-        const response = await fetch(`https://server.trademax1.com/admin/deposits/manual/details/${uid}`, {
+        const response = await fetch( `${Base_Url}/admin/deposits/manual/details/${uid}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -59,7 +60,7 @@ export const ViewUserManualTransaction = () => {
   const markAsSuccess = async (depositId) => {
     console.log(depositId);
     try {
-      const response = await fetch(`https://server.trademax1.com/admin/deposits/manual/action/mark-completed`, {
+      const response = await fetch( `${Base_Url}/admin/deposits/manual/action/mark-completed`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -84,7 +85,7 @@ export const ViewUserManualTransaction = () => {
 
   const markAsRejected = async (depositId) => {
     try {
-      const response = await fetch(`https://server.trademax1.com/admin/deposits/manual/action/mark-rejected`, {
+      const response = await fetch( `${Base_Url}/admin/deposits/manual/action/mark-rejected`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

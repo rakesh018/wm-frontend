@@ -3,6 +3,7 @@ import "./login.css";
 import { useNavigate } from "react-router-dom";
 import { alertToast } from "../../alertToast";
 import { useEffect } from "react";
+import Base_Url from "../../config";
 
 export const Login = () => {
   const navigate = useNavigate();
@@ -24,7 +25,7 @@ export const Login = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch("https://server.trademax1.com/auth/signin", {
+      const response = await fetch( `${Base_Url}/auth/signin`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

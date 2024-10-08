@@ -5,6 +5,7 @@ import { Sidebar } from "../../Sidebar";
 import { BetSlip } from "../../BetSlip";
 import "./history.css";
 import { Spinner } from "react-bootstrap"; // Bootstrap spinner for loading state
+import Base_Url from "../../config";
 
 export const TransactionHistory = () => {
   const navigate = useNavigate();
@@ -21,7 +22,7 @@ export const TransactionHistory = () => {
       setTransactionsLoading(true);
       try {
         const response = await fetch(
-          `https://server.trademax1.com/profile/get-transaction-history?page=${transactionsPage}`,
+          `${Base_Url}/profile/get-transaction-history?page=${transactionsPage}`,
           {
             method: "GET",
             headers: {

@@ -13,6 +13,8 @@ import { useRecoilState } from "recoil";
 import { betSlipsAtom, profileAtom } from "../../atoms";
 import coinFlipSound from "../../assets/coinFlip.mp3";
 import { useNavigate } from "react-router-dom";
+import Base_Url from "../../config";
+
 export const CoinSwitch = ({ showAlert }) => {
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
@@ -31,7 +33,7 @@ export const CoinSwitch = ({ showAlert }) => {
   const coinFlipAudio = new Audio(coinFlipSound);
   const fetchPastDetails = async (roundDuration) => {
     const response = await fetch(
-      `https://server.trademax1.com/bets/get-rounds-history/coinFlip/${roundDuration}`,
+       `${Base_Url}/bets/get-rounds-history/coinFlip/${roundDuration}`,
       { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
     );
     if(response.status===403){

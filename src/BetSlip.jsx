@@ -4,6 +4,7 @@ import { Navbar } from "./Navbar";
 import { Sidebar } from "./Sidebar";
 import { betSlipsAtom } from "./atoms";
 import { useRecoilState } from "recoil";
+import Base_Url from "./config";
 
 export const BetSlip = () => {
   const [betDetails, setBetDetails] = useRecoilState(betSlipsAtom);
@@ -13,7 +14,7 @@ export const BetSlip = () => {
     async function fetchBetSlips() {
       try {
         const response = await fetch(
-          "https://server.trademax1.com/bets/get-bet-slips",
+           `${Base_Url}/bets/get-bet-slips`,
           {
             method: "GET",
             headers: {

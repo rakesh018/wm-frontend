@@ -8,6 +8,7 @@ import { useRecoilState } from "recoil";
 import { profileAtom } from "../../atoms";
 import "./wallet.css"; // Assuming you have a CSS file for styling
 import { alertToast } from "../../alertToast";
+import Base_Url from "../../config";
 
 export const WithdrawAmount = () => {
   const navigate = useNavigate();
@@ -55,7 +56,7 @@ export const WithdrawAmount = () => {
 
     try {
       const response = await fetch(
-        "https://server.trademax1.com/payments/withdrawal-request",
+         `${Base_Url}/payments/withdrawal-request`,
         {
           method: "POST",
           headers: {
@@ -78,7 +79,7 @@ export const WithdrawAmount = () => {
         alertToast(`${result.error}`, "error");
         return;
       }
-      const res = await fetch("https://server.trademax1.com/profile/getProfile", {
+      const res = await fetch( `${Base_Url}/profile/getProfile`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",

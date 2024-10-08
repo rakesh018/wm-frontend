@@ -8,6 +8,7 @@ import adminWallet from "../../../images/adminWallet.png";
 import { alertToast } from "../../../alertToast";
 import "./admin.css"; // Include custom CSS for modals
 import { useNavigate } from "react-router-dom";
+import Base_Url from "../../../config";
 
 export const ViewUser = () => {
   const navigate = useNavigate();
@@ -31,7 +32,7 @@ export const ViewUser = () => {
     const fetchUserData = async () => {
       try {
         const response = await fetch(
-          `https://server.trademax1.com/admin/users/details/${uid}`,
+          `${Base_Url}/admin/users/details/${uid}`,
           {
             method: "GET",
             headers: {

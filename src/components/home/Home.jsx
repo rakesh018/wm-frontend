@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { profileAtom, betSlipsAtom } from "../../atoms";
 import { useRecoilState } from "recoil";
 import { CheckToken } from "../../checkToken";
+import Base_Url from "../../config";
 
 export const Home = () => {
   const navigate = useNavigate();
@@ -22,7 +23,7 @@ export const Home = () => {
   useEffect(() => {
     async function setBalance() {
       const fetchedProfile = await fetch(
-        "https://server.trademax1.com/profile/getProfile",
+         `${Base_Url}/profile/getProfile`,
         {
           method: "GET",
           headers: {
@@ -39,7 +40,7 @@ export const Home = () => {
     }
     async function getBetSlips() {
       const fetchedSlips = await fetch(
-        "https://server.trademax1.com/bets/get-bet-slips",
+         `${Base_Url}/bets/get-bet-slips`,
         {
           method: "GET",
           headers: {

@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { TbPasswordMobilePhone } from "react-icons/tb";
 import { useSearchParams } from "react-router-dom";
 import { alertToast } from "../../alertToast";
+import Base_Url from "../../config";
 
 export const Register = () => {
   const navigate = useNavigate();
@@ -43,7 +44,7 @@ export const Register = () => {
 
     try {
       const response = await fetch(
-        "https://server.trademax1.com/auth/signup/get-otp",
+         `${Base_Url}/auth/signup/get-otp`,
         {
           method: "POST",
           headers: {

@@ -5,6 +5,8 @@ import { useParams } from "react-router-dom";
 import "./adminWithdraw.css";
 import { alertToast } from "../../../alertToast";
 import { useNavigate } from "react-router-dom";
+import Base_Url from "../../../config";
+
 export const ViewUserWithdrawTransaction = () => {
   const navigate = useNavigate();
   const adminToken = localStorage.getItem("adminToken");
@@ -33,7 +35,7 @@ export const ViewUserWithdrawTransaction = () => {
       setLoading(true);
       try {
         const response = await fetch(
-          `https://server.trademax1.com/admin/withdrawals/details/${uid}`,
+          `${Base_Url}/admin/withdrawals/details/${uid}`,
           {
             method: "GET",
             headers: {
@@ -64,7 +66,7 @@ export const ViewUserWithdrawTransaction = () => {
 
   const handleAccept = async (withdrawalId) => {
     const res = await fetch(
-      "https://server.trademax1.com/admin/withdrawals/action/mark-completed",
+     `${Base_Url}/admin/withdrawals/action/mark-completed`,
       {
         method: "POST",
         headers: {
@@ -84,7 +86,7 @@ export const ViewUserWithdrawTransaction = () => {
 
   const handleReject = async (withdrawalId) => {
     const res = await fetch(
-      "https://server.trademax1.com/admin/withdrawals/action/mark-rejected",
+      `${Base_Url}/admin/withdrawals/action/mark-rejected`,
       {
         method: "POST",
         headers: {

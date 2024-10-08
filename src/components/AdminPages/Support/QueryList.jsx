@@ -4,6 +4,7 @@ import { AdminSidebar } from "../AdminHome/AdminSidebar";
 import "./queries.css";
 import { alertToast } from "../../../alertToast";
 import { useNavigate } from "react-router-dom";
+import Base_Url from "../../../config";
 
 
 export const QueryList = () => {
@@ -19,7 +20,7 @@ export const QueryList = () => {
   // Fetch queries from backend
   const fetchQueries = async (page) => {
     try {
-      const response = await fetch(`https://server.trademax1.com/admin/query/get-all-queries?page=${page}`, {
+      const response = await fetch( `${Base_Url}/admin/query/get-all-queries?page=${page}`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -50,7 +51,7 @@ export const QueryList = () => {
   // Handler to mark a query as seen
   const handleMarkSeen = async (queryId) => {
     try {
-      const response = await fetch(`https://server.trademax1.com/admin/query/mark-query-seen/${queryId}`, {
+      const response = await fetch( `${Base_Url}/admin/query/mark-query-seen/${queryId}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

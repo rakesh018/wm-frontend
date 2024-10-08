@@ -3,6 +3,7 @@ import "./adminLogin.css";
 import logoImage from "../../../images/logoImage.jpeg";
 import { alertToast } from "../../../alertToast";
 import { useNavigate } from "react-router-dom";
+import Base_Url from "../../../config";
 
 export const AdminLogin = () => {
   const [username, setUsername] = useState("");
@@ -17,7 +18,7 @@ export const AdminLogin = () => {
         alertToast("Username and Password are required!", "warning");
         return;
       }
-      const res = await fetch(`https://server.trademax1.com/admin/auth/login`, {
+      const res = await fetch( `${Base_Url}/admin/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password }),

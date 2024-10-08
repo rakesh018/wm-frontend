@@ -17,6 +17,7 @@ import {
   Tooltip,
 } from "chart.js";
 import { alertToast } from "../../../alertToast";
+import Base_Url from "../../../config";
 
 Chart.register(
   LinearScale,
@@ -45,7 +46,7 @@ export const TransactionalAnalytics = () => {
     const fetchAnalyticsData = async () => {
       try {
         const response = await fetch(
-          "https://server.trademax1.com/admin/analytics/annual-analytics",
+           `${Base_Url}/admin/analytics/annual-analytics`,
           {
             method: "GET",
             headers: {

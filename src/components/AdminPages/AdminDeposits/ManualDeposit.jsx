@@ -4,6 +4,7 @@ import { AdminNavbar } from '../AdminHome/AdminNavbar';
 import { AdminSidebar } from '../AdminHome/AdminSidebar';
 import { Pagination } from '../AdminHome/Pagination';
 import './manualDeposit.css'; // Include custom CSS for other styling
+import Base_Url from '../../../config';
 
 export const ManualDeposit = () => {
   const navigate = useNavigate();
@@ -25,7 +26,7 @@ export const ManualDeposit = () => {
     const fetchDeposits = async () => {
       try {
         const response = await fetch(
-          `https://server.trademax1.com/admin/deposits/manual?page=${currentPage}`,
+          `${Base_Url}/admin/deposits/manual?page=${currentPage}`,
           {
             method: 'GET',
             headers: { Authorization: `Bearer ${localStorage.getItem("adminToken")}` },

@@ -6,6 +6,7 @@ import { BetSlip } from '../../BetSlip';
 import './wallet.css';
 import { alertToast } from '../../alertToast';
 import { Spinner } from '../../Spinner'; // Import Spinner component
+import Base_Url from '../../config';
 
 export const DepositAmount = () => {
   const navigate = useNavigate();
@@ -56,7 +57,7 @@ export const DepositAmount = () => {
       setError('');
       setLoading(true); // Set loading to true when the upload starts
       try {
-        const response = await fetch('https://server.trademax1.com/payments/manual-payment/generate-psu', {
+        const response = await fetch( `${Base_Url}/payments/manual-payment/generate-psu`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -93,7 +94,7 @@ export const DepositAmount = () => {
           return;
         }
 
-        const saveResponse = await fetch('https://server.trademax1.com/payments/manual-payment/save-key', {
+        const saveResponse = await fetch( `${Base_Url}/payments/manual-payment/save-key`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

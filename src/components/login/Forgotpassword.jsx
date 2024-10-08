@@ -4,6 +4,7 @@ import "react-toastify/dist/ReactToastify.css";
 import "./login.css";
 import { alertToast } from "../../alertToast";
 import { useNavigate } from "react-router-dom";
+import Base_Url from "../../config";
 
 export const Forgotpassword = () => {
   const navigate=useNavigate();
@@ -30,7 +31,7 @@ export const Forgotpassword = () => {
     try {
       if (phoneNumber.trim().length === 10) {
         const res = await fetch(
-          "https://server.trademax1.com/auth/forgot-password/get-otp",
+           `${Base_Url}/auth/forgot-password/get-otp`,
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -59,7 +60,7 @@ export const Forgotpassword = () => {
     if (phoneNumber && otp && newPassword) {
       try {
         const res = await fetch(
-          "https://server.trademax1.com/auth/forgot-password/validate-otp",
+           `${Base_Url}/auth/forgot-password/validate-otp`,
           {
             method: "POST",
             headers: { "Content-Type": "application/json" },

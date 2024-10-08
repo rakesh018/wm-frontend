@@ -16,6 +16,7 @@ import socket from "../../socket";
 
 import { alertToast } from "../../alertToast";
 import { CandleStick } from "./CandleStick";
+import Base_Url from "../../config";
 
 // Example placeholder data
 const initialCandleArray = [1, 0, 1, 1, 0, 1, 0, 0, 1];
@@ -41,7 +42,7 @@ export const Trader = ({ showAlert }) => {
     // Fetch data from server based on roundDuration
     // Example fetch API call
     const response = await fetch(
-      `https://server.trademax1.com/bets/get-rounds-history/stockTrader/${roundDuration}`,
+       `${Base_Url}/bets/get-rounds-history/stockTrader/${roundDuration}`,
       { headers: { Authorization: `Bearer ${localStorage.getItem("token")}` } }
     );
     if(response.status===403){
@@ -73,7 +74,7 @@ export const Trader = ({ showAlert }) => {
   const [betDetails, setBetDetails] = useRecoilState(betSlipsAtom);
   async function getSlips() {
     const slips = await fetch(
-      "https://server.trademax1.com/bets/get-bet-slips",
+       `${Base_Url}/bets/get-bet-slips`,
       {
         method: "GET",
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
@@ -112,7 +113,7 @@ export const Trader = ({ showAlert }) => {
     ) => {
       if (gameName === "stockTrader" && roundDuration === duration) {
         const fetchedProfile = await fetch(
-          "https://server.trademax1.com/profile/getProfile",
+           `${Base_Url}/profile/getProfile`,
           {
             method: "GET",
             headers: {
@@ -185,7 +186,7 @@ export const Trader = ({ showAlert }) => {
     if (!isNaN(numValue) && Number.isFinite(numValue) && numValue >= 10) {
       try {
         const response = await fetch(
-          "https://server.trademax1.com/bets/makeBet",
+          `${Base_Url}/bets/makeBet`,
           {
             method: "POST",
             headers: {

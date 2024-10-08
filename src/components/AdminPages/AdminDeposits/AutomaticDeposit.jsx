@@ -6,6 +6,7 @@ import adminWithdraw from "../../../images/adminTotalWithdraw.png";
 import { useNavigate } from "react-router-dom";
 import "./adminDeposit.css";
 import { alertToast } from "../../../alertToast"; // Assuming alertToast is used for error handling
+import Base_Url from "../../../config";
 
 export const AutomaticDeposit = () => {
   const navigate = useNavigate();
@@ -28,7 +29,7 @@ export const AutomaticDeposit = () => {
       try {
         setLoading(true);
         const response = await fetch(
-          `https://server.trademax1.com/admin/deposits/auto?page=${currentPage}`,
+          `${Base_Url}/admin/deposits/auto?page=${currentPage}`,
           {
             method: "GET",
             headers: {
