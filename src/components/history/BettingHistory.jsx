@@ -4,6 +4,7 @@ import "./history.css";
 import { Navbar } from "../../Navbar";
 import { Sidebar } from "../../Sidebar";
 import { BetSlip } from "../../BetSlip";
+import Base_Url from "../../config";
 
 export const BettingHistory = () => {
   const navigate = useNavigate();
@@ -19,7 +20,7 @@ export const BettingHistory = () => {
       setBetsLoading(true);
       try {
         const response = await fetch(
-          `https://server.trademax1.com/profile/get-betting-history?page=${betsPage}`,
+          `${Base_Url}/profile/get-betting-history?page=${betsPage}`,
           {
             method: "GET",
             headers: {

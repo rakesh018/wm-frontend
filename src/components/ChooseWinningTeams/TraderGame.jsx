@@ -5,6 +5,7 @@ import "./chooseWinning.css"; // Use the same CSS for consistency
 import socket from "../../adminSocket"; // Ensure this path is correct
 import { alertToast } from "../../alertToast";
 import { useNavigate } from "react-router-dom";
+import Base_Url from "../../config";
 
 export const TraderGamePage = () => {
   const navigate = useNavigate();
@@ -33,7 +34,7 @@ export const TraderGamePage = () => {
 
   const handleResult = async (result, duration) => {
     const res = await fetch(
-      "https://server.trademax1.com/admin/games/change-game-result",
+       `${Base_Url}/admin/games/change-game-result`,
       {
         method: "POST",
         headers: {

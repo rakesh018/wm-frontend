@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { TbPasswordMobilePhone } from "react-icons/tb";
 import { useLocation } from "react-router-dom";
+import Base_Url from "../../config";
 
 export const Verification = () => {
   const navigate = useNavigate();
@@ -32,7 +33,7 @@ export const Verification = () => {
     }
     try {
       const response = await fetch(
-        "https://server.trademax1.com/auth/signup/validate-otp",
+        `${Base_Url}/auth/signup/validate-otp`,
         {
           method: "POST",
           headers: {
@@ -58,7 +59,7 @@ export const Verification = () => {
   const handleResendCode = async () => {
     try {
       const response = await fetch(
-        "https://server.trademax1.com/auth/signup/get-otp",
+         `${Base_Url}/auth/signup/get-otp`,
         {
           method: "POST",
           headers: {

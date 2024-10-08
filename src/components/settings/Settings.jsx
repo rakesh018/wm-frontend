@@ -5,6 +5,7 @@ import { BetSlip } from '../../BetSlip';
 import profile from '../../images/pro.png';
 import { useNavigate } from 'react-router-dom';
 import './settings.css';
+import Base_Url from '../../config';
 
 export const Settings = () => {
     const navigate = useNavigate();
@@ -30,7 +31,7 @@ export const Settings = () => {
         e.preventDefault();
         // Add your API call here to update user data
         try {
-            const response = await fetch('https://your-api-endpoint.com/updateUser', {
+            const response = await fetch( `${Base_Url}/updateUser`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -64,7 +65,7 @@ export const Settings = () => {
         // Fetch user data from API when component mounts
         const fetchUserData = async () => {
             try {
-                const response = await fetch('https://your-api-endpoint.com/getUser');
+                const response = await fetch( `${Base_Url}/getUser`);
                 const data = await response.json();
                 setUserData({
                     name: data.name,

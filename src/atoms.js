@@ -1,4 +1,5 @@
 import { atom, selector } from "recoil";
+import Base_Url from "./config";
 
 // export const profileAtom = atom({
 //   key: "profileAtom", // unique ID (with respect to other atoms/selectors)
@@ -26,7 +27,7 @@ export const profileAtom = atom({
     get: async () => {
       try {
         const res = await fetch(
-          "https://server.trademax1.com/profile/getProfile",
+           `${Base_Url}/profile/getProfile`,
           {
             method: "GET",
             headers: {

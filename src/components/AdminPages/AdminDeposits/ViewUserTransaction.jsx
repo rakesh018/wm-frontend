@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { AdminNavbar } from '../AdminHome/AdminNavbar';
 import { AdminSidebar } from '../AdminHome/AdminSidebar';
 
+
 const transactions = [
     { gateway: 'PHONE PE', transactionId: '123456789', initiated: '22/02/2024', phone: '9876543210', amount: 1000, status: 'SUCCESS' },
     { gateway: 'PHONE PE', transactionId: '123456799', initiated: '22/02/2024', phone: '9876543910', amount: 1000, status: 'INITIATED' },

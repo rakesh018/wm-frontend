@@ -5,6 +5,7 @@ import "./demo.css";
 import { alertToast } from "../../../alertToast";
 import { FaEye, FaEyeSlash } from "react-icons/fa"; // For eye icons
 import { useNavigate } from "react-router-dom";
+import Base_Url from "../../../config";
 
 export const DemoAccount = () => {
   // State for form inputs
@@ -26,7 +27,7 @@ export const DemoAccount = () => {
       // Send data to backend
       console.log(email, password, amount);
       const response = await fetch(
-        "https://server.trademax1.com/admin/demo/create-demo-account", // Fixed URL scheme
+         `${Base_Url}/admin/demo/create-demo-account`, // Fixed URL scheme
         {
           method: "POST",
           headers: {

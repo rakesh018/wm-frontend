@@ -4,6 +4,7 @@ import { AdminSidebar } from "../AdminHome/AdminSidebar";
 import "../Demo/demo.css";
 import { alertToast } from "../../../alertToast";
 import { useNavigate } from "react-router-dom";
+import Base_Url from "../../../config";
 
 export const UploadQR = () => {
   const navigate = useNavigate();
@@ -22,7 +23,7 @@ export const UploadQR = () => {
     const fetchUpiData = async () => {
       try {
         const response = await fetch(
-          "https://server.trademax1.com/admin/upi/get-upi-details",
+           `${Base_Url}/admin/upi/get-upi-details`,
           {
             method: "GET",
             headers: { "Content-Type": "application/json" },
@@ -61,7 +62,7 @@ export const UploadQR = () => {
     try {
       // Get presigned URL from backend for file upload
       const response = await fetch(
-        "https://server.trademax1.com/admin/upi/get-psu-upi",
+         `${Base_Url}/admin/upi/get-psu-upi`,
         {
           method: "POST",
           headers: {
@@ -88,7 +89,7 @@ export const UploadQR = () => {
         console.log("uploaded to aws");
         // Once uploaded, send UPI ID and S3 key to backend
         const updateResponse = await fetch(
-          "https://server.trademax1.com/admin/upi/update-upi-details",
+          `${Base_Url}/admin/upi/update-upi-details`,
           {
             method: "POST",
             headers: {

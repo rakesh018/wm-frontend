@@ -4,6 +4,7 @@ import { AdminNavbar } from "./AdminNavbar";
 import { AdminSidebar } from "./AdminSidebar";
 import { Pagination } from "./Pagination";
 import "./adminHome.css"; // Include custom CSS for better control over styling
+import Base_Url from "../../../config";
 
 export const AdminHome = () => {
   const navigate = useNavigate();
@@ -21,7 +22,7 @@ export const AdminHome = () => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          `https://server.trademax1.com/admin/users?page=${currentPage}`,
+         `${Base_Url}/admin/users?page=${currentPage}`,
           {
             method: "GET",
             headers: {
