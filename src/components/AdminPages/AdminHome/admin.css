@@ -1,3 +1,7 @@
+
+*{
+  box-sizing: border-box;
+}
 .admin{
     background-color: black;
     height: 14vh;
@@ -204,7 +208,7 @@ tbody td {
 .modal-btn {
   border: none;
   padding: 10px 20px;
-  border-radius: 5px;
+  /* border-radius: 5px; */
   margin: 0 10px;
   cursor: pointer;
 }
@@ -215,7 +219,8 @@ background-color: inherit;
 }
 .modal-btn.yes:hover,.modal-btn.no:hover{
  background-color:#FFC107 ;
-  border:2px solid black;
+  /* border:2px solid black; */
+  border-radius: 5px;
 }
 
 .modal-btn.no {

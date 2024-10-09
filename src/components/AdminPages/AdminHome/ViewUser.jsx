@@ -22,6 +22,18 @@ export const ViewUser = () => {
   const [error, setError] = useState(null);
   const [showUpdateModal, setShowUpdateModal] = useState(false);
   const [showBanModal, setShowBanModal] = useState(false);
+
+  //____admin more options models states______
+  const [showMoreModal, setShowMoreModal] = useState(false);
+  const [showViewPasModal, setSViewPassModal] = useState(false);
+  const [showUpdtPasModal, setSUpdtPassModal] = useState(false);
+  const [showLogasUserModal, setSLogasUserModal] = useState(false);
+  const [showBetHisModal, setBetHisModal] = useState(false);
+  const [showTranHisModal, setTranHisModal] = useState(false);
+
+
+
+
   const [balance, setBalance] = useState("");
   const [referral, setReferral] = useState("");
   const [totalDeposits, setTotalDeposits] = useState(0);
@@ -71,6 +83,35 @@ export const ViewUser = () => {
   const handleBanClick = () => {
     setShowBanModal(true);
   };
+
+  //____admin more options handlers______
+
+  const handleMoreClick = () => {
+    setShowMoreModal(true);
+  };
+  
+  const handleViewPassClick = () => {
+    setSViewPassModal(true);
+
+  };
+  const handleUpdtPassClick = () => {
+    setSUpdtPassModal(true)
+  };
+
+  const handleLogasUserClick = () => {
+    setSLogasUserModal(true);
+
+  };
+  const handleBetHisClick = () => {
+    setBetHisModal(true)
+  };
+
+  const handleTranHisClick = () => {
+    setTranHisModal(true)
+  };
+
+
+
 
   const handleUpdate = async () => {
     setIsUpdating(true);
@@ -134,7 +175,16 @@ export const ViewUser = () => {
   const handleModalClose = () => {
     setShowUpdateModal(false);
     setShowBanModal(false);
+    setShowMoreModal(false)
   };
+  const handleMoreOptionClose=()=>{
+    setSViewPassModal(false)
+    setSUpdtPassModal(false)
+    setTranHisModal(false)
+    setBetHisModal(false)
+    setSLogasUserModal(false)
+   
+  }
 
   if (loading) {
     return <div>Loading...</div>;
@@ -187,6 +237,13 @@ export const ViewUser = () => {
                     onClick={handleBanClick}
                   >
                     {userData.isRestricted ? "UnBan User" : "Ban User"}
+                  </button>
+
+                  <button
+                    className="btn btn-primary m-2"
+                    onClick={handleMoreClick}
+                  >
+                   More
                   </button>
                 </div>
               </div>
@@ -299,6 +356,103 @@ export const ViewUser = () => {
           </div>
         </div>
       )}
+
+
+{/* ______more options for admin_______ */}
+      {showMoreModal && (
+        <div className="modal-overlay relative">
+          <div className="modal-content ">
+            <div className="d-flex flex-column justify-content-center ">
+              <button className="modal-btn yes" onClick={handleViewPassClick}>
+               view password
+              </button>
+              <button className="modal-btn yes" onClick={handleUpdtPassClick}>
+               update password
+              </button>
+              <button className="modal-btn yes" onClick={handleLogasUserClick}>
+              Login as user
+              </button>
+              <button className="modal-btn yes" onClick={handleBetHisClick}>
+              Bet history
+              </button>
+              <button className="modal-btn yes" onClick={handleTranHisClick}>
+              Transaction history
+              </button> 
+              
+             <div className=" text-end absolute top-0 right-0">
+             <button className="modal-btn btn-secondary rounded" onClick={handleModalClose}>
+              Close
+              </button>
+            </div>
+
+
+
+            </div>
+          </div>
+        </div>
+      )}
+
+{/* __________more options models________ */}
+{showViewPasModal && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <p>Password : srianth</p>
+           <div className="text-end">
+           <button className="btn btn-danger w-25" onClick={handleMoreOptionClose}>close</button>
+          </div>
+          </div>
+        </div>
+      )}
+
+{showUpdtPasModal && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <p className="fw-semibold fs-5">Update Password</p>
+
+            <div className="d-flex flex-column align-items-start">
+              <p>existing password : srinath</p>
+              <p>new Password : <input type="text" /> </p>
+            </div>
+
+            <div className="">
+           <button className="btn btn-primary w-25" onClick={handleMoreOptionClose}>Update</button>
+           <button className="btn btn-danger w-25" onClick={handleMoreOptionClose}>close</button>
+          </div>
+          </div>
+        </div>
+      )}
+
+{showLogasUserModal && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <p>login as user model</p>
+           <div className="text-end">
+           <button className="btn btn-danger w-25" onClick={handleMoreOptionClose}>close</button>
+          </div>
+          </div>
+        </div>
+      )}
+      {showBetHisModal && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <p>Betting history model</p>
+           <div className="text-end">
+           <button className="btn btn-danger w-25" onClick={handleMoreOptionClose}>close</button>
+          </div>
+          </div>
+        </div>
+      )}
+      {showTranHisModal && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <p>transaction history model</p>
+           <div className="text-end">
+           <button className="btn btn-danger w-25" onClick={handleMoreOptionClose}>close</button>
+          </div>
+          </div>
+        </div>
+      )}
+
     </div>
   );
 };
