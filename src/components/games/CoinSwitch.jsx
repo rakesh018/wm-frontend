@@ -85,7 +85,7 @@ export const CoinSwitch = ({ showAlert }) => {
   const [betDetails, setBetDetails] = useRecoilState(betSlipsAtom);
   async function getSlips() {
     const slips = await fetch(
-      "https://server.trademax1.com/bets/get-bet-slips",
+      `${Base_Url}/bets/get-bet-slips`,
       {
         method: "GET",
         headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
@@ -122,7 +122,7 @@ export const CoinSwitch = ({ showAlert }) => {
     ) => {
       if (gameName === "coinFlip" && roundDuration === duration) {
         const fetchedProfile = await fetch(
-          "https://server.trademax1.com/profile/getProfile",
+           `${Base_Url}/profile/getProfile`,
           {
             method: "GET",
             headers: {
@@ -197,7 +197,7 @@ export const CoinSwitch = ({ showAlert }) => {
     if (!isNaN(numValue) && Number.isFinite(numValue) && numValue >= 10) {
       try {
         const response = await fetch(
-          "https://server.trademax1.com/bets/makeBet",
+           `${Base_Url}/bets/makeBet`,
           {
             method: "POST",
             headers: {

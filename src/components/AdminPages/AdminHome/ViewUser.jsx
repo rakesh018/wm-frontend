@@ -117,7 +117,7 @@ export const ViewUser = () => {
     setIsUpdating(true);
     try {
       const response = await fetch(
-        `https://server.trademax1.com/admin/users/change-user-details/${userData.uid}`,
+         `${Base_Url}/admin/users/change-user-details/${userData.uid}`,
         {
           method: "POST",
           headers: {
@@ -149,7 +149,7 @@ export const ViewUser = () => {
   const handleBanUser = async () => {
     try {
       const response = await fetch(
-        `https://server.trademax1.com/admin/users/ban-user/${uid}`,
+         `${Base_Url}/admin/users/ban-user/${uid}`,
         {
           method: "POST",
           headers: {
@@ -219,7 +219,7 @@ export const ViewUser = () => {
                 </div>
                 <div className="mb-3">
                   <strong>Referral Link:</strong>{" "}
-                  <span>{`https://trademax1.com/register?referral=${userData.referralCode}`}</span>
+                  <span>{ `${Base_Url}/register?referral=${userData.referralCode}`}</span>
                 </div>
                 <div className="mb-3">
                   <strong>Commission:</strong>{" "}
