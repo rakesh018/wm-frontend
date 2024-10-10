@@ -10,6 +10,17 @@ import "./admin.css"; // Include custom CSS for modals
 import { useNavigate } from "react-router-dom";
 import Base_Url from "../../../config";
 
+// to check password is in hashed or not
+const checkPassword = (password) => {
+  const bcryptHashPattern = /^\$2[ayb]\$.{56}$/;
+  if (bcryptHashPattern.test(password)) {
+    return "NA";
+  } else {
+    // Password is plain text
+    return password;
+  }
+};
+
 export const ViewUser = () => {
   const navigate = useNavigate();
   const adminToken = localStorage.getItem("adminToken");
@@ -18,8 +29,11 @@ export const ViewUser = () => {
   }
   const { uid } = useParams();
   const [userData, setUserData] = useState(null);
+  const [logUserData, setlogUserData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [newPassword, setNewPassword] = useState(null);
+
   const [showUpdateModal, setShowUpdateModal] = useState(false);
   const [showBanModal, setShowBanModal] = useState(false);
 
@@ -31,9 +45,6 @@ export const ViewUser = () => {
   const [showBetHisModal, setBetHisModal] = useState(false);
   const [showTranHisModal, setTranHisModal] = useState(false);
 
-
-
-
   const [balance, setBalance] = useState("");
   const [referral, setReferral] = useState("");
   const [totalDeposits, setTotalDeposits] = useState(0);
@@ -43,15 +54,12 @@ export const ViewUser = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        const response = await fetch(
-          `${Base_Url}/admin/users/details/${uid}`,
-          {
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("adminToken")}`,
-            },
-          }
-        );
+        const response = await fetch(`${Base_Url}/admin/users/details/${uid}`, {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("adminToken")}`,
+          },
+        });
         if (response.status === 403) {
           navigate("/adminLogin");
         }
@@ -76,6 +84,71 @@ export const ViewUser = () => {
     fetchUserData();
   }, [uid]);
 
+  // login as user handle__________________
+
+  const userLoginHandle = async () => {
+    try {
+      console.log(userData.phone, userData.password);
+      const response = await fetch(`${Base_Url}/auth/signin`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          emailOrPhone: userData.phone,
+          password: userData.password,
+        }),
+      });
+
+      const data = await response.json();
+      console.log(data);
+
+      if (response.ok) {
+        localStorage.setItem("token", data.token);
+        alertToast("Login as user successful!", "success"); // Show success toast
+
+        setTimeout(() => {
+          // navigate("/home");
+          window.open("/home", "_blank");
+        }, 1500);
+      } else {
+        alertToast("Invalid credentials. Please try again.", "error"); // Show error toast
+      }
+    } catch (error) {
+      alertToast("An error occurred while logging in.", "error"); // Show error toast
+    }
+  };
+
+  const updateUserPass = async () => {
+    console.log(userData.uid, newPassword);
+    try {
+      const response = await fetch(
+        `${Base_Url}/admin/users/update-user-password`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("adminToken")}`,
+          },
+          body: JSON.stringify({
+            uid: userData.uid,
+            newPassword: newPassword,
+          }),
+        }
+      );
+
+      if (response.ok) {
+        alertToast("Password Updated Successfully!", "success"); // Show success toast
+        handleMoreOptionClose();
+        window.location.reload();
+      } else {
+        alertToast("Password error. Please try again.", "error"); // Show error toast
+      }
+    } catch (error) {
+      alertToast("Password error .", "error"); // Show error toast
+    }
+  };
+
   const handleUpdateClick = () => {
     setShowUpdateModal(true);
   };
@@ -89,35 +162,30 @@ export const ViewUser = () => {
   const handleMoreClick = () => {
     setShowMoreModal(true);
   };
-  
+
   const handleViewPassClick = () => {
     setSViewPassModal(true);
-
   };
   const handleUpdtPassClick = () => {
-    setSUpdtPassModal(true)
+    setSUpdtPassModal(true);
   };
 
   const handleLogasUserClick = () => {
     setSLogasUserModal(true);
-
   };
   const handleBetHisClick = () => {
-    setBetHisModal(true)
+    setBetHisModal(true);
   };
 
   const handleTranHisClick = () => {
-    setTranHisModal(true)
+    setTranHisModal(true);
   };
-
-
-
 
   const handleUpdate = async () => {
     setIsUpdating(true);
     try {
       const response = await fetch(
-         `${Base_Url}/admin/users/change-user-details/${userData.uid}`,
+        `${Base_Url}/admin/users/change-user-details/${userData.uid}`,
         {
           method: "POST",
           headers: {
@@ -148,16 +216,13 @@ export const ViewUser = () => {
 
   const handleBanUser = async () => {
     try {
-      const response = await fetch(
-         `${Base_Url}/admin/users/ban-user/${uid}`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("adminToken")}`,
-          },
-        }
-      );
+      const response = await fetch(`${Base_Url}/admin/users/ban-user/${uid}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("adminToken")}`,
+        },
+      });
       if (!response.ok) {
         alert("Failed to ban user", "error");
       } else if (response.status === 403) {
@@ -175,16 +240,15 @@ export const ViewUser = () => {
   const handleModalClose = () => {
     setShowUpdateModal(false);
     setShowBanModal(false);
-    setShowMoreModal(false)
+    setShowMoreModal(false);
   };
-  const handleMoreOptionClose=()=>{
-    setSViewPassModal(false)
-    setSUpdtPassModal(false)
-    setTranHisModal(false)
-    setBetHisModal(false)
-    setSLogasUserModal(false)
-   
-  }
+  const handleMoreOptionClose = () => {
+    setSViewPassModal(false);
+    setSUpdtPassModal(false);
+    setTranHisModal(false);
+    setBetHisModal(false);
+    setSLogasUserModal(false);
+  };
 
   if (loading) {
     return <div>Loading...</div>;
@@ -219,7 +283,7 @@ export const ViewUser = () => {
                 </div>
                 <div className="mb-3">
                   <strong>Referral Link:</strong>{" "}
-                  <span>{ `${Base_Url}/register?referral=${userData.referralCode}`}</span>
+                  <span>{`https://trademax1.com/register?referral=${userData.referralCode}`}</span>
                 </div>
                 <div className="mb-3">
                   <strong>Commission:</strong>{" "}
@@ -243,7 +307,7 @@ export const ViewUser = () => {
                     className="btn btn-primary m-2"
                     onClick={handleMoreClick}
                   >
-                   More
+                    More
                   </button>
                 </div>
               </div>
@@ -357,72 +421,90 @@ export const ViewUser = () => {
         </div>
       )}
 
-
-{/* ______more options for admin_______ */}
+      {/* ______more options for admin_______ */}
       {showMoreModal && (
         <div className="modal-overlay relative">
           <div className="modal-content ">
             <div className="d-flex flex-column justify-content-center ">
               <button className="modal-btn yes" onClick={handleViewPassClick}>
-               view password
+                View Password
               </button>
               <button className="modal-btn yes" onClick={handleUpdtPassClick}>
-               update password
+                Update Password
               </button>
-              <button className="modal-btn yes" onClick={handleLogasUserClick}>
-              Login as user
+              <button className="modal-btn yes" onClick={userLoginHandle}>
+                Login as User
               </button>
               <button className="modal-btn yes" onClick={handleBetHisClick}>
-              Bet history
+                Bet History
               </button>
               <button className="modal-btn yes" onClick={handleTranHisClick}>
-              Transaction history
-              </button> 
-              
-             <div className=" text-end absolute top-0 right-0">
-             <button className="modal-btn btn-secondary rounded" onClick={handleModalClose}>
-              Close
+                Transaction History
               </button>
-            </div>
 
-
-
+              <div className=" text-end absolute top-0 right-0">
+                <button
+                  className="modal-btn btn-secondary rounded"
+                  onClick={handleModalClose}
+                >
+                  Close
+                </button>
+              </div>
             </div>
           </div>
         </div>
       )}
 
-{/* __________more options models________ */}
-{showViewPasModal && (
+      {/* __________more options models________ */}
+      {showViewPasModal && (
         <div className="modal-overlay">
           <div className="modal-content">
-            <p>Password : srianth</p>
-           <div className="text-end">
-           <button className="btn btn-danger w-25" onClick={handleMoreOptionClose}>close</button>
-          </div>
+            <p>Password : {checkPassword(userData.password)}</p>
+            <div className="text-end">
+              <button
+                className="btn btn-danger w-25"
+                onClick={handleMoreOptionClose}
+              >
+                close
+              </button>
+            </div>
           </div>
         </div>
       )}
 
-{showUpdtPasModal && (
+      {showUpdtPasModal && (
         <div className="modal-overlay">
           <div className="modal-content">
             <p className="fw-semibold fs-5">Update Password</p>
 
             <div className="d-flex flex-column align-items-start">
-              <p>existing password : srinath</p>
-              <p>new Password : <input type="text" /> </p>
+              <p>existing password : {checkPassword(userData.password)} </p>
+              <p>
+                new Password :{" "}
+                <input
+                  onChange={(e) => setNewPassword(e.target.value)}
+                  value={newPassword}
+                  type="text"
+                />{" "}
+              </p>
             </div>
 
             <div className="">
-           <button className="btn btn-primary w-25" onClick={handleMoreOptionClose}>Update</button>
-           <button className="btn btn-danger w-25" onClick={handleMoreOptionClose}>close</button>
-          </div>
+              <button className="btn btn-primary w-25" onClick={updateUserPass}>
+                Update
+              </button>
+              <button
+                className="btn btn-danger w-25"
+                onClick={handleMoreOptionClose}
+              >
+                close
+              </button>
+            </div>
           </div>
         </div>
       )}
 
-{showLogasUserModal && (
+      {/* {showLogasUserModal && (
         <div className="modal-overlay">
           <div className="modal-content">
             <p>login as user model</p>
@@ -431,14 +513,20 @@ export const ViewUser = () => {
           </div>
           </div>
         </div>
-      )}
+      )} */}
+
       {showBetHisModal && (
         <div className="modal-overlay">
           <div className="modal-content">
             <p>Betting history model</p>
-           <div className="text-end">
-           <button className="btn btn-danger w-25" onClick={handleMoreOptionClose}>close</button>
-          </div>
+            <div className="text-end">
+              <button
+                className="btn btn-danger w-25"
+                onClick={handleMoreOptionClose}
+              >
+                close
+              </button>
+            </div>
           </div>
         </div>
       )}
@@ -446,13 +534,17 @@ export const ViewUser = () => {
         <div className="modal-overlay">
           <div className="modal-content">
             <p>transaction history model</p>
-           <div className="text-end">
-           <button className="btn btn-danger w-25" onClick={handleMoreOptionClose}>close</button>
-          </div>
+            <div className="text-end">
+              <button
+                className="btn btn-danger w-25"
+                onClick={handleMoreOptionClose}
+              >
+                close
+              </button>
+            </div>
           </div>
         </div>
       )}
-
     </div>
   );
 };
