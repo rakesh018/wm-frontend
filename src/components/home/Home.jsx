@@ -10,6 +10,9 @@ import { profileAtom, betSlipsAtom } from "../../atoms";
 import { useRecoilState } from "recoil";
 import { CheckToken } from "../../checkToken";
 import Base_Url from "../../config";
+import { FaUsersGear } from "react-icons/fa6";
+import { CiUser } from "react-icons/ci";
+import onlineimg from "../../assets/online-people.png"
 
 export const Home = () => {
   const navigate = useNavigate();
@@ -62,7 +65,15 @@ export const Home = () => {
     <div>
       <Navbar />
       <div className="container homeBox mt-2 ">
+        <div className="home-feature-online-bg">
         <button className="featuredGames-btn">FEATURED GAMES</button>
+        <div className="online-count-bg">
+
+          <img src={onlineimg} className="online-peopls"/>
+          <p className="online-count">6,534 +</p>
+          {/* <p className="online-name">online</p> */}
+        </div>
+        </div>
         <div className="d-flex justify-content-evenly mt-4">
           <div className="gameBox text-center">
             <div className="game1 m-2 ">
