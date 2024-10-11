@@ -298,3 +298,11 @@ background-color: inherit;
 .logout-btn:hover {
   background-color: #c82333;
 }
+
+
+.backbuttonadmin{
+  border:none;
+  background-color: #239be7;
+  color: white;
+  border-radius: 5px;
+}

@@ -9,6 +9,9 @@ import { alertToast } from "../../../alertToast";
 import "./admin.css"; // Include custom CSS for modals
 import { useNavigate } from "react-router-dom";
 import Base_Url from "../../../config";
+import { TiArrowBack } from "react-icons/ti";
+import { Pagination } from "./Pagination";
+
 
 // to check password is in hashed or not
 const checkPassword = (password) => {
@@ -51,6 +54,24 @@ export const ViewUser = () => {
   const [totalWithdrawals, setTotalWithdrawals] = useState(0);
   const [isUpdating, setIsUpdating] = useState(false);
 
+  const [betTranView, setbetTranView] = useState(false);
+  const [TransView, setTransView] = useState(false);
+  const [bethistory,setbethistory]=useState(null)
+  const [totalPages, setTotalPages] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  // transaction__state____
+  const [transhistory,setTranshistory]=useState(null)
+  const [totalTransPages, setTotalTransPages] = useState(1);
+  const [currentTransPage, setCurrentTransPage] = useState(1);
+
+
+
+  const paginate = (pageNumber) => {setCurrentPage(pageNumber)};
+  const transpaginate = (pageNumber) => setCurrentTransPage(pageNumber);
+
+
+
   useEffect(() => {
     const fetchUserData = async () => {
       try {
@@ -84,11 +105,80 @@ export const ViewUser = () => {
     fetchUserData();
   }, [uid]);
 
+  
+  // Fetch betting history only after userData is available________
+  useEffect(() => {
+    if (userData) {
+
+      const fetchbethistory = async () => {
+        try {
+          const anotherResponse = await fetch(
+            `${Base_Url}/admin/users/fetch-user-bet-history?page=${currentPage}`,
+            {
+              method:"POST",
+              headers: {
+                Authorization: `Bearer ${adminToken}`,
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ uid: userData.uid }),
+            }
+          );
+
+          const anotherData = await anotherResponse.json();
+          
+          setbethistory(anotherData);
+          setTotalPages(anotherData.totalPages)
+        } catch (err) {
+          setError(err.message);
+        }
+      };
+
+      fetchbethistory();
+    }
+  }, [userData, currentPage]);
+
+
+
+ 
+  // Fetch transaction history only after userData is available________
+  useEffect(() => {
+    if (userData) {
+
+      const fetchTransactionhistory = async () => {
+        try {
+          const TransacResponse = await fetch(
+            `${Base_Url}/admin/users/fetch-transaction-history?page=${currentTransPage}`,
+            {
+              method:"POST",
+              headers: {
+                Authorization: `Bearer ${adminToken}`,
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ uid: userData.uid }),
+            }
+          );
+          if (!TransacResponse.ok) {
+            throw new Error("Failed to fetch Transaction history");
+          }
+
+          const anotherData = await TransacResponse.json();
+          setTranshistory(anotherData);
+          setTotalTransPages(anotherData.totalPages)
+        } catch (err) {
+          setError(err.message);
+        }
+      };
+
+      fetchTransactionhistory();
+    }
+  }, [userData, currentTransPage]);
+
+
+
   // login as user handle__________________
 
   const userLoginHandle = async () => {
     try {
-      console.log(userData.phone, userData.password);
       const response = await fetch(`${Base_Url}/auth/signin`, {
         method: "POST",
         headers: {
@@ -101,7 +191,6 @@ export const ViewUser = () => {
       });
 
       const data = await response.json();
-      console.log(data);
 
       if (response.ok) {
         localStorage.setItem("token", data.token);
@@ -120,7 +209,6 @@ export const ViewUser = () => {
   };
 
   const updateUserPass = async () => {
-    console.log(userData.uid, newPassword);
     try {
       const response = await fetch(
         `${Base_Url}/admin/users/update-user-password`,
@@ -206,7 +294,6 @@ export const ViewUser = () => {
       setShowUpdateModal(false);
       // Re-fetch user data
       const result = await response.json();
-      console.log(result);
       setUserData(result.user);
       navigate(`/viewUser/${uid}`);
       alertToast("User updated successfully", "success");
@@ -250,6 +337,15 @@ export const ViewUser = () => {
     setSLogasUserModal(false);
   };
 
+  const betmodelHandle = () => {
+    handleModalClose();
+    setbetTranView(true);
+  };
+  const TransmodelHandle = () => {
+    handleModalClose();
+    setTransView(true);
+  };
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -267,94 +363,348 @@ export const ViewUser = () => {
       <AdminSidebar />
       <div className="flex-grow-1">
         <AdminNavbar />
-        <div className="container my-4">
-          <div className="row justify-content-center">
-            <div className="col-lg-6 col-md-8">
-              <div className="card p-4 mb-4">
-                <h4 className="text-center mb-4">User Information</h4>
-                <div className="mb-3">
-                  <strong>UID:</strong> <span>{userData.uid}</span>
-                </div>
-                <div className="mb-3">
-                  <strong>Email:</strong> <span>{userData.email}</span>
-                </div>
-                <div className="mb-3">
-                  <strong>Phone Number:</strong> <span>{userData.phone}</span>
-                </div>
-                <div className="mb-3">
-                  <strong>Referral Link:</strong>{" "}
-                  <span>{`https://trademax1.com/register?referral=${userData.referralCode}`}</span>
-                </div>
-                <div className="mb-3">
-                  <strong>Commission:</strong>{" "}
-                  <span>{`${userData.referralCommission}% from referrals`}</span>
-                </div>
-                <div className="d-flex justify-content-end">
-                  <button
-                    className="btn btn-primary m-2"
-                    onClick={handleUpdateClick}
-                  >
-                    Update
-                  </button>
-                  <button
-                    className="btn btn-danger m-2"
-                    onClick={handleBanClick}
-                  >
-                    {userData.isRestricted ? "UnBan User" : "Ban User"}
-                  </button>
 
-                  <button
-                    className="btn btn-primary m-2"
-                    onClick={handleMoreClick}
-                  >
-                    More
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div className="container my-4 pl-5">
+          {!(betTranView  || TransView)&& (
+            <>
+              <div className="row justify-content-center">
+                <div className="col-lg-6 col-md-8">
+                  <div className="card p-4 mb-4">
+                    <h4 className="text-center mb-4">User Information</h4>
+                    <div className="mb-3">
+                      <strong>UID:</strong> <span>{userData.uid}</span>
+                    </div>
+                    <div className="mb-3">
+                      <strong>Email:</strong> <span>{userData.email}</span>
+                    </div>
+                    <div className="mb-3">
+                      <strong>Phone Number:</strong>{" "}
+                      <span>{userData.phone}</span>
+                    </div>
+                    <div className="mb-3">
+                      <strong>Referral Link:</strong>{" "}
+                      <span>{`https://trademax1.com/register?referral=${userData.referralCode}`}</span>
+                    </div>
+                    <div className="mb-3">
+                      <strong>Commission:</strong>{" "}
+                      <span>{`${userData.referralCommission}% from referrals`}</span>
+                    </div>
+                    <div className="d-flex justify-content-end">
+                      <button
+                        className="btn btn-primary m-2"
+                        onClick={handleUpdateClick}
+                      >
+                        Update
+                      </button>
+                      <button
+                        className="btn btn-danger m-2"
+                        onClick={handleBanClick}
+                      >
+                        {userData.isRestricted ? "UnBan User" : "Ban User"}
+                      </button>
 
-          <div className="row text-center">
-            <div className="col-lg-4 col-md-6 mb-4">
-              <div className="p-3 border bg-light">
-                <img
-                  src={adminDeposit}
-                  alt="Total Amount Deposited"
-                  className="img-fluid"
-                />
-                <div className="mt-2">
-                  <strong>TOTAL AMOUNT DEPOSITED</strong>
-                  <div>{totalDeposits}</div>
+                      <button
+                        className="btn btn-primary m-2"
+                        onClick={handleMoreClick}
+                      >
+                        More
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="col-lg-4 col-md-6 mb-4">
-              <div className="p-3 border bg-light">
-                <img
-                  src={adminWithdraw}
-                  alt="Total Amount Withdrawn"
-                  className="img-fluid"
-                />
-                <div className="mt-2">
-                  <strong>TOTAL AMOUNT WITHDRAWN</strong>
-                  <div>{totalWithdrawals}</div>
+
+              <div className="row text-center">
+                <div className="col-lg-4 col-md-6 mb-4">
+                  <div className="p-3 border bg-light">
+                    <img
+                      src={adminDeposit}
+                      alt="Total Amount Deposited"
+                      className="img-fluid"
+                    />
+                    <div className="mt-2">
+                      <strong>TOTAL AMOUNT DEPOSITED</strong>
+                      <div>{totalDeposits}</div>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-lg-4 col-md-6 mb-4">
+                  <div className="p-3 border bg-light">
+                    <img
+                      src={adminWithdraw}
+                      alt="Total Amount Withdrawn"
+                      className="img-fluid"
+                    />
+                    <div className="mt-2">
+                      <strong>TOTAL AMOUNT WITHDRAWN</strong>
+                      <div>{totalWithdrawals}</div>
+                    </div>
+                  </div>
+                </div>
+                <div className="col-lg-4 col-md-6 mb-4">
+                  <div className="p-3 border bg-light">
+                    <img
+                      src={adminWallet}
+                      alt="Wallet Balance"
+                      className="img-fluid"
+                    />
+                    <div className="mt-2">
+                      <strong>WALLET BALANCE</strong>
+                      <div>
+                        {userData.balance + userData.withdrawableBalance}
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="col-lg-4 col-md-6 mb-4">
-              <div className="p-3 border bg-light">
-                <img
-                  src={adminWallet}
-                  alt="Wallet Balance"
-                  className="img-fluid"
+            </>
+          )}
+
+          {betTranView && (
+            <div>
+              <div className="relative flex justify-center items-center">
+                <button
+                  onClick={() => {
+                    setbetTranView(false);
+                    setShowMoreModal(true);
+                  }}
+                  className="backbuttonadmin absolute left-0"
+                >
+                  <TiArrowBack className="fs-5" />
+                </button>
+                <h3 className="text-center mb-4">Betting History</h3>
+              </div>
+
+              {/* Search Input */}
+              <div className="mb-4 d-flex justify-content-center">
+                <input
+                  type="text"
+                  id="searchId"
+                  // value={searchId}
+                  // onChange={(e) => setSearchId(e.target.value)}
+                  placeholder="Enter BetCode to search"
+                  className="form-control me-2"
                 />
-                <div className="mt-2">
-                  <strong>WALLET BALANCE</strong>
-                  <div>{userData.balance + userData.withdrawableBalance}</div>
-                </div>
+                <button className="btn btn-primary">Search</button>
+              </div>
+
+              {/* Table for Larger Screens */}
+              <div className="table-responsive d-none d-md-block">
+                <table className="table table-striped table-bordered admin-table">
+                  <thead>
+                    <tr>
+                      <th>BetCode </th>
+                      <th>GameType </th>
+                      <th>RoundDuration</th>
+                      <th>BetAmount</th>
+                      <th>Choice</th>
+                      <th>IsWin</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {bethistory.totalBets > 0 ? (
+                      bethistory.paginatedBets.map((row) => (
+                        <tr
+                          key={row.betCode}
+                          // onClick={() => handleRowClick(row.uid)}
+                        >
+                          <td>{row?.betCode ||"Na"}</td>
+                          <td>{row.gameType}</td>
+                          <td>{row.roundDuration}</td>
+                          <td>{row.betAmount}</td>
+                          <td>{row.gameType==="coinFlip"?row.choice===1?"Head":"Tail":row.choice===1?"Up":"Down"}</td>
+                          <td>{row.isWin?"Yes":"No"}</td>
+                        </tr>
+                      ))
+                    ) : (
+                      <tr>
+                        <td colSpan="6">No Betting History Found</td>
+                      </tr>
+                    )}
+                  
+                  </tbody>
+                </table>
+              </div>
+
+              {/* Cards for Small Screens */}
+
+              <div className="row d-block d-md-none">
+                 {bethistory.totalBets > 0 ? (
+                      bethistory.paginatedBets.map((row) => (
+                    <div className="col-12 mb-4" key={row.betCode}>
+                      <div
+                        className="card p-3 h-100"
+                        // onClick={() => handleRowClick(user.uid)}
+                        style={{ cursor: "pointer" }}
+                      >
+                        <div className="mb-2">
+                          {/* <strong>UID:</strong> <span>{user.uid}</span> */}
+                          <strong>BetCode:</strong> <span>{row.betCode}</span>
+                        </div>
+                        <div className="mb-2">
+                          <strong>GameType:</strong>{" "}
+                          {/* <span>{user.phone}</span> */}
+                          <span>{row.gameType}</span>
+                        </div>
+                        <div className="mb-2">
+                          {/* <strong>Email:</strong> <span>{user.email}</span> */}
+                          <strong>RoundDuration:</strong> <span>{row.roundDuration}</span>
+                        </div>
+                        <div className="mb-2">
+                          <strong>BetAmount:</strong>{" "}
+                          {/* <span>{formatDate(user.createdAt)}</span> */}
+                          <span>{row.betAmount}</span>
+                        </div>
+                        <div className="mb-2">
+                          <strong>Choice:</strong>{" "}
+                          {/* <span>{user.userType}</span> */}
+                          <span>{row.gameType==="coinFlip"?row.choice===1?"Head":"Tail":row.choice===1?"Up":"Down"}</span>
+                        </div>
+                        <div>
+                          <strong>IsWin:</strong>{" "}
+                          {/* <span>{user.balance + user.withdrawableBalance}</span> */}
+                          <span>{row.isWin}</span>
+                        </div>
+                      </div>
+                    </div>
+                  ))
+                ) : (
+                  <div className="col-12">
+                    <div className="alert alert-info text-center">
+                      No Betting History Found
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              <div className="d-flex justify-content-center pagination-container">
+                <Pagination
+                  totalPages={bethistory.totalPages}
+                  paginate={paginate}
+                  currentPage={bethistory.currentPage}
+                />
               </div>
             </div>
-          </div>
+          )}
+
+          {TransView && (
+            <div>
+              <div className="relative flex justify-center items-center">
+                <button
+                  onClick={() => {
+                    setTransView(false);
+                    setShowMoreModal(true);
+                  }}
+                  className="backbuttonadmin absolute left-0"
+                >
+                  <TiArrowBack className="fs-5" />
+                </button>
+                <h3 className="text-center mb-4">Transaction History</h3>
+              </div>
+
+              {/* Search Input */}
+              <div className="mb-4 d-flex justify-content-center">
+                <input
+                  type="text"
+                  id="searchId"
+                  // value={searchId}
+                  // onChange={(e) => setSearchId(e.target.value)}
+                  placeholder="Enter BetCode to search"
+                  className="form-control me-2"
+                />
+                <button className="btn btn-primary">Search</button>
+              </div>
+
+              {/* Table for Larger Screens */}
+              <div className="table-responsive d-none d-md-block">
+                <table className="table table-striped table-bordered admin-table">
+                  <thead>
+                    <tr>
+                      <th>Transaction_Id </th>
+                      <th>Status </th>
+                      <th>Amount</th>
+                      <th>type</th>
+                      <th>CreatedAt</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  {transhistory.totalTransactions > 0 ? (
+                      transhistory.paginatedTransactions.map((row) => (
+                        <tr
+                          key={row._id}
+                          // onClick={() => handleRowClick(row.uid)}
+                        >
+                          <td>{row._id}</td>
+                          <td>{row.status}</td>
+                          <td>{row.amount}</td>
+                          <td>{row.type}</td>
+                          <td>{row.createdAt}</td>
+                        </tr>
+                      ))
+                    ) : (
+                      <tr>
+                        <td colSpan="6">  No Transaction History Found</td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
+              </div>
+
+              {/* Cards for Small Screens */}
+
+              <div className="row d-block d-md-none">
+              {transhistory.totalTransactions > 0 ? (
+                      transhistory.paginatedTransactions.map((row) => (
+                    <div className="col-12 mb-4" key={row._id}>
+                      <div
+                        className="card p-3 h-100"
+                        // onClick={() => handleRowClick(user.uid)}
+                        style={{ cursor: "pointer" }}
+                      >
+                        <div className="mb-2">
+                          {/* <strong>UID:</strong> <span>{user.uid}</span> */}
+                          <strong>Transaction_Id:</strong> <span>{row._id}</span>
+                        </div>
+                        <div className="mb-2">
+                          <strong>Status:</strong>{" "}
+                          {/* <span>{user.phone}</span> */}
+                          <span>{row.status}</span>
+                        </div>
+                        <div className="mb-2">
+                          {/* <strong>Email:</strong> <span>{user.email}</span> */}
+                          <strong>Amount:</strong> <span>{row.amount}</span>
+                        </div>
+                        <div className="mb-2">
+                          <strong>Type:</strong>{" "}
+                          {/* <span>{formatDate(user.createdAt)}</span> */}
+                          <span>{row.type}</span>
+                        </div>
+                        <div>
+                          <strong>CreatedAt:</strong>{" "}
+                          {/* <span>{user.balance + user.withdrawableBalance}</span> */}
+                          <span>{row.createdAt}</span>
+                        </div>
+                      </div>
+                    </div>
+                  ))
+                ) : (
+                  <div className="col-12">
+                    <div className="alert alert-info text-center">
+                      No Transaction History Found
+                    </div>
+                  </div>
+                )}
+              </div>
+
+              <div className="d-flex justify-content-center pagination-container">
+                <Pagination
+                  totalPages={transhistory.totalPages}
+                  paginate={transpaginate}
+                  currentPage={transhistory.currentPage}
+                />
+              </div>
+            </div>
+          )}
         </div>
       </div>
 
@@ -435,10 +785,10 @@ export const ViewUser = () => {
               <button className="modal-btn yes" onClick={userLoginHandle}>
                 Login as User
               </button>
-              <button className="modal-btn yes" onClick={handleBetHisClick}>
+              <button className="modal-btn yes" onClick={betmodelHandle}>
                 Bet History
               </button>
-              <button className="modal-btn yes" onClick={handleTranHisClick}>
+              <button className="modal-btn yes" onClick={TransmodelHandle}>
                 Transaction History
               </button>
 
@@ -504,18 +854,7 @@ export const ViewUser = () => {
         </div>
       )}
 
-      {/* {showLogasUserModal && (
-        <div className="modal-overlay">
-          <div className="modal-content">
-            <p>login as user model</p>
-           <div className="text-end">
-           <button className="btn btn-danger w-25" onClick={handleMoreOptionClose}>close</button>
-          </div>
-          </div>
-        </div>
-      )} */}
-
-      {showBetHisModal && (
+      {/* {showBetHisModal && (
         <div className="modal-overlay">
           <div className="modal-content">
             <p>Betting history model</p>
@@ -529,7 +868,8 @@ export const ViewUser = () => {
             </div>
           </div>
         </div>
-      )}
+      )} */}
+
       {showTranHisModal && (
         <div className="modal-overlay">
           <div className="modal-content">
