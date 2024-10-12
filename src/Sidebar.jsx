@@ -70,6 +70,16 @@ export const Sidebar = () => {
                 <hr className="line m-2" />
                 <div>
                   <button
+                    className="history-btn"
+                    onClick={() => navigate("/notice")}
+                  >
+                    {" "}
+                    Notices
+                  </button>
+                </div>
+                <hr className="line m-2" />
+                <div>
+                  <button
                     className="leader-btn"
                     onClick={() => navigate("/leaderboard")}
                   >

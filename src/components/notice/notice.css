@@ -1,0 +1,13 @@
+.all-client-notices{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+.notificationBtn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.notification-icon{
+    color:darkgoldenrod;
+}
