@@ -1,7 +1,9 @@
 /* General Styles */
 .top-nav {
   background-color: black;
-  height: 13vh;
+  /* height: 5vh; */
+  padding-top: 5px;
+  padding-bottom: 5px;
   position: sticky;
   top: 0;
   z-index: 1000;
@@ -93,20 +95,28 @@
   width: 250px;
 }
 .questionMark{
-  height:50%;
+  height:40px;
 }
-
+.roundImg{
+  height:40px;
+}
+.notiece-display{
+  display: none;
+}
 /* Responsive Styles */
 @media (max-width: 768px) {
-  .row{
-    display: flex;
-    justify-content: flex-end;
+
+  .notiece-display{
+    display: block;
   }
-  .top-nav {
+  /* .notiece-small{
+    display:none;
+  } */
+  /* .top-nav {
       height: 10vh;
       display: flex;
       justify-content: space-between;
-  }
+  } */
 
   .logoutIcon {
       display: block;
@@ -117,10 +127,11 @@
       cursor: pointer;
   }
 
+
   .icon {
       font-size: 24px;
-      margin-right: 15px;
-      margin-bottom: 5px;
+      /* margin-right: 15px;
+      margin-bottom: 5px; */
   }
 
   .logo1 {
@@ -162,4 +173,8 @@
   -webkit-user-select: none; /* For Safari */
   -moz-user-select: none; /* For Firefox */
   -ms-user-select: none; /* For Internet Explorer and Edge */
+}
+.notiece-board-icon{
+  color:#d69900;
+  font-size: 32px;
 }

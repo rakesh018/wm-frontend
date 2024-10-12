@@ -13,6 +13,7 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import logoutIcon from "./images/logoutIcon.png";
 import { profileAtom } from "./atoms";
 import { useNavigate } from "react-router-dom";
+import { FaRegClipboard } from "react-icons/fa";
 
 export const Navbar = () => {
   const profile = useRecoilValue(profileAtom);
@@ -46,67 +47,49 @@ export const Navbar = () => {
   return (
     <div>
       <div className="container-fluid top-nav">
-        <div className="row align-items-center">
-          <div className="col-6 d-flex justify-content-start">
-            <div className="top-left d-flex justify-content-evenly d-sm-blok">
-              <div className="icon d-lg-none" onClick={handleBackClick}>
-                <span className="material-symbols-outlined m-4 no-select">
-                  arrow_back_ios
-                </span>
-              </div>
-              <div>
+        <div className="row ">
+          {/* <div className="col-12 "> */}
+              <div className="col-12  d-flex justify-content-between align-items-center ">
+              
                 <img
                   className="logo1 m-2"
                   src={logo}
                   alt="Logo"
                   onClick={() => navigate("/home")}
                 />
-              </div>
-              <div className="d-none d-md-block">
-                {/* <input className='text m-4' type="text" /> */}
-              </div>
-              <div className="icon">
-                <div className="icon d-none d-md-block">
-                  {/* <span className="material-symbols-outlined mt-4">search</span> */}
-                </div>
-                <img
-                  className="questionMark mt-3 d-lg-none"
-                  src={redDot ? questionRedDot : question} // Conditional icon
-                  alt="Notification Icon"
-                  onClick={() => navigate("/notification")}
-                />
-              </div>
-            </div>
-          </div>
+             
 
-          <div className="col-6 d-flex justify-content-end">
-            <div className="top-right d-flex justify-content-evenly">
-              <div className="group d-flex justify-content-evenly">
-                <div className="d-none d-md-block">
-                  <img
-                    className="questionMark m-2"
-                    src={redDot ? questionRedDot : question} // Conditional icon
-                    alt="Notification Icon"
-                    onClick={() => navigate("/notification")}
-                  />
-                </div>
-                <div className="d-none d-md-block">
-                  <img
-                    className="roundImg m-2"
-                    src={round}
-                    alt="Round Image"
-                    onClick={() => navigate("/profile")}
-                  />
-                </div>
-                <div>
-                  <button className="wallet m-4">
-                    WALLET BALANCE: {profile.balance}
-                  </button>
-                </div>
+               <div className=" d-flex  align-items-center" >
+               <FaRegClipboard className="notiece-board-icon notiece-small mr-1 mr-md-4"/>
+               
+               <div className="d-md-block mr-1 mr-md-4">
+                 <img
+                   className="questionMark m-2"
+                   src={redDot ? questionRedDot : question} // Conditional icon
+                   alt="Notification Icon"
+                   onClick={() => navigate("/notification")}
+                 />
+               </div>
+               
+               <div className="d-none d-md-block mr-4">
+                 <img
+                   className="roundImg m-2"
+                   src={round}
+                   alt="Round Image"
+                   onClick={() => navigate("/profile")}
+                 />
+               </div>
+
+               <div className=" mr-1 mr-md-4">
+                 <button className="wallet ">
+                   WALLET BALANCE: {profile.balance}
+                 </button>
+               </div>
+               </div>
+
               </div>
             </div>
-          </div>
-        </div>
+        {/* </div> */}
       </div>
       {/* slider */}
       <div className="client-slider col-sm-12">
