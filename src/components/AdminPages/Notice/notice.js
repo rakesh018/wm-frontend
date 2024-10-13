@@ -11,8 +11,8 @@ import { Pagination } from "../AdminHome/Pagination";
 
 const Notifications = (props) => {
   const {each,notificatonDeltHandle} = props;
-  const { notice,uid} = each;
-  const deletenotice=()=>{notificatonDeltHandle(uid)};
+  const { notice,noticeid} = each;
+  const deletenotice=()=>{notificatonDeltHandle(noticeid)};
   return (
     <div className="notification-bg">
       <p>{notice}</p>
@@ -63,9 +63,9 @@ export const AdminNotice = () => {
     }
   };
 
-  const notificatonDeltHandle=async(uid)=>{
+  const notificatonDeltHandle=async(noticeid)=>{
     try {
-        const response = await fetch(`${Base_Url}/admin/notice/${uid}`, {
+        const response = await fetch(`${Base_Url}/admin/notice/${noticeid}`, {
           method: "DELETE",
           headers: {
             Authorization: `Bearer ${localStorage.getItem("adminToken")}`,
@@ -140,7 +140,7 @@ export const AdminNotice = () => {
 
             <div className="all-notification-bg">
               {totalNotificationspage<=0?<div className="no-notification-msg">no notification</div>:Notificationsdata?.map((each) => (
-                <Notifications key={each.uid} each={each} notificatonDeltHandle={notificatonDeltHandle} />
+                <Notifications key={each.noticeid} each={each} notificatonDeltHandle={notificatonDeltHandle} />
               ))}
             </div>
 
