@@ -28,12 +28,10 @@ export const Notices = () => {
         navigate("/login");
       }
       const parsedNotifs = await notifs.json();
-      console.log(parsedNotifs.Notices);
       const originalNotifs = parsedNotifs.Notices;
       //converting time into readable format
 
       setNotices(originalNotifs);
-      console.log(originalNotifs);
     }
     getNotices();
   }, []);

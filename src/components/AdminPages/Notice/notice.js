@@ -12,7 +12,6 @@ import { Pagination } from "../AdminHome/Pagination";
 const Notifications = (props) => {
   const {each,notificatonDeltHandle} = props;
   const { notice,uid} = each;
-  console.log(uid)
   const deletenotice=()=>{notificatonDeltHandle(uid)};
   return (
     <div className="notification-bg">
@@ -49,7 +48,6 @@ export const AdminNotice = () => {
         },
         body: JSON.stringify({ notice: notificationMsg }),
       });
-      console.log(response);
       const data = await response.json();
       if (response.status === 403) {
         navigate("/adminLogin");
@@ -74,7 +72,6 @@ export const AdminNotice = () => {
             "Content-Type": "application/json",
           }
         });
-        console.log(response);
         const data = await response.json();
         if (response.status === 403) {
           navigate("/adminLogin");

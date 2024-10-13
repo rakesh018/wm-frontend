@@ -63,21 +63,11 @@ export const Sidebar = () => {
                     className="history-btn"
                     onClick={() => navigate("/history")}
                   >
-                    {" "}
                     HISTORY
                   </button>
                 </div>
                 <hr className="line m-2" />
-                <div>
-                  <button
-                    className="history-btn"
-                    onClick={() => navigate("/notice")}
-                  >
-                    {" "}
-                    Notices
-                  </button>
-                </div>
-                <hr className="line m-2" />
+
                 <div>
                   <button
                     className="leader-btn"
@@ -92,7 +82,6 @@ export const Sidebar = () => {
                     className="wallet-btn"
                     onClick={() => navigate("/wallet")}
                   >
-                    {" "}
                     WALLET
                   </button>
                 </div>

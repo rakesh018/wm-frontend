@@ -12,7 +12,7 @@ import image4 from "./images/image4.jpeg";
 import { useRecoilState, useRecoilValue } from "recoil";
 import logoutIcon from "./images/logoutIcon.png";
 import { profileAtom } from "./atoms";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,Link } from "react-router-dom";
 import { FaRegClipboard } from "react-icons/fa";
 
 export const Navbar = () => {
@@ -60,8 +60,8 @@ export const Navbar = () => {
              
 
                <div className=" d-flex  align-items-center" >
-               <FaRegClipboard className="notiece-board-icon notiece-small mr-1 mr-md-4"/>
-               
+      
+               <Link to="/notice"><FaRegClipboard className="notiece-board-icon notiece-small mr-1 mr-md-4"/></Link>               
                <div className="d-md-block mr-1 mr-md-4">
                  <img
                    className="questionMark m-2"
