@@ -46,7 +46,6 @@ export const Forgotpassword = () => {
         alertToast("Please enter 10 digit number", "warning");
       }
     } catch (error) {
-      console.log(error);
       alertToast("Error sending OTP", "error");
     }
     setContainerHeight('85vh');

@@ -95,6 +95,16 @@ export const AdminSidebar = () => {
                   </button>
                 </div>
                 <hr className="line m-2" />
+                
+                <div>
+                  <button
+                    className="wallet-btn"
+                    onClick={() => navigate("/adminnotice")}>
+                    Notices
+                  </button>
+                </div>
+                <hr className="line m-2" />
+                
                 <div>
                   <button
                     className="wallet-btn"

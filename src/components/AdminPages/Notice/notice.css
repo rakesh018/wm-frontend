@@ -1,0 +1,49 @@
+.adminInnerBox{
+    /* overflow: scroll; */
+
+}
+.notification-bg{
+    display: flex;
+    flex-direction: row;
+    background-color: white;
+    justify-content: space-between;
+    align-items: center;
+}
+.notification-input-bg{
+    display: flex;
+    flex-direction: row;
+    background-color: white;
+    justify-content: center;
+    align-items: center;
+    gap:5px;
+    margin-bottom: 70px;
+}
+.notification-input-bg input{
+    width: 700px;
+    height: 50px;
+    border-radius: 5px;
+}
+.notification-input-bg button{
+    height: 50px;
+    border-radius: 5px;
+    background-color: #FFC107;
+    border: none;
+    color:white;
+    width: 100px;
+}
+
+.all-notification-bg{
+    padding-left: 20px;
+    padding-right: 20px;
+    display:flex;
+    flex-direction: column;
+    gap:10px;
+}
+.notification-delte-btn{
+    font-size: 25px;
+    cursor: pointer;
+}
+.no-notification-msg{
+    font-size: 24px;
+    text-align: center;
+}

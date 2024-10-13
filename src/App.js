@@ -51,9 +51,13 @@ import { UploadQR } from "./components/AdminPages/Upi/Upi";
 import { QueryList } from "./components/AdminPages/Support/QueryList";
 import { TraderGamePage } from "./components/ChooseWinningTeams/TraderGame";
 import { CoinFlipGamePage } from "./components/ChooseWinningTeams/CoinFlip";
-import { ContactSupport } from './components/help/ContactSupport';
+import { ContactSupport } from "./components/help/ContactSupport";
 import { TransactionHistory } from "./components/history/TransactionHistory";
 import { BettingHistory } from "./components/history/BettingHistory";
+import { AdminNotice } from "./components/AdminPages/Notice/notice";
+import {Notices} from "./components/notice/notice"
+
+
 function App() {
   const showAlert = (gameName, roundDuration, result) => {
     const alertDetails = JSON.parse(sessionStorage.getItem("AlertDetails"));
@@ -149,10 +153,7 @@ function App() {
           <Route path="/adminNavbar" element={<AdminNavbar />} />
           <Route path="/adminSidebar" element={<AdminSidebar />} />
           <Route path="/depositAmount" element={<DepositAmount />} />
-          <Route
-            path="/transactionalAnalysis"
-            element={<TransactionalAnalytics />}
-          />
+          <Route path="/transactionalAnalysis" element={<TransactionalAnalytics />}/>
           <Route path="/wallet" element={<Wallet />} />
           <Route path="/deposit" element={<Deposit />} />
           <Route path="/depositManually" element={<DepositManually />} />
@@ -161,26 +162,14 @@ function App() {
           <Route path="/withdrawAmount" element={<WithdrawAmount />} />
           <Route path="/enterWithdraw" element={<EnterWithdraw />} />
           <Route path="/help" element={<Help />} />
-          <Route
-            path="/coinSwitch"
-            element={<CoinSwitch showAlert={showAlert} />}
-          />
+          <Route path="/coinSwitch" element={<CoinSwitch showAlert={showAlert} />}/>
           <Route path="/trader" element={<Trader showAlert={showAlert} />} />
           <Route path="/gameNav" element={<Gamenav />} />
           <Route path="/gameResult" element={<GameResult />} />
           <Route path="/viewUser/:uid" element={<ViewUser />} />
-          <Route
-            path="/viewUserTransaction/:uid"
-            element={<ViewUserTransaction />}
-          />
-          <Route
-            path="viewUserManualTransaction/:uid"
-            element={<ViewUserManualTransaction />}
-          />
-          <Route
-            path="/viewUserWithdrawTransaction/:uid"
-            element={<ViewUserWithdrawTransaction />}
-          />
+          <Route path="/viewUserTransaction/:uid" element={<ViewUserTransaction />} />
+          <Route path="viewUserManualTransaction/:uid" element={<ViewUserManualTransaction />} />
+          <Route path="/viewUserWithdrawTransaction/:uid" element={<ViewUserWithdrawTransaction />}/>
           <Route path="/adminDeposit" element={<AdminDeposit />} />
           <Route path="/automaticDeposit" element={<AutomaticDeposit />} />
           <Route path="/manualDeposit" element={<ManualDeposit />} />
@@ -192,9 +181,13 @@ function App() {
           <Route path="/queries" element={<QueryList />} />
           <Route path="/adminTrader" element={<TraderGamePage />} />
           <Route path="/adminCoinFlip" element={<CoinFlipGamePage />} />
-          <Route path='/contactSupport'  element={<ContactSupport/>}/>
-          <Route path="/transactionHistory" element={<TransactionHistory/>}/>
-          <Route path="/betHistory" element={<BettingHistory/>}/>
+          <Route path="/contactSupport" element={<ContactSupport />} />
+          <Route path="/transactionHistory" element={<TransactionHistory />} />
+          <Route path="/betHistory" element={<BettingHistory />} />
+          <Route path="/adminnotice" element={<AdminNotice />} />
+          <Route path="/notice" element={<Notices />} />
+
+
         </Routes>
       </Router>
     </div>
