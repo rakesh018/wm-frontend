@@ -17,6 +17,7 @@ export const AdminWithdraw = () => {
     navigate("/adminLogin");
   }
   const [transactions, setTransactions] = useState([]);
+  const [currentFilter, setCurrentFilter] = useState("total"); 
   const [summary, setSummary] = useState({
     total: 0,
     pending: 0,
@@ -28,12 +29,20 @@ export const AdminWithdraw = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const API_URLS = {
+    total: "/get-all-withdrawals", // Assuming this is the API for total deposits
+    completed: "/get-completed-withdrawals",
+    rejected: "/get-rejected-withdrawals",
+    pending: "/get-pending-withdrawals",
+  };
+
+
   useEffect(() => {
     const fetchWithdrawals = async () => {
       setLoading(true);
       try {
         const response = await fetch(
-          `${Base_Url}/admin/withdrawals/get-all-withdrawals?page=${currentPage}`,
+          `${Base_Url}/admin/withdrawals/${API_URLS[currentFilter]}?page=${currentPage}`,
           {
             method: "GET",
             headers: {
@@ -53,24 +62,36 @@ export const AdminWithdraw = () => {
         const data = await response.json();
         setTransactions(data.paginatedWithdrawals || []);
         setTotalPages(data.totalPages || 1);
+
+        if(currentFilter==="total"){
         setSummary({
-          total: data.segregatedWithdrawals.total.totalAmount || 0,
-          pending: data.segregatedWithdrawals.pending.totalAmount || 0,
-          completed: data.segregatedWithdrawals.completed.totalAmount || 0,
-          rejected: data.segregatedWithdrawals.rejected.totalAmount || 0,
+          total: data.segregatedWithdrawals?.total.totalAmount || 0,
+          pending: data.segregatedWithdrawals?.pending.totalAmount || 0,
+          completed: data.segregatedWithdrawals?.completed.totalAmount || 0,
+          rejected: data.segregatedWithdrawals?.rejected.totalAmount || 0,
         });
+      }
       } catch (error) {
         setError(error.message);
-      } finally {
+      }
+       finally {
         setLoading(false);
       }
     };
 
     fetchWithdrawals();
-  }, [currentPage]);
+  }, [currentPage,currentFilter]);
 
   const handleRowClick = (transactionId) => {
     navigate(`/viewUserWithdrawTransaction/${transactionId}`);
+  };
+
+  const handleFilterChange = (filter) => {
+    setCurrentFilter(filter);
+    setCurrentPage(1); // Reset to the first page when filter changes
+  };
+  const getButtonClass = (filter) => {
+    return filter === currentFilter ? 'highlit-button' : '';
   };
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
@@ -80,8 +101,8 @@ export const AdminWithdraw = () => {
     return new Date(dateString).toLocaleDateString(undefined, options);
   };
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>{error}</p>;
+  // if (loading) return <p>Loading...</p>;
+  // if (error) return <p>{error}</p>;
 
   return (
     <div className="d-flex">
@@ -93,26 +114,26 @@ export const AdminWithdraw = () => {
 
           {/* Summary Boxes for Larger Screens */}
           <div className="row mb-4 d-none d-md-flex">
-            <div className="col-md-3">
-              <div className="card p-3 text-center">
+            <div onClick={() => handleFilterChange("total")} className="col-md-3">
+              <div className={`${getButtonClass("total")} card p-3 text-center`}>
                 <h5>Total Withdrawals</h5>
                 <h6>{summary.total}</h6>
               </div>
             </div>
-            <div className="col-md-3">
-              <div className="card p-3 text-center">
+            <div  onClick={() => handleFilterChange("pending")}  className="col-md-3">
+              <div className={`${getButtonClass("pending")} card p-3 text-center`}>
                 <h5>Pending Withdrawals</h5>
                 <h6>{summary.pending}</h6>
               </div>
             </div>
-            <div className="col-md-3">
-              <div className="card p-3 text-center">
+            <div  onClick={() => handleFilterChange("completed")} className="col-md-3">
+              <div className={`${getButtonClass("completed")} card p-3 text-center`}>
                 <h5>Completed Withdrawals</h5>
                 <h6>{summary.completed}</h6>
               </div>
             </div>
-            <div className="col-md-3">
-              <div className="card p-3 text-center">
+            <div  onClick={() => handleFilterChange("rejected")}  className="col-md-3">
+              <div className={`${getButtonClass("rejected")} card p-3 text-center`}>
                 <h5>Rejected Withdrawals</h5>
                 <h6>{summary.rejected}</h6>
               </div>
