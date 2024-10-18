@@ -4,9 +4,14 @@
   table-layout: auto;
 }
 
+
 .content-container {
   margin-left: 250px; /* Adjust this value based on your sidebar width */
   padding: 0 15px; /* Add horizontal padding */
+}
+.card-heading {
+  font-weight: 600; 
+  font-size: 15px; /* if you want to adjust the size too */
 }
 
 /* Responsive adjustments */

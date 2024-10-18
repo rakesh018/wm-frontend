@@ -6,6 +6,15 @@
 .adminInnerBox {
   height: 70vh;
 }
+.highlit-button {
+  /* border: 2px solid red; */
+  border-radius: 10px;
+  background-color: #f5b207;
+  color: white;
+  box-shadow: 0 8px 26px 0 rgba(0,0,0,0.2), 0 4px 5px 0 rgba(0,0,0,0.19);
+  border: none;
+
+}
 
 /* Admin Withdraw Box */
 .adminWithdrawBox {

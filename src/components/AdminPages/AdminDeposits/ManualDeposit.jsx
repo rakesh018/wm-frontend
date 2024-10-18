@@ -13,6 +13,7 @@ export const ManualDeposit = () => {
     navigate('/adminLogin');
   }
   const [deposits, setDeposits] = useState([]);
+  const [currentFilter, setCurrentFilter] = useState("total"); 
   const [summary, setSummary] = useState({
     total: 0,
     pending: 0,
@@ -22,11 +23,20 @@ export const ManualDeposit = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
+  const API_URLS = {
+    total: "/manual", // Assuming this is the API for total deposits
+    completed: "/manual/completed",
+    pending: "/manual/pending",
+    rejected: "/manual/rejected",
+  };
+
+
   useEffect(() => {
     const fetchDeposits = async () => {
       try {
         const response = await fetch(
-          `${Base_Url}/admin/deposits/manual?page=${currentPage}`,
+          `${Base_Url}/admin/deposits/${API_URLS[currentFilter]}?page=${currentPage}`,
+
           {
             method: 'GET',
             headers: { Authorization: `Bearer ${localStorage.getItem("adminToken")}` },
@@ -38,19 +48,21 @@ export const ManualDeposit = () => {
         const result = await response.json();
         setDeposits(result.paginatedManualDeposits || []);
         setTotalPages(result.totalPages || 1);
+
         setSummary({
           total: result.segregatedManualDeposits.total.totalAmount || 0,
           pending: result.segregatedManualDeposits.pending.totalAmount || 0,
           completed: result.segregatedManualDeposits.completed.totalAmount || 0,
           rejected: result.segregatedManualDeposits.rejected.totalAmount || 0,
         });
+
       } catch (error) {
         console.error('Error fetching deposits:', error);
       }
     };
 
     fetchDeposits();
-  }, [currentPage]);
+  }, [currentPage,currentFilter]);
 
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
@@ -63,36 +75,43 @@ export const ManualDeposit = () => {
     return new Date(dateString).toLocaleDateString(undefined, options);
   };
 
+  const handleFilterChange = (filter) => {
+    setCurrentFilter(filter);
+    setCurrentPage(1); // Reset to the first page when filter changes
+  };
+  const getButtonClass = (filter) => {
+    return filter === currentFilter ? 'highlit-button' : '';
+  };
   return (
     <div className="d-flex">
       <AdminSidebar />
       <div className="flex-grow-1">
         <AdminNavbar />
         <div className="container my-4">
-          <h3 className="text-center mb-4">Deposit List</h3>
+          <h3 className="text-center mb-4 clad">Deposit List</h3>
 
           {/* Summary Boxes for Larger Screens */}
           <div className="row mb-4 d-none d-md-flex">
-            <div className="col-md-3">
-              <div className="card p-3 text-center">
-                <h5>Total Deposits</h5>
+            <div onClick={() => handleFilterChange("total")} className={` deposit-button col-md-3`}>
+              <div className={`${getButtonClass("total")} card p-3 text-center`}>
+                <h5 className=''>Total Deposits</h5>
                 <h6>{summary.total}</h6>
               </div>
             </div>
-            <div className="col-md-3">
-              <div className="card p-3 text-center">
-                <h5>Pending Deposits</h5>
+            <div  onClick={() => handleFilterChange("pending")} className="deposit-button col-md-3">
+              <div className={`${getButtonClass("pending")} card p-3 text-center`}>
+                <h5 className=''>Pending Deposits</h5>
                 <h6>{summary.pending}</h6>
               </div>
             </div>
-            <div className="col-md-3">
-              <div className="card p-3 text-center">
+            <div onClick={() => handleFilterChange("completed")} className="deposit-button col-md-3">
+              <div className={`${getButtonClass("completed")} card p-3 text-center`}>
                 <h5>Completed Deposits</h5>
                 <h6>{summary.completed}</h6>
               </div>
             </div>
-            <div className="col-md-3">
-              <div className="card p-3 text-center">
+            <div  onClick={() => handleFilterChange("rejected")} className="deposit-button col-md-3">
+              <div className={`${getButtonClass("rejected")} card p-3 text-center`}>
                 <h5>Rejected Deposits</h5>
                 <h6>{summary.rejected}</h6>
               </div>
@@ -103,24 +122,24 @@ export const ManualDeposit = () => {
           <div className="d-block d-md-none mb-4">
             <div className="card p-3 bg-dark text-white">
               <div className="row">
-                <div className="col-6 mb-2">
-                  <button className="btn btn-outline-light w-100">
-                    <strong>Total Deposits:</strong> {summary.total}
+                <div  onClick={() => handleFilterChange("total")} className="col-6 mb-2">
+                  <button className={`${getButtonClass("total")} btn btn-outline-light w-100`}>
+                    <h1 className='card-heading'>Total Deposits:</h1> {summary.total}
                   </button>
                 </div>
-                <div className="col-6 mb-2">
-                  <button className="btn btn-outline-light w-100">
-                    <strong>Pending:</strong> {summary.pending}
+                <div  onClick={() => handleFilterChange("pending")}  className="col-6 mb-2">
+                  <button className={`${getButtonClass("pending")} btn btn-outline-light w-100`}>
+                    <h1 className='card-heading'>Pending:</h1> {summary.pending}
                   </button>
                 </div>
-                <div className="col-6 mb-2">
-                  <button className="btn btn-outline-light w-100">
-                    <strong>Completed:</strong> {summary.completed}
+                <div  onClick={() => handleFilterChange("completed")}  className="col-6 mb-2">
+                  <button className={`${getButtonClass("completed")} btn btn-outline-light w-100`}>
+                    <h1 className='card-heading'>Completed:</h1> {summary.completed}
                   </button>
                 </div>
-                <div className="col-6 mb-2">
-                  <button className="btn btn-outline-light w-100">
-                    <strong>Rejected:</strong> {summary.rejected}
+                <div  onClick={() => handleFilterChange("rejected")} className="col-6 mb-2">
+                  <button className={`${getButtonClass("rejected")} btn btn-outline-light w-100`}>
+                    <h1 className='card-heading'>Rejected:</h1> {summary.rejected}
                   </button>
                 </div>
               </div>
