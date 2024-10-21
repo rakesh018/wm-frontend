@@ -15,8 +15,9 @@ export const DemoAgent = () => {
     navigate("/adminLogin");
   }
   const [email, setEmail] = useState("");
+  const [referal, setReferal] = useState("");
+  const [number, setNumber] = useState("");
   const [password, setPassword] = useState("");
-  const [amount, setAmount] = useState("");
   const [showPassword, setShowPassword] = useState(false); // State for password visibility
 
   // Handler for form submission
@@ -25,32 +26,38 @@ export const DemoAgent = () => {
 
     try {
       // Send data to backend
-      console.log(email, password, amount);
+      console.log(email, password,referal,number);
       const response = await fetch(
-         `${Base_Url}/admin/demo/create-demo-account`, // Fixed URL scheme
+         `${Base_Url}/admin/agent/create-agent-account`, // Fixed URL scheme
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${localStorage.getItem("adminToken")}`,
           },
-          body: JSON.stringify({ email, password, balance: amount }),
+          body: JSON.stringify({ email, password,referal,number }),
         }
       );
       const parsedRes = await response.json();
       if (response.ok) {
-        alertToast("Demo account created", "success");
-        // Clear form fields if needed
+        alertToast("Agent account created", "success");
+        setEmail("")
+        setNumber("")
+        setPassword("")
+        setReferal("")
       }
       else if(response.status===403){
         navigate('/adminLogin');
       } 
       else {
-        alertToast(`${parsedRes.error}`, "error");
+
+        alertToast(`${parsedRes.errors}`, "error");
+
+        
       }
     } catch (error) {
       console.error(error);
-      alertToast("Error creating demo account", "error");
+      alertToast(error.message);
     }
   };
 
@@ -72,6 +79,16 @@ export const DemoAgent = () => {
                   required
                 />
               </div>
+              <div className="mb-3">
+                <input
+                  type="text"
+                  className="form-control demoInput"
+                  placeholder="NUMBER"
+                  value={number}
+                  onChange={(e) => setNumber(e.target.value)}
+                  required
+                />
+              </div>
               <div className="mb-3 position-relative">
                 <input
                   type={showPassword ? "text" : "password"}
@@ -90,16 +107,16 @@ export const DemoAgent = () => {
               </div>
               <div className="mb-3">
                 <input
-                  type="number"
+                  type="text"
                   className="form-control demoInput"
-                  placeholder="AMOUNT"
-                  value={amount}
-                  onChange={(e) => setAmount(e.target.value)}
+                  placeholder="Referal"
+                  value={referal}
+                  onChange={(e) => setReferal(e.target.value)}
                   required
                 />
               </div>
               <button type="submit" className="btn btn-primary demoBtn m-3">
-                CREATE DEMO AGENT
+                CREATE AGENT
               </button>
             </form>
           </div>

@@ -13,7 +13,7 @@ export const AdminPassChange = () => {
       <AdminSidebar />
       <div className="container-fluid adminBox">
         <div className="row adminInnerBox d-flex p-2 justify-content-center align-items-center ">
-        <div className="d-flex p-2 justify-content-center flex-column align-items-center gap-2  adminpasscontainer">
+        <form className="d-flex p-2 justify-content-center flex-column align-items-center gap-2  adminpasscontainer">
          <h1 className="adminpassheading">Change Password</h1>
          <div className="adminpasschange">
             <p>Old Password</p>
@@ -24,7 +24,7 @@ export const AdminPassChange = () => {
             <input type="text"/>
          </div>
          <button className="adminpasschnagebtn">Change</button>
-          </div>
+          </form>
         </div>
       </div>
     </div>
