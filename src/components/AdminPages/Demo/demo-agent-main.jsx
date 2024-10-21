@@ -3,7 +3,7 @@ import { AdminNavbar } from "../AdminHome/AdminNavbar";
 import { AdminSidebar } from "../AdminHome/AdminSidebar";
 import "./demo.css";
 import { DemoAccount } from "./DemoAccount";
-import { DemoAgent } from "./demo-agend";
+import { Agent } from "./agent";
 
 import { useNavigate } from "react-router-dom";
 
@@ -17,7 +17,7 @@ export const DemoMainPage = () => {
         <div className="row adminInnerBox d-flex p-2 justify-content-center align-items-center ">
         <div className="d-flex p-2 justify-content-center align-items-center gap-5 ">
             <button onClick={() => navigate("/demoAccount")}  className="demo-btn-a">Demo Account</button>
-            <button onClick={() => navigate("/demoagent")} className="demo-btn-a">Agent</button>
+            <button onClick={() => navigate("/agent")} className="demo-btn-a">Agent</button>
           </div>
         </div>
       </div>

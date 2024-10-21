@@ -40,8 +40,8 @@ import { AdminWithdraw } from "./components/AdminPages/AdminWithdraws/AdminWithd
 import { ViewUserWithdrawTransaction } from "./components/AdminPages/AdminWithdraws/ViewUserWithdrawTransaction";
 import { ChooseWinningTeam } from "./components/ChooseWinningTeams/ChooseWinningTeam";
 import { DemoAccount } from "./components/AdminPages/Demo/DemoAccount";
-import { DemoAgent } from "./components/AdminPages/Demo/demo-agend";
-import { DemoMainPage } from "./components/AdminPages/Demo/demo-main";
+import { Agent } from "./components/AdminPages/Demo/agent";
+import { DemoMainPage } from "./components/AdminPages/Demo/demo-agent-main";
 import { DepositAmount } from "./components/wallet/DepositAmount";
 // import { CandleChart } from './components/games/CandleChart';
 import { Verification } from "./components/register/Verification";
@@ -180,7 +180,7 @@ function App() {
           <Route path="/chooseWinningTeam" element={<ChooseWinningTeam />} />
           <Route path="demoAccount" element={<DemoAccount />} />
           <Route path="demohome" element={<DemoMainPage />} />
-          <Route path="demoagent" element={<DemoAgent />} />
+          <Route path="agent" element={<Agent />} />
           <Route path="adminpasschange" element={<AdminPassChange />} />
 
 

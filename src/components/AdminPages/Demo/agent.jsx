@@ -7,7 +7,7 @@ import { FaEye, FaEyeSlash } from "react-icons/fa"; // For eye icons
 import { useNavigate } from "react-router-dom";
 import Base_Url from "../../../config";
 
-export const DemoAgent = () => {
+export const Agent = () => {
   // State for form inputs
   const navigate = useNavigate();
   const adminToken = localStorage.getItem("adminToken");
@@ -68,11 +68,11 @@ export const DemoAgent = () => {
       <div className="container-fluid adminBox">
         <div className="row adminInnerBox d-flex justify-content-center">
           <div className="col-lg-6 col-md-8 col-sm-12 d-flex flex-column justify-content-center m-5">
-            <form onSubmit={handleSubmit} className="demoBox">
+            <form onSubmit={handleSubmit} className="dm_box">
               <div className="mb-3">
                 <input
                   type="email"
-                  className="form-control demoInput"
+                  className="form-control dm_input"
                   placeholder="EMAIL"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -82,7 +82,7 @@ export const DemoAgent = () => {
               <div className="mb-3">
                 <input
                   type="text"
-                  className="form-control demoInput"
+                  className="form-control dm_input"
                   placeholder="NUMBER"
                   value={number}
                   onChange={(e) => setNumber(e.target.value)}
@@ -92,7 +92,7 @@ export const DemoAgent = () => {
               <div className="mb-3 position-relative">
                 <input
                   type={showPassword ? "text" : "password"}
-                  className="form-control demoInput"
+                  className="form-control dm_input"
                   placeholder="PASSWORD"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
@@ -108,14 +108,14 @@ export const DemoAgent = () => {
               <div className="mb-3">
                 <input
                   type="text"
-                  className="form-control demoInput"
+                  className="form-control dm_input"
                   placeholder="Referal"
                   value={referal}
                   onChange={(e) => setReferal(e.target.value)}
                   required
                 />
               </div>
-              <button type="submit" className="btn btn-primary demoBtn m-3">
+              <button type="submit" className="btn btn-primary dm_btn m-3">
                 CREATE AGENT
               </button>
             </form>
