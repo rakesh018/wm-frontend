@@ -19,7 +19,7 @@ export const Help = () => {
         <button className='notificationBtn ms-3'>HELP</button>
         <button className='supportBtn  ms-3 p-2 d-lg-none' onClick={() => navigate("/contactSupport")}>CONTACT SUPPORT</button>
        
-        <div className="innerNotificationBox m-3 p-3 text-center"  >
+        <div className="innerNotificationBox m-3 p-3 text-center help-bg"  >
           <div className="d-flex justify-content-center">
             <div>
               <img src={helpImage} alt="Help" />
@@ -28,7 +28,7 @@ export const Help = () => {
               <h5><u>CHOOSE YOUR PROBLEM FROM THE GIVEN</u></h5>
             </div>
           </div>
-          <div className='text-center'>
+          <div className='text-center '>
             
             <div className="accordion" id="helpAccordion">
               <div className="accordion-item">
@@ -76,14 +76,14 @@ export const Help = () => {
                 <div id="collapseFour" className="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#helpAccordion">
                   <div className="accordion-body">
                     <p>PLEASE REPORT THE ISSUE THROUGH OUR SUPPORT</p>
-                    <button className='queryBtn' onClick={() => navigate("/contactSupport")}>CONTACT SUPPORT</button>
 
                   </div>
                 </div>
               </div>
-           
-             
+                           
             </div>
+            <button className='queryBtn contactbtn' onClick={() => navigate("/contactSupport")}>CONTACT SUPPORT</button>
+
          
           </div>
         </div>
