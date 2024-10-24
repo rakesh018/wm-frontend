@@ -133,7 +133,6 @@ export const Trader = ({ showAlert }) => {
         setPastResults(parsedResults);
         setCandleArray(parsedCandleStickData);
         showAlert(gameName, roundDuration, parsedResults[0]);
-        
       }
     };
 
