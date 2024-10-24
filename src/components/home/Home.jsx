@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Navbar } from "../../Navbar";
 import { Sidebar } from "../../Sidebar";
 import { BetSlip } from "../../BetSlip";
@@ -13,6 +13,7 @@ import Base_Url from "../../config";
 import { FaUsersGear } from "react-icons/fa6";
 import { CiUser } from "react-icons/ci";
 import onlineimg from "../../assets/online-people.png"
+import { toast } from "react-toastify";
 
 export const Home = () => {
   const navigate = useNavigate();
@@ -22,6 +23,7 @@ export const Home = () => {
   }
   const [profile, setProfile] = useRecoilState(profileAtom);
   const [betSlips, setBetSlips] = useRecoilState(betSlipsAtom);
+  const [onlineCount,setOnlineCount]=useState(null);
   //displaying updated balance
   useEffect(() => {
     async function setBalance() {
@@ -61,6 +63,31 @@ export const Home = () => {
     setBalance();
     getBetSlips();
   }, []);
+
+
+  // get online user count
+  useEffect(() => {
+    async function getOnlineuserCount() {
+      const onlinecountres = await fetch(
+         `${Base_Url}/profile/get-online-user-count`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if(onlinecountres.status===500){
+       toast.error("error while fetching online user count")
+      }
+      const data = await onlinecountres.json();
+      setOnlineCount(data.onlineUserCount);
+    }
+    getOnlineuserCount()
+  }, []);
+
+
   return (
     <div>
       <Navbar />
@@ -70,7 +97,7 @@ export const Home = () => {
         <div className="online-count-bg">
 
           <img src={onlineimg} className="online-peopls"/>
-          <p className="online-count">6,534 +</p>
+          <p className="online-count">{onlineCount} +</p>
           {/* <p className="online-name">online</p> */}
         </div>
         </div>

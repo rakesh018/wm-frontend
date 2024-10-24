@@ -88,10 +88,10 @@ export const AdminSidebar = () => {
                 <div>
                   <button
                     className="wallet-btn"
-                    onClick={() => navigate("/demoAccount")}
+                    onClick={() => navigate("/demohome")}
                   >
                     {" "}
-                    DEMO ACCOUNT
+                    DEMO/AGENT ACCOUNT
                   </button>
                 </div>
                 <hr className="line m-2" />
@@ -120,6 +120,15 @@ export const AdminSidebar = () => {
                     onClick={() => navigate("/queries")}
                   >
                     SUPPORT
+                  </button>
+                </div>
+                <hr className="line m-2" />
+                <div>
+                  <button
+                    className="wallet-btn"
+                    onClick={() => navigate("/adminpasschange")}
+                  >
+                    Password Change
                   </button>
                 </div>
               </div>

@@ -40,6 +40,8 @@ import { AdminWithdraw } from "./components/AdminPages/AdminWithdraws/AdminWithd
 import { ViewUserWithdrawTransaction } from "./components/AdminPages/AdminWithdraws/ViewUserWithdrawTransaction";
 import { ChooseWinningTeam } from "./components/ChooseWinningTeams/ChooseWinningTeam";
 import { DemoAccount } from "./components/AdminPages/Demo/DemoAccount";
+import { Agent } from "./components/AdminPages/Demo/agent";
+import { DemoMainPage } from "./components/AdminPages/Demo/demo-agent-main";
 import { DepositAmount } from "./components/wallet/DepositAmount";
 // import { CandleChart } from './components/games/CandleChart';
 import { Verification } from "./components/register/Verification";
@@ -56,6 +58,7 @@ import { TransactionHistory } from "./components/history/TransactionHistory";
 import { BettingHistory } from "./components/history/BettingHistory";
 import { AdminNotice } from "./components/AdminPages/Notice/notice";
 import {Notices} from "./components/notice/notice"
+import { AdminPassChange } from "./components/AdminPages/Adminchnagepass/adminchangepass";
 
 
 function App() {
@@ -176,6 +179,13 @@ function App() {
           <Route path="/adminWithdraw" element={<AdminWithdraw />} />
           <Route path="/chooseWinningTeam" element={<ChooseWinningTeam />} />
           <Route path="demoAccount" element={<DemoAccount />} />
+          <Route path="demohome" element={<DemoMainPage />} />
+          <Route path="agent" element={<Agent />} />
+          <Route path="adminpasschange" element={<AdminPassChange />} />
+
+
+          
+          
           {/* <Route path='/candleChat' element={<CandleChart />} /> */}
           <Route path="/adminUPI" element={<UploadQR />} />
           <Route path="/queries" element={<QueryList />} />
