@@ -1,0 +1,56 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Playwrite+CU:wght@100..400&family=Quicksand:wght@300..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+
+
+*{
+    font-family:lato !important;
+}
+
+
+.notificationBtn{
+border: none;
+}
+.totalbalance-headin{
+    text-decoration: none;
+}
+.totalbalance-headin-bg{
+    text-align: center;
+
+}
+.age-width-input{
+    width:30%;
+    height:40px;
+    outline: none;
+}
+.accountDiv{
+    display: flex;
+    flex-direction: column;
+    gap:5px;
+}
+.click-check{
+    padding-left: 8px;
+}
+
+.withdrawContinue{
+    background-color: #e2af08;
+    border:none;
+    padding:10px 30px;
+    
+}
+.withdraw-backbutton{
+    background-color: #e2af08;
+    border:none;
+    padding:10px 30px;
+    border-radius:10px !important;
+    color: white;
+    margin: 5px;
+}
+
+@media (max-width:600px){
+    .age-width-input{
+        width:80%;
+    } 
+    .totalbalance-headin{
+        font-size: 26px;
+    }
+}

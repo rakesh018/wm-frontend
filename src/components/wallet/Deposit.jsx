@@ -16,7 +16,6 @@ export const Deposit = () => {
         <div className="innerNotificationBox m-3 p-3 text-center">
           <div>
             <h1>
-              {" "}
               <u> TOTAL BALANCE : 0</u>
             </h1>
             <div className="d-flex justify-content-start ms-3">

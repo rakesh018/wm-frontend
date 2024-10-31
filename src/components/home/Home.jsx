@@ -17,7 +17,9 @@ import { toast } from "react-toastify";
 
 export const Home = () => {
   const navigate = useNavigate();
+
   const token=localStorage.getItem('token');
+
   if(!token){
     navigate('/login');
   }
@@ -38,7 +40,9 @@ export const Home = () => {
         }
       );
       if(fetchedProfile.status===403){
-        navigate('/login');
+        console.log(fetchedProfile.status)
+
+        // navigate('/login');
       }
       const data = await fetchedProfile.json();
       setProfile(data);
@@ -55,7 +59,8 @@ export const Home = () => {
         }
       );
       if(fetchedSlips.status===403){
-        navigate('/login');
+        console.log(fetchedSlips.status)
+        // navigate('/login');
       }
       const data = await fetchedSlips.json();
       setBetSlips(data);

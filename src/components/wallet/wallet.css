@@ -29,8 +29,8 @@
     -o-border-radius: 10px;
 }
 .amountInput{
-    height: 8vh;
-    width: 20vw;
+    height: 6vh;
+    width: 30%;
     border: 2px solid darkgoldenrod;
     border-radius: 10px;
     -webkit-border-radius: 10px;
@@ -40,7 +40,7 @@
 }
 .continueBtn{
     height: 8vh;
-    width: 20vw;
+    /* width: 20vw; */
     background-color: #56CD56;
     border: 2px solid black;
     height: 55;
@@ -67,6 +67,7 @@
 .utr{
     background-color: rgb(0, 0, 0);
     color: white;
+    padding:5px;
     border: 2px solid darkgoldenrod;
     border-radius: 10px;
     -webkit-border-radius: 10px;
@@ -181,9 +182,7 @@ border: 2px solid darkgoldenrod;;
         height: 57vh;
         transform: translateX(-15px);
     }
-    .continueBtn{
-        width: 35vw;
-    }
+   
     .withdrawImage{
         height: 5vh;
         width: 10vw;
@@ -205,4 +204,15 @@ border: 2px solid darkgoldenrod;;
 
 .small-font{
     font-size: x-small;
+}
+
+@media (max-width:600px){
+    .continueBtn{
+    font-size: 16px;
+    padding:5px 9px;
+    }
+    .amountInput{
+        height: 6vh;
+        width: 50%;
+    }
 }

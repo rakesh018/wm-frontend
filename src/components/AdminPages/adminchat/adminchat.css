@@ -1,0 +1,86 @@
+.chat-user-icon{
+    font-size: 30px;
+    color:white;
+}
+.chat-icon-bg{
+    background-color: #bbbaba;
+    width: fit-content;
+    padding: 10px;
+    border-radius: 50%;
+}
+.chat-name-mesage-bg{
+    display: flex;
+    flex-direction: column;
+}
+.chat-name-mesage-bg p{
+    padding: 0px;
+    margin: 0px;
+}
+.chat-mesage-contact{
+    color:gray;
+    font-size: 12px;
+}
+.chat-name-contact{
+    color:#904ff8;
+    font-weight: bold;
+    font-size: 15px;
+}
+.chat-contact-time{
+    color:rgb(81, 81, 81);
+    font-size: 12px;
+}
+.msg-user-contact-bg{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: #dad2fb;
+    padding:10px;
+    border-left: 4px solid #722de2;
+    cursor: pointer;
+}
+.chat-img-name-msg-bg{
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+}
+.contacts-bg-container{
+    display: flex;
+    flex-direction: column;
+    gap:5px;
+    overflow-y: scroll;
+
+}
+.admin-msg-bg-admin{
+    align-self: flex-end !important;
+}
+.user-msg-bg-admin{
+    align-self: flex-start;
+}
+.admininnerchatbg{
+
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 68vh; 
+    padding-bottom: 50px !important; 
+
+}
+
+.search-box-bg{
+    position: absolute !important;
+    bottom: 10px;
+}
+.messages-box-bg{
+    height: 100%;
+    overflow-y: scroll !important;
+}
+.admininner{
+    height: 100%;
+    overflow: scroll;
+}
+.msg-user-contact-unread-bg{
+    background-color: #bbbaba;
+}
+.user_bg_change{
+    background-color: rgb(113, 111, 111) !important;
+}

@@ -1,0 +1,180 @@
+.stats-bg-container {
+  background-color: white;
+  padding: 20px 80px;
+}
+.stats-top-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.stats-backbutton {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  font-size: 40px;
+  border: none;
+  background-color: transparent;
+}
+.stats-top-section p {
+  margin: 0px;
+  color: black;
+}
+.stats-top-section h1 {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  margin-top: 15px;
+}
+.stats-top-section span {
+  margin-top: 10px;
+  background-color: #fff2ec;
+  color: #ff6934;
+  padding: 3px 6px;
+  border-radius: 15px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.stats-left-balance-bg {
+  border: 1px solid #d8dae6;
+  border-radius: 20px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.balance-heading-stats {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.balance-heading-money {
+  font-size: 28px;
+  font-weight: bold;
+  margin-top: 20px;
+  margin-bottom: 0px;
+}
+.stats-left-balance-bg p {
+  color: #728a96;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.stats-left-balance-bg button {
+  /* color:; */
+  border: 1px solid #d8dae6;
+  font-size: 14px;
+  background-color: transparent;
+  padding: 5px 10px;
+  border-radius: 10px;
+  font-weight: bold;
+  margin-top: 15px;
+  color: #008df1;
+}
+
+.stats-right-inner-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.stas-right-invest-bg {
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  flex: 1;
+  border: 1px solid #d8dae6;
+  padding: 20px;
+  font-weight: bold;
+}
+.stas-right-current-bg {
+  border-radius: none !important;
+  flex: 1;
+  border-bottom: 1px solid #d8dae6;
+  border-top: 1px solid #d8dae6;
+  padding: 20px;
+  font-weight: bold;
+}
+.stas-right-income-bg {
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  flex: 1;
+  border: 1px solid #d8dae6;
+  padding: 20px;
+  font-weight: bold;
+}
+.right-inner-para {
+  font-size: 28px;
+}
+.stats-right-innter-bottom-container {
+  border: 1px solid #d8dae6;
+  padding: 20px;
+  border-radius: 20px;
+  height: 300px;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.no-user-referals {
+  font-size: 50px;
+  margin-bottom: 20px;
+  color: #008df1;
+}
+.no-user-referal-para {
+  font-size: 18px;
+  font-weight: bold;
+}
+.balance-stats-tooltip {
+  font-size: 10px !important;
+  line-height: 1;
+  color: red !important;
+  background-color: rgb(240, 188, 188);
+  padding: 8px;
+  border-radius: 10px;
+}
+.copy-notification-stats {
+  font-size: 15px;
+  color: green;
+  margin-top: 5px;
+}
+.table-responsive {
+  justify-content: start;
+  padding: 0px;
+}
+thead tr th {
+  text-align: center;
+}
+
+@media (max-width: 770px) {
+  thead tr th {
+    font-size: 8px;
+  }
+
+  tbody tr td {
+    font-size: 8px;
+  }
+
+  .stats-right-inner-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .stas-right-invest-bg {
+    border-radius: 20px;
+    border: 1px solid #d8dae6;
+    margin-bottom: 15px;
+  }
+  .stas-right-current-bg {
+    border-radius: 20px;
+    border: 1px solid #d8dae6;
+    margin-bottom: 15px;
+  }
+  .stas-right-income-bg {
+    border-radius: 20px;
+    border: 1px solid #d8dae6;
+    margin-bottom: 15px;
+  }
+  .stats-bg-container {
+    background-color: white;
+    padding: 20px 40px;
+  }
+}
