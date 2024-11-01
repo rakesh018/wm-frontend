@@ -90,6 +90,7 @@ export const ViewUser = () => {
         }
 
         const data = await response.json();
+        console.log(data)
         setUserData(data.user);
         setBalance(data.user.balance + data.user.withdrawableBalance || "");
         setReferral(data.user.referralCommission || "");
@@ -179,18 +180,20 @@ export const ViewUser = () => {
 
   const userLoginHandle = async () => {
     try {
-      const response = await fetch(`${Base_Url}/auth/signin`, {
+      const response = await fetch(`${Base_Url}/admin/users/login-as-user`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${adminToken}`,
         },
         body: JSON.stringify({
-          emailOrPhone: userData.phone,
-          password: userData.password,
+          userId:userData?._id,
+          uid:userData?.uid
         }),
       });
 
       const data = await response.json();
+      console.log(data)
 
       if (response.ok) {
         localStorage.setItem("token", data.token);
@@ -201,9 +204,11 @@ export const ViewUser = () => {
           window.open("/home", "_blank");
         }, 1500);
       } else {
+        
         alertToast("Invalid credentials. Please try again.", "error"); // Show error toast
       }
     } catch (error) {
+      console.log(error)
       alertToast("An error occurred while logging in.", "error"); // Show error toast
     }
   };

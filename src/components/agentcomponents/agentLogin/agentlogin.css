@@ -1,0 +1,99 @@
+.login
+{
+    background-image: url('/src/images/backgroundImg.png');
+
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 100vh;
+}
+.forgotPass{
+    font-weight: 600;
+    font-size: large;
+    margin-top: 10px;
+}
+.login-container{
+    background-color: white;
+    border-radius: 14px;
+    -webkit-border-radius: 14px;
+    -moz-border-radius: 14px;
+    -ms-border-radius: 14px;
+    -o-border-radius: 14px;
+}
+.otp-container{
+    background-color: white;
+   
+    border: 2px solid darkgoldenrod;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    position: fixed;
+}
+.login-btn{
+    background-color: black;
+    color: darkgoldenrod;
+    border: 2px solid darkgoldenrod;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
+.phoneBox{
+    background-color: white;
+    border: 2px solid darkgoldenrod;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    width: 15vw;
+}
+.otpBox,.saveBox{
+     background-color: black;
+    color: darkgoldenrod;
+    border: 2px solid darkgoldenrod;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+
+}
+.passBox{
+    background-color: white;
+    border: 2px solid darkgoldenrod;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
+@media (max-width: 768px){
+    .otp-container{
+        background-color: white;
+        height: 50vh;
+        max-height: 85vh;
+        border: 2px solid darkgoldenrod;
+        border-radius: 10px;
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        -ms-border-radius: 10px;
+        -o-border-radius: 10px;
+    }
+    .phoneBox{
+        width: 25vw;
+
+    }
+
+}

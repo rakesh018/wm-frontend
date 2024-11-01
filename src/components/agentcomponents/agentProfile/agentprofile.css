@@ -1,0 +1,114 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Playwrite+CU:wght@100..400&family=Quicksand:wght@300..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+.agentprofile-main-bg{
+    position: relative;
+    background-color: #081e35;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.agent-back-btn{
+    border-radius: 10px;
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    padding:6px 10px;
+    color:white;
+    background-color: #e9b308;
+    border: none;
+    font-family: lato;  
+}
+.agent-profile-card-bg{
+    background-color: #20344c;
+    width: fit-content;
+    padding:20px;
+    border-radius: 20px;
+    padding-left: 60px;
+    padding-right: 60px;
+}
+.agent-label{
+    color:white;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+    font-family: lato;
+
+}
+.agent-label-name{
+  font-size: 25px;
+  font-weight: bold;
+}
+.agent-label-value{
+  font-size: 22px;
+  padding-left: 10px;
+  color:rgb(190, 187, 187)
+  }
+.agent-card-icon-bg{
+    /* padding:20px; */
+    border-radius: 50%;
+    background-color: gray;
+    width: fit-content;
+    width: 90px;
+    height: 90px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.agent-card-icon{
+    font-size: 50px;
+}
+.agent-tag-line{
+    color:#778592;
+    font-family: roboto;
+    margin-left: 13px;
+}
+.dots-card{
+    font-size: 30px;
+    color:green;
+}
+.agetn-card-top{
+    display: flex;
+    flex-direction: row;
+    justify-content:space-between;
+    align-items: center;
+}
+.agenttop-join{
+    color:#778592;
+    font-family: roboto !important;
+
+}
+.agent-card-logout{
+    border-radius: 10px;
+    padding:5px 25px;
+    margin: 20px 0px;
+    color:white;
+    background-color: #e9b308;
+    border: none;
+    font-family: lato;
+}
+
+@media (max-width:500px){
+    .agent-label-name{
+        font-size: 17px;
+      }
+      .agent-label-value{
+        font-size: 14px;
+        }
+        .agent-card-icon-bg{
+            width: 70px;
+            height: 70px;
+        }
+        .agent-card-icon{
+            font-size: 30px;
+        }
+        .agent-card-logout{
+            border-radius: 10px;
+            padding:3px 20px;
+            margin: 20px 0px;
+            font-size: 14px;
+        }
+}

@@ -1,0 +1,117 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Playwrite+CU:wght@100..400&family=Quicksand:wght@300..700&display=swap');
+
+
+.agent-main-heading{
+    font-size: 32px;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    /* font-weight: bold; */
+}
+.admin-home-bg{
+    background-color: #e8fbe9;
+    padding-left: 80px;
+    padding-right: 80px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    font-family: 'roboto';
+    height: 77vh;
+
+    /* align-items: center;
+    justify-content: center; */
+}
+.agent-home-card-bg{
+    background-color: #4283f9;
+    border-radius: 20px;
+    padding: 20px;
+    color:white;
+    width:280px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    animation: ease-in 20ms 2000ms;
+    gap:5px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+    cursor: pointer;
+}
+.agent-home-cards-container{
+    display: flex;
+    flex-direction: row;
+    gap:20px;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+.agent-home-card-bg:hover{
+    background-color:#3974da;
+    
+}
+.agent-home-card-bg h1{
+    font-size: 28px;
+    margin: 0px;
+}
+.agent-home-card-bg p{
+    font-size: 20px;
+    margin: 0px;
+    padding: 0px;
+    
+}
+.agentcard-icon{
+    font-size: 50px;
+    margin-bottom: 0px;
+    padding: 10px;
+}
+.agentcard-icon-container{
+    width: fit-content;
+    background-color: #3974da;
+    padding: 10px;
+    border-radius: 60%;
+}
+.agent-card-2{
+    background-color: #00be8b;
+}
+.agent-card-iconbg-2{
+    background-color: #00a384;
+}
+.agent-card-2:hover{
+    background-color:#00a384;
+}
+
+.agent-card-3{
+    background-color: #ffb901;
+}
+.agent-card-iconbg-3{
+    background-color: #d19f0a;
+}
+.agent-card-3:hover{
+    background-color:#d19f0a;
+}
+
+
+.agent-card-4{
+    background-color: #8e7dfd;
+}
+.agent-card-iconbg-4{
+    background-color:#7771df;
+}
+.agent-card-4:hover{
+    background-color:#7771df;
+}
+
+@media (max-width:650px){
+    .agent-home-cards-container{
+        flex-direction: column;
+        align-items: center;
+
+    }  
+    .admin-home-bg{
+      height: fit-content;   
+    }
+    .admin-home-bg{
+        padding-left: 20px;
+        padding-right: 20px;
+
+ 
+    
+        /* align-items: center;
+        justify-content: center; */
+    }
+}

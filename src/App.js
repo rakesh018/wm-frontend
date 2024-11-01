@@ -59,7 +59,16 @@ import { BettingHistory } from "./components/history/BettingHistory";
 import { AdminNotice } from "./components/AdminPages/Notice/notice";
 import {Notices} from "./components/notice/notice"
 import { AdminPassChange } from "./components/AdminPages/Adminchnagepass/adminchangepass";
-
+import { AdminChat } from "./components/AdminPages/adminchat/adminchat";
+import { ActiveUsers } from "./components/AdminPages/AdminHome/adminActiveUsers";
+// agent __________
+import { AgentLogin } from "./components/agentcomponents/agentLogin/agentlogin";
+import { AgentHome } from "./components/agentcomponents/agentHome/agenthome";
+import { AgentProfile } from "./components/agentcomponents/agentProfile/agentProfile";
+import { AgentWithdrawAmount } from "./components/agentcomponents/withdraw/withdraw";
+import { AgentStats } from "./components/agentcomponents/agentStatistics/statistics";
+import { AdminDepositManually } from "./components/agentcomponents/deposite/adminDeposite";
+import { AdminDepositAmount } from "./components/agentcomponents/deposite/AdminDepositAmount";
 
 function App() {
   const showAlert = (gameName, roundDuration, result) => {
@@ -182,10 +191,20 @@ function App() {
           <Route path="demohome" element={<DemoMainPage />} />
           <Route path="agent" element={<Agent />} />
           <Route path="adminpasschange" element={<AdminPassChange />} />
+          <Route path="adminchat" element={<AdminChat />} />
+          <Route path="/activeUsers" element={<ActiveUsers/>}/>
+          {/* agent components */}
+          <Route path="/agentlogin" element={<AgentLogin/>}/>
+          <Route path="/agenthome" element={<AgentHome/>}/>
+          <Route path="/agentprofile" element={<AgentProfile/>}/>
+          <Route path="/agentwithdraw" element={<AgentWithdrawAmount/>}/>
+          <Route path="/agentstats" element={<AgentStats/>}/>
+          <Route path="/agentdeposite" element={<AdminDepositManually/>}/>
+          <Route path="/agentdepositeamount" element={<AdminDepositAmount/>}/>  
 
 
-          
-          
+
+
           {/* <Route path='/candleChat' element={<CandleChart />} /> */}
           <Route path="/adminUPI" element={<UploadQR />} />
           <Route path="/queries" element={<QueryList />} />

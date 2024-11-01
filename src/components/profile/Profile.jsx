@@ -106,7 +106,7 @@ export const Profile = () => {
   };
 
   function handleCopyReferralLink() {
-    const text =  `${Base_Url}/register?referral=${profile.referralCode}`;
+    const text =  `https://trademax1.com/register?referral=${profile.referralCode}`;
     if (navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard
         .writeText(text)

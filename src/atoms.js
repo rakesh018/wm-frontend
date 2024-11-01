@@ -51,3 +51,35 @@ export const profileAtom = atom({
     },
   }),
 });
+
+export const agentProfileAtom = atom({
+  key: "agentProfileAtom",
+  default: selector({
+    key: "agentProfileAtomSelector",
+    get: async () => {
+      try {
+        const res = await fetch(
+           `${Base_Url}/agent/agent-profile`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${localStorage.getItem("agentToken")}`,
+            },
+          }
+        ); //to simulate the delay artificially so to check loading
+        return res.json();
+      } catch (error) {
+        return {
+          // Default value or handle error state
+          _id: "",
+          phone: "",
+          email: "",
+          uid: "",
+          balance: 0,
+          referralCode: "",
+        };
+      }
+    },
+  }),
+});
