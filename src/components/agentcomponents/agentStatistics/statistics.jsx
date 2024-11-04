@@ -45,8 +45,11 @@ export const AgentStats = () => {
         responsedata?.profile?.withdrawableBalance ?? 0
       );
       const nonwithdrbalance = balance ;
+      console.log(nonwithdrbalance)
+
       if (nonwithdrbalance <= 0) {
         setlessbalance(true);
+        console.log(nonwithdrbalance)
       }
 
       if (fetchedProfile.status === 403) {
@@ -220,7 +223,7 @@ export const AgentStats = () => {
                     </tr>
                   ))
                 ) : (
-                  <div>
+                  <div className="text-center">
                     <FaUsersGear className="no-user-referals" />
                     <p className="no-user-referal-para">
                       You have not invited any referrals yet
