@@ -57,7 +57,7 @@ import { ContactSupport } from "./components/help/ContactSupport";
 import { TransactionHistory } from "./components/history/TransactionHistory";
 import { BettingHistory } from "./components/history/BettingHistory";
 import { AdminNotice } from "./components/AdminPages/Notice/notice";
-import {Notices} from "./components/notice/notice"
+import { Notices } from "./components/notice/notice";
 import { AdminPassChange } from "./components/AdminPages/Adminchnagepass/adminchangepass";
 import { AdminChat } from "./components/AdminPages/adminchat/adminchat";
 import { ActiveUsers } from "./components/AdminPages/AdminHome/adminActiveUsers";
@@ -69,6 +69,8 @@ import { AgentWithdrawAmount } from "./components/agentcomponents/withdraw/withd
 import { AgentStats } from "./components/agentcomponents/agentStatistics/statistics";
 import { AdminDepositManually } from "./components/agentcomponents/deposite/adminDeposite";
 import { AdminDepositAmount } from "./components/agentcomponents/deposite/AdminDepositAmount";
+// lottery ________
+import { LotteryGame } from "./components/lotterygame/lotterygame";
 
 function App() {
   const showAlert = (gameName, roundDuration, result) => {
@@ -165,7 +167,10 @@ function App() {
           <Route path="/adminNavbar" element={<AdminNavbar />} />
           <Route path="/adminSidebar" element={<AdminSidebar />} />
           <Route path="/depositAmount" element={<DepositAmount />} />
-          <Route path="/transactionalAnalysis" element={<TransactionalAnalytics />}/>
+          <Route
+            path="/transactionalAnalysis"
+            element={<TransactionalAnalytics />}
+          />
           <Route path="/wallet" element={<Wallet />} />
           <Route path="/deposit" element={<Deposit />} />
           <Route path="/depositManually" element={<DepositManually />} />
@@ -174,14 +179,26 @@ function App() {
           <Route path="/withdrawAmount" element={<WithdrawAmount />} />
           <Route path="/enterWithdraw" element={<EnterWithdraw />} />
           <Route path="/help" element={<Help />} />
-          <Route path="/coinSwitch" element={<CoinSwitch showAlert={showAlert} />}/>
+          <Route
+            path="/coinSwitch"
+            element={<CoinSwitch showAlert={showAlert} />}
+          />
           <Route path="/trader" element={<Trader showAlert={showAlert} />} />
           <Route path="/gameNav" element={<Gamenav />} />
           <Route path="/gameResult" element={<GameResult />} />
           <Route path="/viewUser/:uid" element={<ViewUser />} />
-          <Route path="/viewUserTransaction/:uid" element={<ViewUserTransaction />} />
-          <Route path="viewUserManualTransaction/:uid" element={<ViewUserManualTransaction />} />
-          <Route path="/viewUserWithdrawTransaction/:uid" element={<ViewUserWithdrawTransaction />}/>
+          <Route
+            path="/viewUserTransaction/:uid"
+            element={<ViewUserTransaction />}
+          />
+          <Route
+            path="viewUserManualTransaction/:uid"
+            element={<ViewUserManualTransaction />}
+          />
+          <Route
+            path="/viewUserWithdrawTransaction/:uid"
+            element={<ViewUserWithdrawTransaction />}
+          />
           <Route path="/adminDeposit" element={<AdminDeposit />} />
           <Route path="/automaticDeposit" element={<AutomaticDeposit />} />
           <Route path="/manualDeposit" element={<ManualDeposit />} />
@@ -192,18 +209,16 @@ function App() {
           <Route path="agent" element={<Agent />} />
           <Route path="adminpasschange" element={<AdminPassChange />} />
           <Route path="adminchat" element={<AdminChat />} />
-          <Route path="/activeUsers" element={<ActiveUsers/>}/>
+          <Route path="/activeUsers" element={<ActiveUsers />} />
           {/* agent components */}
-          <Route path="/agentlogin" element={<AgentLogin/>}/>
-          <Route path="/agenthome" element={<AgentHome/>}/>
-          <Route path="/agentprofile" element={<AgentProfile/>}/>
-          <Route path="/agentwithdraw" element={<AgentWithdrawAmount/>}/>
-          <Route path="/agentstats" element={<AgentStats/>}/>
-          <Route path="/agentdeposite" element={<AdminDepositManually/>}/>
-          <Route path="/agentdepositeamount" element={<AdminDepositAmount/>}/>  
-
-
-
+          <Route path="/agentlogin" element={<AgentLogin />} />
+          <Route path="/agenthome" element={<AgentHome />} />
+          <Route path="/agentprofile" element={<AgentProfile />} />
+          <Route path="/agentwithdraw" element={<AgentWithdrawAmount />} />
+          <Route path="/agentstats" element={<AgentStats />} />
+          <Route path="/agentdeposite" element={<AdminDepositManually />} />
+          <Route path="/agentdepositeamount" element={<AdminDepositAmount />} />
+          <Route path="/lotterygame" element={<LotteryGame />} />
 
           {/* <Route path='/candleChat' element={<CandleChart />} /> */}
           <Route path="/adminUPI" element={<UploadQR />} />
@@ -215,8 +230,6 @@ function App() {
           <Route path="/betHistory" element={<BettingHistory />} />
           <Route path="/adminnotice" element={<AdminNotice />} />
           <Route path="/notice" element={<Notices />} />
-
-
         </Routes>
       </Router>
     </div>
