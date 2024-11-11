@@ -16,5 +16,8 @@
   flex-wrap: wrap;
   gap: 10px;
 }
+.dropdown-bg-container{
+  z-index: 111;
+}
 
 /* Pagination styling for small screens */

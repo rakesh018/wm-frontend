@@ -345,6 +345,12 @@ tbody td {
   background-color: #0574f0;
   color: white;
 }
+.betpendingstyle{
+  color: orange !important;
+}
+.betcompletedsyle{
+  color: green !important;
+}
 .arrow-dropdown {
   border-left: 2px solid white;
   border-bottom: 2px solid white;

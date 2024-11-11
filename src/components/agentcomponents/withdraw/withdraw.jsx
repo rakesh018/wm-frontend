@@ -10,6 +10,8 @@ import "../../wallet/wallet.css"; // Assuming you have a CSS file for styling
 import { alertToast } from "../../../alertToast";
 import Base_Url from "../../../config";
 import "./agentwithdraw.css"
+import { AgentNavbar } from "../agentnav";
+
 
 export const AgentWithdrawAmount = () => {
   const token = localStorage.getItem("agentToken");
@@ -133,7 +135,7 @@ export const AgentWithdrawAmount = () => {
 
   return (
     <div>
-      <Navbar />
+      <AgentNavbar />
       <button onClick={()=>navigate("/agenthome")} className="withdraw-backbutton">back</button>
 
       <div className="container notificationBox agentwithdraw-bg mt-2 col-12">

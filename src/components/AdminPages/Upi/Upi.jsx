@@ -127,9 +127,9 @@ export const UploadQR = () => {
     <div>
       <AdminNavbar />
       <AdminSidebar />
-      <div className="container-fluid adminBox">
+      <div className="container-fluid adminBox text-center">
         <div className="row adminInnerBox d-flex justify-content-center">
-          <div className="col-lg-6 col-md-8 col-sm-12 d-flex flex-column justify-content-center m-5">
+          <div className="col-lg-6 col-md-8 col-sm-12 d-flex flex-column justify-content-center m-5 new_admin_upi_bg">
             <form onSubmit={handleSubmit} className="demoBox">
               {/* Display current UPI ID */}
               <div className="mb-3">
@@ -138,7 +138,7 @@ export const UploadQR = () => {
 
               {/* Display current QR Code */}
               {currentQr && (
-                <div className="mb-3">
+                <div className="mb-3 d-flex flex-column align-items-center">
                   <label>Current QR Code:</label>
                   <img
                     src={currentQr}

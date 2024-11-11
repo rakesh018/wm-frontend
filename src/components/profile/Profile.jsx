@@ -156,7 +156,7 @@ export const Profile = () => {
 
         <div className="SettingsInnerBox mt-2 d-flex justify-content-center align-items-center">
           <div className="d-flex flex-column align-items-center">
-            <div className="name">
+            {/* <div className="name">
               <div>
                 <input
                   type="text"
@@ -165,6 +165,8 @@ export const Profile = () => {
                   readOnly
                 />
               </div>
+
+
               <div>
                 <input
                   type="text"
@@ -173,6 +175,9 @@ export const Profile = () => {
                   readOnly
                 />
               </div>
+
+
+
               <div>
                 <input
                   type="text"
@@ -181,19 +186,32 @@ export const Profile = () => {
                   readOnly
                 />
               </div>
+            </div> */}
+
+            <div className="new_user_profile_bg">
+              <p>EMAIL : {profile?.email}</p>
+              <p>PHONE NUMBER : {profile?.phone}</p>
+              <p>REFERRALS : {referrals}</p>
+
             </div>
+
+
             <div>
               <input
                 type="text"
-                className="uid mt-2"
+                className="uid mt-2 new_profile-uid"
                 value={`UID: ${profile?.uid || ""}`}
                 readOnly
               />
             </div>
+
+
+
+
             <div>
               <button
                 type="button"
-                className="button-standard"
+                className="button-standard new_profile-uid"
                 onClick={handleChangePassword}
               >
                 CHANGE PASSWORD
@@ -244,7 +262,7 @@ export const Profile = () => {
             <div>
               <button
                 type="button"
-                className="button-standard"
+                className="button-standard new_profile-uid"
                 onClick={handleCopyReferralLink}
               >
                 COPY REFERRAL LINK
@@ -256,7 +274,7 @@ export const Profile = () => {
 
             {/* Help Button */}
             <div className="mt-2">
-              <button className="button-standard" onClick={handleHelp}>
+              <button className="button-standard new_profile-uid" onClick={handleHelp}>
                 HELP
               </button>
             </div>

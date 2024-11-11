@@ -4,6 +4,9 @@ import logoImage from "../../../images/logoImage.jpeg";
 import { alertToast } from "../../../alertToast";
 import { useNavigate } from "react-router-dom";
 import Base_Url from "../../../config";
+import { AiOutlineEyeInvisible } from "react-icons/ai";
+import { MdOutlineRemoveRedEye } from "react-icons/md";
+import { CiLock } from "react-icons/ci";
 
 export const AdminLogin = () => {
   const [username, setUsername] = useState("");
@@ -69,12 +72,13 @@ export const AdminLogin = () => {
                   type="text"
                   className="login-input m-3"
                   placeholder="Enter your username"
+
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                 />
               </div>
               <div>
-                <span className="material-symbols-outlined">lock</span>
+                <span className="material-symbols-outlined"><CiLock/></span>
                 <button className="login-btn">PASSWORD</button>
               </div>
               <div style={{ margin: "16px 0", position: "relative" }}>
@@ -97,7 +101,7 @@ export const AdminLogin = () => {
                   }}
                   onClick={togglePasswordVisibility}
                 >
-                  {showPassword ? "visibility" : "visibility_off"}
+                  {showPassword ?<MdOutlineRemoveRedEye/>: <AiOutlineEyeInvisible/>}
                 </span>
               </div>
               {/* <div>

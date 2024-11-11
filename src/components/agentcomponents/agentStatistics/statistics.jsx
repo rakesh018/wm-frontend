@@ -8,6 +8,7 @@ import { TiArrowBackOutline } from "react-icons/ti";
 import Base_Url from "../../../config";
 import { alertToast } from "../../../alertToast";
 import { Pagination } from "../../AdminPages/AdminHome/Pagination";
+import { AgentNavbar } from "../agentnav";
 
 export const AgentStats = () => {
   const navigate = useNavigate();
@@ -130,15 +131,17 @@ export const AgentStats = () => {
 
 
   return (
+    <>
+    <AgentNavbar/>
     <div className="container-fluid stats-bg-container">
-      <div className="row mb-5 mt-5">
+      <div className="row mb-5 mt-2">
         <div className=" col-12 stats-top-section">
-          <button
+          {/* <button
             onClick={() => navigate("/agenthome")}
             className="stats-backbutton"
           >
             <TiArrowBackOutline />
-          </button>
+          </button> */}
 
           <img src={statsimg} />
           <h1>Agent system</h1>
@@ -246,5 +249,7 @@ export const AgentStats = () => {
         </div>
       </div>
     </div>
+    </>
+   
   );
 };

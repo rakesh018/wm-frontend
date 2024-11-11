@@ -1,0 +1,16 @@
+.agetn-nav-bg{
+    background-color: black;
+    padding:10px 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+}
+.logo-agent-nav{
+    width: 70px;
+}
+.agent-system-heading-nav{
+    color:goldenrod;
+    font-size: 26px;
+    margin: auto;
+}

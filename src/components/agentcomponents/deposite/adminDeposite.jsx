@@ -5,6 +5,7 @@ import { BetSlip } from "../../../BetSlip";
 import "../../wallet/wallet.css";
 import { useNavigate } from "react-router-dom";
 import { alertToast } from "../../../alertToast";
+import { AgentNavbar } from "../agentnav";
 import Base_Url from "../../../config";
 
 export const AdminDepositManually = () => {
@@ -53,7 +54,7 @@ export const AdminDepositManually = () => {
 
   return (
     <div>
-      <Navbar />
+      <AgentNavbar />
       <button onClick={()=>navigate("/agenthome")} className="withdraw-backbutton">back</button>
 
       <div className="container homeBox mt-2">
