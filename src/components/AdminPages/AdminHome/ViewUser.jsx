@@ -12,7 +12,6 @@ import Base_Url from "../../../config";
 import { TiArrowBack } from "react-icons/ti";
 import { Pagination } from "./Pagination";
 
-
 // to check password is in hashed or not
 const checkPassword = (password) => {
   const bcryptHashPattern = /^\$2[ayb]\$.{56}$/;
@@ -56,21 +55,19 @@ export const ViewUser = () => {
 
   const [betTranView, setbetTranView] = useState(false);
   const [TransView, setTransView] = useState(false);
-  const [bethistory,setbethistory]=useState(null)
+  const [bethistory, setbethistory] = useState(null);
   const [totalPages, setTotalPages] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
 
   // transaction__state____
-  const [transhistory,setTranshistory]=useState(null)
+  const [transhistory, setTranshistory] = useState(null);
   const [totalTransPages, setTotalTransPages] = useState(1);
   const [currentTransPage, setCurrentTransPage] = useState(1);
 
-
-
-  const paginate = (pageNumber) => {setCurrentPage(pageNumber)};
+  const paginate = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
   const transpaginate = (pageNumber) => setCurrentTransPage(pageNumber);
-
-
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -90,7 +87,7 @@ export const ViewUser = () => {
         }
 
         const data = await response.json();
-        console.log(data)
+        console.log(data);
         setUserData(data.user);
         setBalance(data.user.balance + data.user.withdrawableBalance || "");
         setReferral(data.user.referralCommission || "");
@@ -106,17 +103,15 @@ export const ViewUser = () => {
     fetchUserData();
   }, [uid]);
 
-  
   // Fetch betting history only after userData is available________
   useEffect(() => {
     if (userData) {
-
       const fetchbethistory = async () => {
         try {
           const anotherResponse = await fetch(
             `${Base_Url}/admin/users/fetch-user-bet-history?page=${currentPage}`,
             {
-              method:"POST",
+              method: "POST",
               headers: {
                 Authorization: `Bearer ${adminToken}`,
                 "Content-Type": "application/json",
@@ -126,9 +121,9 @@ export const ViewUser = () => {
           );
 
           const anotherData = await anotherResponse.json();
-          
+          console.log(anotherData);
           setbethistory(anotherData);
-          setTotalPages(anotherData.totalPages)
+          setTotalPages(anotherData.totalPages);
         } catch (err) {
           setError(err.message);
         }
@@ -138,19 +133,15 @@ export const ViewUser = () => {
     }
   }, [userData, currentPage]);
 
-
-
- 
   // Fetch transaction history only after userData is available________
   useEffect(() => {
     if (userData) {
-
       const fetchTransactionhistory = async () => {
         try {
           const TransacResponse = await fetch(
             `${Base_Url}/admin/users/fetch-transaction-history?page=${currentTransPage}`,
             {
-              method:"POST",
+              method: "POST",
               headers: {
                 Authorization: `Bearer ${adminToken}`,
                 "Content-Type": "application/json",
@@ -164,7 +155,7 @@ export const ViewUser = () => {
 
           const anotherData = await TransacResponse.json();
           setTranshistory(anotherData);
-          setTotalTransPages(anotherData.totalPages)
+          setTotalTransPages(anotherData.totalPages);
         } catch (err) {
           setError(err.message);
         }
@@ -173,8 +164,6 @@ export const ViewUser = () => {
       fetchTransactionhistory();
     }
   }, [userData, currentTransPage]);
-
-
 
   // login as user handle__________________
 
@@ -187,13 +176,13 @@ export const ViewUser = () => {
           Authorization: `Bearer ${adminToken}`,
         },
         body: JSON.stringify({
-          userId:userData?._id,
-          uid:userData?.uid
+          userId: userData?._id,
+          uid: userData?.uid,
         }),
       });
 
       const data = await response.json();
-      console.log(data)
+      console.log(data);
 
       if (response.ok) {
         localStorage.setItem("token", data.token);
@@ -204,11 +193,10 @@ export const ViewUser = () => {
           window.open("/home", "_blank");
         }, 1500);
       } else {
-        
         alertToast("Invalid credentials. Please try again.", "error"); // Show error toast
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
       alertToast("An error occurred while logging in.", "error"); // Show error toast
     }
   };
@@ -370,7 +358,7 @@ export const ViewUser = () => {
         <AdminNavbar />
 
         <div className="container my-4 pl-5">
-          {!(betTranView  || TransView)&& (
+          {!(betTranView || TransView) && (
             <>
               <div className="row justify-content-center">
                 <div className="col-lg-6 col-md-8">
@@ -508,25 +496,45 @@ export const ViewUser = () => {
                   </thead>
                   <tbody>
                     {bethistory.totalBets > 0 ? (
-                      bethistory.paginatedBets.map((row) => (
-                        <tr
-                          key={row.betCode}
-                          // onClick={() => handleRowClick(row.uid)}
-                        >
-                          <td>{row?.betCode ||"Na"}</td>
-                          <td>{row.gameType}</td>
-                          <td>{row.roundDuration}</td>
-                          <td>{row.betAmount}</td>
-                          <td>{row.gameType==="coinFlip"?row.choice===1?"Head":"Tail":row.choice===1?"Up":"Down"}</td>
-                          <td>{row.isWin?"Yes":"No"}</td>
-                        </tr>
-                      ))
+                      bethistory.paginatedBets.map((row) => {
+                        const addclass=row.gameType=="lottery"?row.betStatus=="pending"?"betpendingstyle":"betcompletedsyle":""
+                        console.log(addclass)
+                        return (
+                          <tr
+                            key={row.betCode}
+                            // onClick={() => handleRowClick(row.uid)}
+                          >
+                            <td>{row?.betCode || "Na"}</td>
+                            <td>{row.gameType}</td>
+                            <td>{row.roundDuration}</td>
+                            <td className={`${addclass}`}>{row.betAmount}</td>
+                            <td>
+                            {row.gameType === "lottery" ? (
+                              <>{row.choice}</>
+                            ) : (
+                              <>
+                                {" "}
+                                {row.gameType === "coinFlip"
+                                  ? row.choice === 1
+                                    ? "Heads"
+                                    : "Tails"
+                                  : row.gameType === "stockTrader"
+                                  ? row.choice === 1
+                                    ? "Up"
+                                    : "Down"
+                                  : "Unknown Game"}
+                              </>
+                            )}
+                            </td>
+                            <td>{row.isWin ? "Yes" : "No"}</td>
+                          </tr>
+                        );
+                      })
                     ) : (
                       <tr>
                         <td colSpan="6">No Betting History Found</td>
                       </tr>
                     )}
-                  
                   </tbody>
                 </table>
               </div>
@@ -534,8 +542,8 @@ export const ViewUser = () => {
               {/* Cards for Small Screens */}
 
               <div className="row d-block d-md-none">
-                 {bethistory.totalBets > 0 ? (
-                      bethistory.paginatedBets.map((row) => (
+                {bethistory.totalBets > 0 ? (
+                  bethistory.paginatedBets.map((row) => (
                     <div className="col-12 mb-4" key={row.betCode}>
                       <div
                         className="card p-3 h-100"
@@ -553,17 +561,34 @@ export const ViewUser = () => {
                         </div>
                         <div className="mb-2">
                           {/* <strong>Email:</strong> <span>{user.email}</span> */}
-                          <strong>RoundDuration:</strong> <span>{row.roundDuration}</span>
+                          Duration:{" "}
+                            {row.gameType == "lottery"
+                              ? "1 Day"
+                              : row.roundDuration + " mins"}
                         </div>
                         <div className="mb-2">
                           <strong>BetAmount:</strong>{" "}
                           {/* <span>{formatDate(user.createdAt)}</span> */}
-                          <span>{row.betAmount}</span>
+                          <span  className={`${row.gameType=="lottery"?row.betStatus=="pending"?"betpendingstyle":"betcompletedsyle":""}`}>{row.betAmount}</span>
                         </div>
                         <div className="mb-2">
-                          <strong>Choice:</strong>{" "}
-                          {/* <span>{user.userType}</span> */}
-                          <span>{row.gameType==="coinFlip"?row.choice===1?"Head":"Tail":row.choice===1?"Up":"Down"}</span>
+                         
+                          {row.gameType === "lottery" ? (
+                              <>Ticket: {row.choice}</>
+                            ) : (
+                              <>
+                                Choice:{" "}
+                                {row.gameType === "coinFlip"
+                                  ? row.choice === 1
+                                    ? "Heads"
+                                    : "Tails"
+                                  : row.gameType === "stockTrader"
+                                  ? row.choice === 1
+                                    ? "Up"
+                                    : "Down"
+                                  : "Unknown Game"}
+                              </>
+                            )}
                         </div>
                         <div>
                           <strong>IsWin:</strong>{" "}
@@ -633,7 +658,7 @@ export const ViewUser = () => {
                     </tr>
                   </thead>
                   <tbody>
-                  {transhistory.totalTransactions > 0 ? (
+                    {transhistory.totalTransactions > 0 ? (
                       transhistory.paginatedTransactions.map((row) => (
                         <tr
                           key={row._id}
@@ -648,7 +673,7 @@ export const ViewUser = () => {
                       ))
                     ) : (
                       <tr>
-                        <td colSpan="6">  No Transaction History Found</td>
+                        <td colSpan="6"> No Transaction History Found</td>
                       </tr>
                     )}
                   </tbody>
@@ -658,8 +683,8 @@ export const ViewUser = () => {
               {/* Cards for Small Screens */}
 
               <div className="row d-block d-md-none">
-              {transhistory.totalTransactions > 0 ? (
-                      transhistory.paginatedTransactions.map((row) => (
+                {transhistory.totalTransactions > 0 ? (
+                  transhistory.paginatedTransactions.map((row) => (
                     <div className="col-12 mb-4" key={row._id}>
                       <div
                         className="card p-3 h-100"
@@ -668,7 +693,8 @@ export const ViewUser = () => {
                       >
                         <div className="mb-2">
                           {/* <strong>UID:</strong> <span>{user.uid}</span> */}
-                          <strong>Transaction_Id:</strong> <span>{row._id}</span>
+                          <strong>Transaction_Id:</strong>{" "}
+                          <span>{row._id}</span>
                         </div>
                         <div className="mb-2">
                           <strong>Status:</strong>{" "}

@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import Base_Url from "../../../config";
 import { FaUser } from "react-icons/fa";
 import { toast } from "react-toastify";
+import { AgentNavbar } from "../agentnav";
 
 
 export const AgentProfile= () => {
@@ -62,8 +63,10 @@ function formatDate(dateString) {
 
 
   return(
+    <>
+    <AgentNavbar/>
     <div className="agentprofile-main-bg">
-        <button onClick={()=>navigate("/agenthome")} className="agent-back-btn">Home</button>
+        {/* <button onClick={()=>navigate("/agenthome")} className="agent-back-btn">Home</button> */}
         <div className="agent-profile-card-bg">
             <div className="agetn-card-top">
             <p className="agenttop-join">Joind on : {formatDate(data?.createdAt)}</p>
@@ -104,6 +107,8 @@ function formatDate(dateString) {
       
         </div>
     </div>
+    </>
+
   )
 
 

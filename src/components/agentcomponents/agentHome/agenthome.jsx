@@ -4,6 +4,7 @@ import { IoStatsChart } from "react-icons/io5";
 import { RiLuggageDepositFill } from "react-icons/ri";
 import { BiMoneyWithdraw } from "react-icons/bi";
 import { useNavigate } from "react-router-dom";
+import { AgentNavbar } from "../agentnav";
 
 import "./agenthome.css";
 
@@ -17,16 +18,15 @@ export const AgentHome = () => {
   }
   return (
     <>
-      <Navbar />
+      <AgentNavbar />
       <div className="admin-home-bg">
-        <h1 className="agent-main-heading">Agent System</h1>
         <div className="agent-home-cards-container">
           <div onClick={()=>navigate("/agentprofile")} className="agent-home-card-bg">
             <div className="agentcard-icon-container">
               <FaUser className="agentcard-icon" />
             </div>
             <h1>Profile</h1>
-            <p>@srinath</p>
+            <p>@GetDetails</p>
           </div>
 
           <div  onClick={()=>navigate("/agentstats")} className="agent-home-card-bg agent-card-2">

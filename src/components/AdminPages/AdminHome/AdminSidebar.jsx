@@ -117,7 +117,7 @@ export const AdminSidebar = () => {
                 <div>
                   <button
                     className="wallet-btn"
-                    onClick={() => navigate("/queries")}
+                    onClick={() => navigate("/adminchat")}
                   >
                     SUPPORT
                   </button>

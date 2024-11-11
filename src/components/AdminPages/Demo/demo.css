@@ -30,6 +30,12 @@
     width: 45%;
     cursor: pointer;
 }
+.new_admin_upi_bg{
+    background-color: black;
+    padding:16px;
+    border-radius: 10px;
+    color:white;
+}
 
 .demoBtn:hover {
     background-color: darkgoldenrod;

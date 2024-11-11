@@ -1,7 +1,7 @@
 .grid-container {
   display: grid;
   grid-template-columns: repeat(10, 1fr); /* 10 columns */
-  gap: 10px;
+  gap: 5px;
   padding: 20px;
   background-color: #f5f5f5;
   border-radius: 8px;
@@ -14,11 +14,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 60px;
+  height: 40px;
+  /* width: 80px; */
   background-color: #ffffff;
   /* border-radius: 12px; */
   font-weight: bold;
-  font-size: 1.2rem;
+  font-size: 1rem;
   color: #4a4a4a;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -28,11 +29,12 @@
 .lottery-timer-heading{
   color:green;
   font-weight: bold;
-  font-size: 30px;
+  font-size: 24px;
+  margin:0px;
 }
 .timer-time{
   color:black;
-  font-size: 34px;
+  font-size: 24px;
 }
 .timer-time-bg{
   display: flex;
@@ -69,10 +71,10 @@
 .timer-bg {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 .lottery-main-bg-container {
-  padding: 40px 80px;
+  padding: 10px 80px;
 }
 .lottery-btn {
   padding: 10px 20px;
@@ -105,7 +107,7 @@
   flex-direction: column;
   gap: 20px;
   overflow: scroll;
-  height: 70vh;
+  /* height: 70vh; */
 }
 .ticket-bg {
   box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,
@@ -183,16 +185,16 @@
   gap: 10px;
 }
 .price-bg-container img {
-  width: 80px;
+  width: 50px;
 }
 .prize-heading {
   margin: 0px;
-  font-size: 20px;
+  font-size: 16px;
   font-weight: bold;
 }
 .prize-prize {
   margin: 0px;
-  font-size: 24px;
+  font-size: 20px;
   font-weight: bold;
   color: goldenrod;
 }

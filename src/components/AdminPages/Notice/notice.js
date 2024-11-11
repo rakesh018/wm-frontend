@@ -126,8 +126,8 @@ export const AdminNotice = () => {
       <AdminSidebar />
       <div className="container-fluid ">
         <div className="row adminInnerBox ">
-          <div className="col-12">
-            <h1>Notice Board!</h1>
+          <div className="col-12 notices-bg-container">
+            <h1 className="mb-4">Notice Board!</h1>
 
             <div className="notification-input-bg">
               <input

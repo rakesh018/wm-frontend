@@ -5,6 +5,7 @@ import question from "../../../images/questionMark.png";
 import search from "../../../images/searchImage.png";
 import { Link } from "react-router-dom"; // Import Link for navigation
 import { useNavigate } from "react-router-dom";
+import { HiBars3 } from "react-icons/hi2";
 
 export const AdminNavbar = () => {
   const navigate = useNavigate();
@@ -54,7 +55,7 @@ export const AdminNavbar = () => {
                   className="material-symbols-outlined m-4"
                   onClick={toggleMenu}
                 >
-                  menu
+                <HiBars3/>
                 </span>
               </div>
               <div>
@@ -116,8 +117,8 @@ export const AdminNavbar = () => {
             </Link>
           </li>
           <li>
-            <Link to="/demoAccount" onClick={() => setIsMenuOpen(false)}>
-              DEMO ACCOUNT
+            <Link to="/demohome" onClick={() => setIsMenuOpen(false)}>
+              DEMO/AGENT ACCOUNT
             </Link>
           </li>
           <li>
@@ -126,8 +127,18 @@ export const AdminNavbar = () => {
             </Link>
           </li>
           <li>
-            <Link to="/queries" onClick={() => setIsMenuOpen(false)}>
+            <Link to="/adminnotice" onClick={() => setIsMenuOpen(false)}>
+              NOTICES
+            </Link>
+          </li>
+          <li>
+            <Link to="/adminchat" onClick={() => setIsMenuOpen(false)}>
               SUPPORT
+            </Link>
+          </li>
+          <li>
+            <Link to="/adminpasschange" onClick={() => setIsMenuOpen(false)}>
+              PASSWORD CHANGE
             </Link>
           </li>
           {/* Add Logout Option */}

@@ -2,12 +2,18 @@
     /* overflow: scroll; */
 
 }
+.notices-bg-container{
+    /* padding:10px 180px; */
+}
 .notification-bg{
     display: flex;
     flex-direction: row;
     background-color: white;
     justify-content: space-between;
     align-items: center;
+}
+.notification-bg p{
+    font-size: 20px;
 }
 .notification-input-bg{
     display: flex;
@@ -46,4 +52,10 @@
 .no-notification-msg{
     font-size: 24px;
     text-align: center;
+}
+
+@media (min-width:600px){
+    .notices-bg-container{
+        padding:10px 180px !important;
+    }
 }
