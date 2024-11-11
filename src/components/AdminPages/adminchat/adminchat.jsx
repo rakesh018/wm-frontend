@@ -253,7 +253,7 @@ export const AdminChat = () => {
     setSelectedContact(contact); // Set selected contact
     fetchPirticularChatHistory(contact.sender); // Fetch chat history
   };
-
+// listening to socket messages
 useEffect(()=>{
   const User_socket_response=(data)=>{
     setContactChats((prevdata) => [...prevdata, data.newChat]);
