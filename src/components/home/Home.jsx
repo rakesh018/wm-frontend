@@ -14,6 +14,9 @@ import { FaUsersGear } from "react-icons/fa6";
 import { CiUser } from "react-icons/ci";
 import onlineimg from "../../assets/online-people.png"
 import { toast } from "react-toastify";
+import lotteryimg from "../../assets/lotteryimage.png"
+import coinflip from "../../assets/coinflippng.png"
+import trader from "../../assets/trader.png"
 
 export const Home = () => {
   const navigate = useNavigate();
@@ -106,16 +109,22 @@ export const Home = () => {
           {/* <p className="online-name">online</p> */}
         </div>
         </div>
-        <div className="d-flex justify-content-evenly mt-4">
-          <div className="gameBox text-center">
+        {/* <div className="d-flex justify-content-evenly mt-4">
+          <div className="gameBox text-center mr-2">
             <div className="game1 m-2 ">
-              <img src={coinFlip} alt="" />
+              <img src={coinFlip} alt="" className="lotteryimg"  />
             </div>
           </div>
 
-          <div className="gameBox text-center">
+          <div className="gameBox text-center mr-2">
+            <div className="game2 m-2 ">
+              <img src={traderImg} alt="" className="lotteryimg"  />
+            </div>
+          </div>
+
+          <div className="gameBox text-center mr-2">
             <div className="game2 m-2">
-              <img src={traderImg} alt="" />
+              <img src={lotteryimg} alt="" className="lotteryimg" />
             </div>
           </div>
         </div>
@@ -126,10 +135,36 @@ export const Home = () => {
           >
             Coin flip
           </button>
-          <button className="game2-btn m-3" onClick={() => navigate("/trader")}>
+          <button className="game2-btn m-3 gamebtn0" onClick={() => navigate("/trader")}>
             Trader Game
           </button>
+          <button className="game2-btn m-3 gamebtn0" onClick={() => navigate("/lotterygame")}>
+            Lottery Game
+          </button>
+        </div> */}
+
+
+        <div className="games-container">
+          <div className="game-card">
+            <img src={lotteryimg}/>
+            <button  onClick={() => navigate("/lotterygame")} >Lottery Game</button>
+
+          </div>
+          <div className="game-card">
+            <img src={trader}/>
+            <button  onClick={() => navigate("/trader")}>Trader Game</button>
+
+          </div>
+          <div className="game-card">
+            <img src={coinflip}/>
+            <button onClick={() => navigate("/coinSwitch")}>Coinflip Game</button>
+
+          </div>
         </div>
+
+
+
+
       </div>
 
       <Sidebar />

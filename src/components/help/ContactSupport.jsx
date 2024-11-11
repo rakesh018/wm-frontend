@@ -5,6 +5,7 @@ import { BetSlip } from "../../BetSlip";
 import { useNavigate } from "react-router-dom";
 import { alertToast } from "../../alertToast";
 import Base_Url from "../../config";
+import socket from "../../socket"
 
 export const ContactSupport = () => {
   const navigate = useNavigate();
@@ -35,6 +36,16 @@ export const ContactSupport = () => {
       scrollToBottom();
     }
   }, [viewdata]);
+
+  // listening to socket messages
+useEffect(()=>{
+  const User_socket_response=(data)=>{
+    setViewData((prevdata) => [...prevdata, data.newChat]);
+  }
+
+  socket.on("chatMessage", User_socket_response);
+
+},[])
 
   // Handle scroll to load more messages when scrolled to the top
   const handleScroll = () => {

@@ -86,45 +86,57 @@ export const BettingHistory = () => {
         <div className="row mt-3">
           <div className="col-lg-9">
             <div className="row">
-              {betsData && betsData.map((item) => (
-                <div className="col-lg-4 col-md-6 mb-4" key={item._id}>
-                  <div className="card shadow-sm">
-                    <div className="card-body">
-                      <h5 className="card-title text-center" style={{ color: item.color }}>
-                        {item.finalAmount}
-                      </h5>
-                      <p className="card-text">
-                        Date: {item.createdAt}
-                      </p>
-                      <p className="card-text">
-                        Game: {item.gameType}
-                      </p>
-                      <p className="card-text">
-                        Duration: {item.roundDuration} mins
-                      </p>
-                      <p className="card-text">
-                      Choice:{item.gameType === "coinFlip"
-                      ? item.choice === 1
-                        ? "Heads"
-                        : "Tails"
-                      : item.gameType === "stockTrader"
-                      ? item.choice === 1
-                        ? "Up"
-                        : "Down"
-                      : "Unknown Game"}
-                      </p>
+              {betsData &&
+                betsData.map((item) => {
+                  const { gameType } = item;
+
+                  return (
+                    <div className="col-lg-4 col-md-6 mb-4" key={item._id}>
+                      <div className="card shadow-sm">
+                        <div className="card-body">
+                          <h5
+                            className="card-title text-center"
+                            style={{ color: item.color }}
+                          >
+                            {item.finalAmount}
+                          </h5>
+                          <p className="card-text">Date: {item.createdAt}</p>
+                          <p className="card-text">Game: {item.gameType}</p>
+                          <p className="card-text">
+                            Duration:{" "}
+                            {gameType == "lottery"
+                              ? "1 Day"
+                              : item.roundDuration + " mins"}
+                          </p>
+                          <p className="card-text">
+                            {gameType === "lottery" ? (
+                              <>Ticket: {item.choice}</>
+                            ) : (
+                              <>
+                                Choice:{" "}
+                                {item.gameType === "coinFlip"
+                                  ? item.choice === 1
+                                    ? "Heads"
+                                    : "Tails"
+                                  : item.gameType === "stockTrader"
+                                  ? item.choice === 1
+                                    ? "Up"
+                                    : "Down"
+                                  : "Unknown Game"}
+                              </>
+                            )}
+                          </p>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
-              ))}
+                  );
+                })}
             </div>
-            {betsLoading && (
-              <div className="text-center mt-4">Loading...</div>
-            )}
+            {betsLoading && <div className="text-center mt-4">Loading...</div>}
             <div ref={lastBetsElementRef} /> {/* Trigger for bets observer */}
           </div>
 
-            <Sidebar />
+          <Sidebar />
           <div className="col-lg-3 d-none d-lg-block">
             <BetSlip />
           </div>

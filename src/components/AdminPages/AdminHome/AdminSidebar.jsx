@@ -100,7 +100,7 @@ export const AdminSidebar = () => {
                   <button
                     className="wallet-btn"
                     onClick={() => navigate("/adminnotice")}>
-                    Notices
+                    NOTICES
                   </button>
                 </div>
                 <hr className="line m-2" />
@@ -128,7 +128,7 @@ export const AdminSidebar = () => {
                     className="wallet-btn"
                     onClick={() => navigate("/adminpasschange")}
                   >
-                    Password Change
+                  PASSWORD CHANGE
                   </button>
                 </div>
               </div>
