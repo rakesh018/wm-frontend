@@ -68,6 +68,16 @@
   opacity: 1;
 }
 
+.pendingBet{
+  color:orange;
+}
+.successBet{
+  color:green;
+}
+.failBet{
+  color:red;
+}
+
 .timer-bg {
   display: flex;
   justify-content: space-between;
@@ -107,7 +117,7 @@
   flex-direction: column;
   gap: 20px;
   overflow: scroll;
-  /* height: 70vh; */
+  height: 50vh;
 }
 .ticket-bg {
   box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px,

@@ -75,7 +75,7 @@ export const LotteryGame = () => {
       });
 
       const data = await response.json();
-
+    console.log(data)
       if (response.ok) {
         alertToast("Bought Lottery successfully", "success"); // Show success toast
         await GetLotteryDetails();
@@ -85,6 +85,14 @@ export const LotteryGame = () => {
     } catch (error) {
       alertToast("An error occurred while making bet.", "error"); // Show error toast
     }
+  };
+
+   // Calculate the boxes dynamically based on liveSlot
+   const generateBoxes = () => {
+    if (!lotterydata) return [];
+    const start = lotterydata.liveSlot;
+    const end = start + 99; // Creates a range of 100 boxes
+    return Array.from({ length: 100 }, (_, index) => start + index);
   };
 
   const GetLotteryDetails = async () => {
@@ -186,7 +194,7 @@ export const LotteryGame = () => {
         <div className="row">
           <div className="col-12 col-md-9">
             <div className="grid-container">
-              {boxes.map((id) => {
+              {generateBoxes().map((id) => {
                 //  console.log(id)
                 const highlightcard = lotterydata?.highlightedBets.some(
                   (obj) => obj.choice === id
@@ -216,8 +224,13 @@ export const LotteryGame = () => {
                 <div>No Bets</div>
               ) : (
                 lotterydata?.lotteryBets.map((each) => {
-                  const { betStatus, betChoice } = each;
-
+                  const { betStatus, betChoice,isWin } = each;
+                  const betStatusClass = 
+                  each.betStatus === "pending" 
+                    ? "pendingBet" 
+                    : each.isWin 
+                    ? "successBet" 
+                    : "failBet";
                   return (
                     <div className="ticket-bg">
                       <div className="ticket-details">
@@ -229,7 +242,7 @@ export const LotteryGame = () => {
                         </p>
                         <p className="ticket-status">
                           Status :{" "}
-                          <span className={`${betStatus}`}>
+                          <span className={`${betStatusClass}`}>
                             {each.betStatus}
                           </span>
                         </p>
