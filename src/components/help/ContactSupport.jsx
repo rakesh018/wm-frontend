@@ -18,100 +18,111 @@ export const ContactSupport = () => {
   const [text, setText] = useState("");
   const [viewdata, setViewData] = useState([]);
   const wordLimit = 300;
-  const [page, setPage] = useState(1);
-  const [loading, setLoading] = useState(false);
-  const chatContainerRef = useRef(null);
-  const messagesEndRef = useRef(null);
-
-  //new scrolling_____
   const [ChatPage, setChatPage] = useState(1);
   const [ChatLoading, setChatLoading] = useState(false);
   const [ChatHasMore, setChatHasMore] = useState(true);
-  const ChatObserver = useRef();
-  const lastChatElementRef = useRef();
 
-  // Scroll to bottom function
+  const chatContainerRef = useRef(null);
+  const lastChatElementRef = useRef(null);
+  const messagesEndRef = useRef(null);
+  const observer = useRef();
+  const preventScrollToBottomOnLoad = useRef(true);
+
+  // Scroll to bottom function (used only when sending a new message)
   const scrollToBottom = () => {
     if (messagesEndRef.current) {
       messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
   };
+
+  // Scroll to bottom on the first render only
   useEffect(() => {
-    if (page === 1) {
-      scrollToBottom();
-    }
+    scrollToBottom();
+    preventScrollToBottomOnLoad.current = false;
   }, []);
 
-  // listening to socket messages
-  useEffect(() => {
-    const User_socket_response = (data) => {
-      setViewData((prevdata) => [...prevdata, data.newChat]);
-    };
-
-    socket.on("chatMessage", User_socket_response);
-  }, []);
-
+  // Fetch more messages on reaching the top
   useEffect(() => {
     if (ChatLoading) return;
-    if (ChatObserver.current) ChatObserver.current.disconnect();
+
+    if (observer.current) observer.current.disconnect();
     const callback = (entries) => {
       if (entries[0].isIntersecting && ChatHasMore) {
         setChatPage((prev) => prev + 1);
       }
     };
-    ChatObserver.current = new IntersectionObserver(callback);
+    observer.current = new IntersectionObserver(callback);
     if (lastChatElementRef.current) {
-      ChatObserver.current.observe(lastChatElementRef.current);
+      observer.current.observe(lastChatElementRef.current);
     }
   }, [ChatLoading, ChatHasMore]);
 
-  // Fetch chat history
+  // Fetch chat history when ChatPage changes
   const fetchChatHistory = async (page) => {
-    setLoading(true);
-    console.log(ChatPage)
+    setChatLoading(true);
+
+    // Save the current scroll position
+    const scrollHeightBeforeFetch = chatContainerRef.current.scrollHeight;
+
     try {
       const response = await fetch(
-        `${Base_Url}/chat/fetch-chat-for-user?page=${ChatPage}`,
+        `${Base_Url}/chat/fetch-chat-for-user?page=${page}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
       if (response.ok) {
         const chatHistory = await response.json();
-        console.log(chatHistory);
+
+        // Update chat data without affecting scroll position
         setViewData((prevData) => [
           ...chatHistory.chats.reverse(),
           ...prevData,
         ]);
-        const { totalPages } = chatHistory;
-        setChatHasMore(ChatPage < totalPages);
+        setChatHasMore(page < chatHistory.totalPages);
+
+        // Maintain scroll position after loading more messages
+        if (chatContainerRef.current) {
+          chatContainerRef.current.scrollTop =
+            chatContainerRef.current.scrollHeight - scrollHeightBeforeFetch;
+        }
       } else {
         alertToast("Failed to load chat history", "error");
       }
     } catch (error) {
       alertToast("Error loading chat history", "error");
     } finally {
-      setLoading(false);
+      setChatLoading(false);
     }
   };
 
+  // Fetch chat history on page load and page change
   useEffect(() => {
     if (token) {
-      fetchChatHistory(page);
+      fetchChatHistory(ChatPage);
     } else {
       navigate("/login");
     }
   }, [token, ChatPage]);
 
-  // useEffect(() => {
-  //   if (page > 1) {
-  //     const currentScrollHeight = chatContainerRef.current.scrollHeight;
-  //     fetchChatHistory(page).then(() => {
-  //       chatContainerRef.current.scrollTop =
-  //         chatContainerRef.current.scrollHeight - currentScrollHeight;
-  //     });
-  //   }
-  // }, [page]);
+  // Scroll to bottom only when a new message is received
+  useEffect(() => {
+    if (!preventScrollToBottomOnLoad.current) {
+      scrollToBottom();
+    }
+  }, [viewdata]);
+
+  // Listen to incoming socket messages
+  useEffect(() => {
+    const User_socket_response = (data) => {
+      setViewData((prevdata) => [...prevdata, data.newChat]);
+      scrollToBottom(); // Scroll to bottom on new messages only
+    };
+
+    socket.on("chatMessage", User_socket_response);
+
+    return () => socket.off("chatMessage", User_socket_response);
+  }, []);
 
   const handleTextChange = (e) => {
     const words = e.target.value.split(/\s+/);
@@ -122,17 +133,15 @@ export const ContactSupport = () => {
 
   function formatToDDMMHHMM(isoString) {
     const date = new Date(isoString);
-    
     let day = date.getDate().toString().padStart(2, "0");
-    let month = (date.getMonth() + 1).toString().padStart(2, "0"); // Month is 0-indexed
+    let month = (date.getMonth() + 1).toString().padStart(2, "0");
     let hours = date.getHours().toString().padStart(2, "0");
     let minutes = date.getMinutes().toString().padStart(2, "0");
-    
+
     return `${day}-${month}/ ${hours}:${minutes}`;
   }
+
   const handleSendQuery = async () => {
-
-
     if (!text.trim()) {
       alertToast("Please enter a message before sending", "warning");
       return;
@@ -152,6 +161,9 @@ export const ContactSupport = () => {
         setViewData((prevdata) => [...prevdata, msg_sent_response]);
         setText("");
         alertToast("Your query has been sent successfully!", "success");
+
+        // Scroll to the bottom after sending a message
+        scrollToBottom();
       } else {
         alertToast("Failed to send your query. Please try again.", "error");
       }
@@ -167,7 +179,7 @@ export const ContactSupport = () => {
         <button className="notificationBtn ms-3">HELP</button>
 
         <div className="innerNotificationBox m-3 p-3">
-          <div className="messages-box-bg">
+          <div className="messages-box-bg" ref={chatContainerRef}>
             {ChatLoading && <div className="text-center mt-4">Loading...</div>}
             <div ref={lastChatElementRef} /> {/* Trigger for Chat observer */}
             {viewdata.map((each, index) => {
@@ -178,10 +190,11 @@ export const ContactSupport = () => {
 
               return (
                 <div key={index} className={`user-msg-bg ${admin_class}`}>
-                  <p className="user-msg-bg-time">{formatToDDMMHHMM(updatedAt)}</p>
+                 
                   <p className={`user-msg-bg-msg ${is_admin_bg_change}`}>
                     {message}
                   </p>
+                  <p className="user-msg-bg-time">{formatToDDMMHHMM(updatedAt)}</p>
                 </div>
               );
             })}
@@ -196,7 +209,7 @@ export const ContactSupport = () => {
               placeholder="Enter message"
             />
             <button onClick={handleSendQuery} className="btn btn-primary">
-              send
+              Send
             </button>
           </div>
         </div>

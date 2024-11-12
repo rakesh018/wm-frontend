@@ -498,13 +498,17 @@ export const ViewUser = () => {
                     {bethistory.totalBets > 0 ? (
                       bethistory.paginatedBets.map((row) => {
                         console.log(row.betStatus);
-                        const addClass =row.gameType === "lottery"
-                            ? row.betStatus === "pending"
-                              ? "betPendingStyle"
-                              : row.idWin
-                              ? "betSuccess"
-                              : "betFailed"
-                            : "";
+                        const addClass = 
+                        row.gameType === "lottery"
+                          ? row.betStatus === "pending"
+                            ? "betPendingStyle"
+                            : row.idWin
+                            ? "betSuccess"
+                            : "betFailed"
+                          : row.isWin
+                          ? "betSuccess"
+                          : "betFailed";
+                      
                         console.log(addClass);
                         return (
                           <tr
@@ -550,7 +554,19 @@ export const ViewUser = () => {
 
               <div className="row d-block d-md-none">
                 {bethistory.totalBets > 0 ? (
-                  bethistory.paginatedBets.map((row) => (
+                  bethistory.paginatedBets.map((row) => {
+                    const addClass = 
+                    row.gameType === "lottery"
+                      ? row.betStatus === "pending"
+                        ? "betPendingStyle"
+                        : row.idWin
+                        ? "betSuccess"
+                        : "betFailed"
+                      : row.isWin
+                      ? "betSuccess"
+                      : "betFailed";
+                   
+                    return (
                     <div className="col-12 mb-4" key={row.betCode}>
                       <div
                         className="card p-3 h-100"
@@ -577,13 +593,7 @@ export const ViewUser = () => {
                           <strong>BetAmount:</strong>{" "}
                           {/* <span>{formatDate(user.createdAt)}</span> */}
                           <span
-                            className={`${
-                              row.gameType == "lottery"
-                                ? row.betStatus == "pending"
-                                  ? "betpendingstyle"
-                                  : "betcompletedsyle"
-                                : ""
-                            }`}
+                            className={`${addClass}`}
                           >
                             {row.betAmount}
                           </span>
@@ -613,7 +623,8 @@ export const ViewUser = () => {
                         </div>
                       </div>
                     </div>
-                  ))
+                  )
+})
                 ) : (
                   <div className="col-12">
                     <div className="alert alert-info text-center">

@@ -25,11 +25,22 @@
     font-weight: bold;
     font-size: 15px;
 }
+.user-msg-bg{
+    display: flex;
+    flex-direction: column;
+    /* justify-content: ; */
+    align-items: end;
+    margin-bottom: 10px;
+}
 .user-msg-bg-msg{
     font-size: 15px;
+    margin: 0px;
 }
 .user-msg-bg-time{
-    font-size: 12px;
+    font-size: 8px;
+    align-self: flex-start;
+    margin: 0px;
+    /* color:white; */
 }
 .chat-contact-time{
     color:rgb(81, 81, 81);
@@ -84,8 +95,8 @@
     overflow-y: scroll;
     /* background-color: gray; */
     padding-bottom: 60px;
-    padding-left: 40px;
-    padding-right: 40px;
+    /* padding-left: 40px;
+    padding-right: 40px; */
 }
 .messages-box-bg{
     padding-top: 80px;
@@ -136,10 +147,10 @@
 @media(min-width:1000px){
     .contacts-bg-container{
 
-        padding: 10px 300px;
+        padding: 10px 100px;
     }
     .admininnerchatbg{
 
-        padding: 10px 300px;
+        padding: 10px 100px;
     }
 }

@@ -90,13 +90,17 @@ export const BettingHistory = () => {
                 betsData.map((item) => {
                   const { gameType } = item;
                         console.log(item?.betStatus)
-                        const addClass =item.gameType === "lottery"
-                        ? item.betStatus === "pending"
-                          ? "betPendingStyle"
-                          : item.idWin
+                        const addClass = 
+                        item.gameType === "lottery"
+                          ? item.betStatus === "pending"
+                            ? "betPendingStyle"
+                            : item.isWin
+                            ? "betSuccess"
+                            : "betFailed"
+                          : item.isWin
                           ? "betSuccess"
-                          : "betFailed"
-                        : "";
+                          : "betFailed";
+                      
                     console.log(addClass);
 
                   return (

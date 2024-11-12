@@ -218,11 +218,12 @@ export const Openchat = () => {
                         isAdmin ? "admin-msg-bg-admin" : "user-msg-bg-admin"
                       }`}
                     >
-                      <p className="user-msg-bg-time">
-                        {formatToDDMMHHMM(createdAt)}
-                      </p>
+                      
                       <p className={`user-msg-bg-msg ${isAdmin ? "" : "user_bg_change"}`}>
                         {message}
+                      </p>
+                      <p className="user-msg-bg-time">
+                        {formatToDDMMHHMM(createdAt)}
                       </p>
                     </div>
                   );
