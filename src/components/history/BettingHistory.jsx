@@ -89,7 +89,15 @@ export const BettingHistory = () => {
               {betsData &&
                 betsData.map((item) => {
                   const { gameType } = item;
-                       const addclass=item.gameType=="lottery"?item.betStatus=="pending"?"betpendingstyle":"betcompletedsyle":""
+                        console.log(item?.betStatus)
+                        const addClass =item.gameType === "lottery"
+                        ? item.betStatus === "pending"
+                          ? "betPendingStyle"
+                          : item.idWin
+                          ? "betSuccess"
+                          : "betFailed"
+                        : "";
+                    console.log(addClass);
 
                   return (
                     <div className="col-lg-4 col-md-6 mb-4" key={item._id}>
@@ -97,7 +105,7 @@ export const BettingHistory = () => {
                         <div className="card-body">
                           <h5
                             // className="card-title text-center"
-                            className={`${addclass} card-title text-center`}
+                            className={`${addClass} card-title text-center`}
                             // style={{ color: item.color }}
                           >
                             {item.finalAmount}

@@ -5,6 +5,14 @@ import { TbPasswordMobilePhone } from "react-icons/tb";
 import { useSearchParams } from "react-router-dom";
 import { alertToast } from "../../alertToast";
 import Base_Url from "../../config";
+import { AiOutlineEyeInvisible } from "react-icons/ai";
+import { MdOutlineRemoveRedEye } from "react-icons/md";
+import { CiLock } from "react-icons/ci";
+import { CiMobile3 } from "react-icons/ci";
+
+
+import { CiMail } from "react-icons/ci";
+
 
 export const Register = () => {
   const navigate = useNavigate();
@@ -90,7 +98,7 @@ export const Register = () => {
           </div>
 
           <div className="phone mt-2">
-            <span className="material-symbols-outlined">phone_android</span>
+            <span className="material-symbols-outlined"><CiMobile3/></span>
             <span>PHONE NUMBER</span>
           </div>
 
@@ -104,7 +112,7 @@ export const Register = () => {
           </div>
 
           <div>
-            <span className="material-symbols-outlined">mail</span>
+            <span className="material-symbols-outlined"><CiMail/></span>
             <span>EMAIL</span>
           </div>
 
@@ -118,7 +126,7 @@ export const Register = () => {
           </div>
 
           <div>
-            <span className="material-symbols-outlined">lock</span>
+            <span className="material-symbols-outlined"><CiLock/></span>
             <span>SET PASSWORD</span>
           </div>
 
@@ -132,7 +140,7 @@ export const Register = () => {
           </div>
 
           <div>
-            <span className="material-symbols-outlined">lock</span>
+            <span className="material-symbols-outlined"><CiLock/></span>
             <span>CONFIRM PASSWORD</span>
           </div>
 

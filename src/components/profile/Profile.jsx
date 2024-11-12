@@ -211,7 +211,7 @@ export const Profile = () => {
             <div>
               <button
                 type="button"
-                className="button-standard new_profile-uid"
+                className="button-standard new_profile-uid mt-3 mb-3"
                 onClick={handleChangePassword}
               >
                 CHANGE PASSWORD

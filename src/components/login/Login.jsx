@@ -4,6 +4,10 @@ import { useNavigate } from "react-router-dom";
 import { alertToast } from "../../alertToast";
 import { useEffect } from "react";
 import Base_Url from "../../config";
+import { AiOutlineEyeInvisible } from "react-icons/ai";
+import { MdOutlineRemoveRedEye } from "react-icons/md";
+import { CiLock } from "react-icons/ci";
+import { CiMobile3 } from "react-icons/ci";
 
 export const Login = () => {
   const navigate = useNavigate();
@@ -68,7 +72,7 @@ export const Login = () => {
               </button>
             </div>
             <div className="icons">
-              <span className="material-symbols-outlined">smartphone</span>
+              <span className="material-symbols-outlined"><CiMobile3/></span>
               <button
                 type="button"
                 className="login-btn"
@@ -87,7 +91,7 @@ export const Login = () => {
               />
             </div>
             <div>
-              <span className="material-symbols-outlined">lock</span>
+              <span className="material-symbols-outlined"><CiLock/></span>
               <button
                 type="button"
                 className="login-btn"
@@ -116,7 +120,7 @@ export const Login = () => {
                 }}
                 onClick={togglePasswordVisibility}
               >
-                {isPasswordVisible ? "visibility" : "visibility_off"}
+                 {isPasswordVisible ?<MdOutlineRemoveRedEye/>: <AiOutlineEyeInvisible/>}
               </span>
             </div>
             <div>

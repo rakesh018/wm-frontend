@@ -345,11 +345,14 @@ tbody td {
   background-color: #0574f0;
   color: white;
 }
-.betpendingstyle{
+.betPendingStyle{
   color: orange !important;
 }
-.betcompletedsyle{
-  color: green !important;
+.betSuccess{
+  color:green !important;
+}
+.betFailed{
+  color: red !important;
 }
 .arrow-dropdown {
   border-left: 2px solid white;
