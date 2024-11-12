@@ -148,7 +148,7 @@ export const AgentStats = () => {
           <p>Funds will be added to your referral balance.</p>
           <p>Received money can be withdrawn.</p>
           <span>
-            5% of all replenishments <FaTag />
+            80% of all replenishments <FaTag />
           </span>
         </div>
       </div>

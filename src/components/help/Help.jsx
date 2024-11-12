@@ -17,7 +17,7 @@ export const Help = () => {
       <Navbar />
       <div className="container notificationBox mt-2 col-12">
         <button className='notificationBtn ms-3'>HELP</button>
-        <button className='supportBtn  ms-3 p-2 d-lg-none' onClick={() => navigate("/contactSupport")}>CONTACT SUPPORT</button>
+        {/* <button className='supportBtn  ms-3 p-2 d-lg-none' onClick={() => navigate("/contactSupport")}>CONTACT SUPPORT</button> */}
        
         <div className="innerNotificationBox m-3 p-3 text-center help-bg"  >
           <div className="d-flex justify-content-center">

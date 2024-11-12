@@ -497,8 +497,15 @@ export const ViewUser = () => {
                   <tbody>
                     {bethistory.totalBets > 0 ? (
                       bethistory.paginatedBets.map((row) => {
-                        const addclass=row.gameType=="lottery"?row.betStatus=="pending"?"betpendingstyle":"betcompletedsyle":""
-                        console.log(addclass)
+                        console.log(row.betStatus);
+                        const addClass =row.gameType === "lottery"
+                            ? row.betStatus === "pending"
+                              ? "betPendingStyle"
+                              : row.idWin
+                              ? "betSuccess"
+                              : "betFailed"
+                            : "";
+                        console.log(addClass);
                         return (
                           <tr
                             key={row.betCode}
@@ -507,24 +514,24 @@ export const ViewUser = () => {
                             <td>{row?.betCode || "Na"}</td>
                             <td>{row.gameType}</td>
                             <td>{row.roundDuration}</td>
-                            <td className={`${addclass}`}>{row.betAmount}</td>
+                            <td className={`${addClass}`}>{row.betAmount}</td>
                             <td>
-                            {row.gameType === "lottery" ? (
-                              <>{row.choice}</>
-                            ) : (
-                              <>
-                                {" "}
-                                {row.gameType === "coinFlip"
-                                  ? row.choice === 1
-                                    ? "Heads"
-                                    : "Tails"
-                                  : row.gameType === "stockTrader"
-                                  ? row.choice === 1
-                                    ? "Up"
-                                    : "Down"
-                                  : "Unknown Game"}
-                              </>
-                            )}
+                              {row.gameType === "lottery" ? (
+                                <>{row.choice}</>
+                              ) : (
+                                <>
+                                  {" "}
+                                  {row.gameType === "coinFlip"
+                                    ? row.choice === 1
+                                      ? "Heads"
+                                      : "Tails"
+                                    : row.gameType === "stockTrader"
+                                    ? row.choice === 1
+                                      ? "Up"
+                                      : "Down"
+                                    : "Unknown Game"}
+                                </>
+                              )}
                             </td>
                             <td>{row.isWin ? "Yes" : "No"}</td>
                           </tr>
@@ -562,33 +569,42 @@ export const ViewUser = () => {
                         <div className="mb-2">
                           {/* <strong>Email:</strong> <span>{user.email}</span> */}
                           Duration:{" "}
-                            {row.gameType == "lottery"
-                              ? "1 Day"
-                              : row.roundDuration + " mins"}
+                          {row.gameType == "lottery"
+                            ? "1 Day"
+                            : row.roundDuration + " mins"}
                         </div>
                         <div className="mb-2">
                           <strong>BetAmount:</strong>{" "}
                           {/* <span>{formatDate(user.createdAt)}</span> */}
-                          <span  className={`${row.gameType=="lottery"?row.betStatus=="pending"?"betpendingstyle":"betcompletedsyle":""}`}>{row.betAmount}</span>
+                          <span
+                            className={`${
+                              row.gameType == "lottery"
+                                ? row.betStatus == "pending"
+                                  ? "betpendingstyle"
+                                  : "betcompletedsyle"
+                                : ""
+                            }`}
+                          >
+                            {row.betAmount}
+                          </span>
                         </div>
                         <div className="mb-2">
-                         
                           {row.gameType === "lottery" ? (
-                              <>Ticket: {row.choice}</>
-                            ) : (
-                              <>
-                                Choice:{" "}
-                                {row.gameType === "coinFlip"
-                                  ? row.choice === 1
-                                    ? "Heads"
-                                    : "Tails"
-                                  : row.gameType === "stockTrader"
-                                  ? row.choice === 1
-                                    ? "Up"
-                                    : "Down"
-                                  : "Unknown Game"}
-                              </>
-                            )}
+                            <>Ticket: {row.choice}</>
+                          ) : (
+                            <>
+                              Choice:{" "}
+                              {row.gameType === "coinFlip"
+                                ? row.choice === 1
+                                  ? "Heads"
+                                  : "Tails"
+                                : row.gameType === "stockTrader"
+                                ? row.choice === 1
+                                  ? "Up"
+                                  : "Down"
+                                : "Unknown Game"}
+                            </>
+                          )}
                         </div>
                         <div>
                           <strong>IsWin:</strong>{" "}

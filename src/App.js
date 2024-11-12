@@ -69,6 +69,7 @@ import { AgentWithdrawAmount } from "./components/agentcomponents/withdraw/withd
 import { AgentStats } from "./components/agentcomponents/agentStatistics/statistics";
 import { AdminDepositManually } from "./components/agentcomponents/deposite/adminDeposite";
 import { AdminDepositAmount } from "./components/agentcomponents/deposite/AdminDepositAmount";
+import { Openchat } from "./components/AdminPages/adminchat/chatdetailview";
 // lottery ________
 import { LotteryGame } from "./components/lotterygame/lotterygame";
 
@@ -210,6 +211,8 @@ function App() {
           <Route path="adminpasschange" element={<AdminPassChange />} />
           <Route path="adminchat" element={<AdminChat />} />
           <Route path="/activeUsers" element={<ActiveUsers />} />
+          <Route path="/adminchat_detail/:id" element={<Openchat />} />
+
           {/* agent components */}
           <Route path="/agentlogin" element={<AgentLogin />} />
           <Route path="/agenthome" element={<AgentHome />} />
