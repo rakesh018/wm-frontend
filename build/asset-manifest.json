@@ -1,10 +1,16 @@
 {
   "files": {
-    "main.css": "/static/css/main.b0af3520.css",
-    "main.js": "/static/js/main.e5758fa6.js",
+    "main.css": "/static/css/main.3cf90356.css",
+    "main.js": "/static/js/main.99295f58.js",
     "static/media/backgroundImg.png": "/static/media/backgroundImg.8b53797ad752fa669837.png",
+    "static/media/lotteryimage.png": "/static/media/lotteryimage.03d810d998da7c2a92e5.png",
     "static/media/referImg.png": "/static/media/referImg.d1e07f895e1b05c1fe43.png",
+    "static/media/price2.png": "/static/media/price2.ece9ca98ca954c1d04c1.png",
+    "static/media/price3.png": "/static/media/price3.5fb430476e8184ff935c.png",
+    "static/media/price1.png": "/static/media/price1.f9f0b238220adb980f4f.png",
+    "static/media/trader.png": "/static/media/trader.a93baf70b6b37bee4d2f.png",
     "static/media/image4.jpeg": "/static/media/image4.cbcc16e53570f023587d.jpeg",
+    "static/media/coinflippng.png": "/static/media/coinflippng.4dc074583fec2a78f41a.png",
     "static/media/logo.jpeg": "/static/media/logo.eae807cef35a0d7dae6c.jpeg",
     "static/media/logoImage.jpeg": "/static/media/logoImage.eae807cef35a0d7dae6c.jpeg",
     "static/media/image3.jpeg": "/static/media/image3.e977e0334a767edf454a.jpeg",
@@ -15,12 +21,13 @@
     "static/media/success.png": "/static/media/success.ed3d68acb84830b57f6c.png",
     "static/media/image1.jpeg": "/static/media/image1.1593166d790ae751272b.jpeg",
     "static/media/failure.png": "/static/media/failure.dd1b1dd2fcabc744aaf4.png",
+    "static/media/agent-stats-img.svg": "/static/media/agent-stats-img.4bd6f76a4d3d956112650c0b0cd621ce.svg",
     "index.html": "/index.html",
-    "main.b0af3520.css.map": "/static/css/main.b0af3520.css.map",
-    "main.e5758fa6.js.map": "/static/js/main.e5758fa6.js.map"
+    "main.3cf90356.css.map": "/static/css/main.3cf90356.css.map",
+    "main.99295f58.js.map": "/static/js/main.99295f58.js.map"
   },
   "entrypoints": [
-    "static/css/main.b0af3520.css",
-    "static/js/main.e5758fa6.js"
+    "static/css/main.3cf90356.css",
+    "static/js/main.99295f58.js"
   ]
 }
