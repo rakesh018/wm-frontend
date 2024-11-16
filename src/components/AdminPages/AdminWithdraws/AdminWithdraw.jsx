@@ -62,6 +62,7 @@ export const AdminWithdraw = () => {
         const data = await response.json();
         setTransactions(data.paginatedWithdrawals || []);
         setTotalPages(data.totalPages || 1);
+        console.log(data)
 
         if(currentFilter==="total"){
         setSummary({
@@ -145,22 +146,22 @@ export const AdminWithdraw = () => {
             <div className="card p-3 bg-dark text-white">
               <div className="row">
                 <div className="col-6 mb-2">
-                  <button className="btn btn-outline-light w-100">
+                  <button onClick={() => handleFilterChange("total")} className="btn btn-outline-light w-100">
                     <strong>Total :</strong> {summary.total}
                   </button>
                 </div>
                 <div className="col-6 mb-2">
-                  <button className="btn btn-outline-light w-100">
+                  <button onClick={() => handleFilterChange("pending")}  className="btn btn-outline-light w-100">
                     <strong>Pending:</strong> {summary.pending}
                   </button>
                 </div>
                 <div className="col-6 mb-2">
-                  <button className="btn btn-outline-light w-100">
+                  <button onClick={() => handleFilterChange("completed")}  className="btn btn-outline-light w-100">
                     <strong>Completed:</strong> {summary.completed}
                   </button>
                 </div>
                 <div className="col-6 mb-2">
-                  <button className="btn btn-outline-light w-100">
+                  <button   onClick={() => handleFilterChange("rejected")} className="btn btn-outline-light w-100">
                     <strong>Rejected:</strong> {summary.rejected}
                   </button>
                 </div>
